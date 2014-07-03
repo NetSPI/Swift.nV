@@ -28,6 +28,12 @@
                                     <segue destination="eXf-eU-Lk1" kind="modal" id="K2b-cY-ZiD"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="press the big orange dot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx6-as-teC">
+                                <rect key="frame" x="106" y="547" width="108" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -96,6 +102,15 @@
                                     <outlet property="delegate" destination="eXf-eU-Lk1" id="VWz-99-e4r"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5X-Ya-INS">
+                                <rect key="frame" x="0.0" y="538" width="46" height="30"/>
+                                <state key="normal" title="?">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="lIZ-4b-ABI" kind="modal" identifier="Help" id="Vso-rk-kEg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.94684103259999997" green="0.94684103259999997" blue="0.94684103259999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -111,6 +126,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aW1-5L-zsX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="735" y="510"/>
+        </scene>
+        <!--Help View Controller-->
+        <scene sceneID="BR9-xs-Lo5">
+            <objects>
+                <viewController id="lIZ-4b-ABI" customClass="NVHelpViewController" customModule="Swift_nV" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K1S-xn-EcT"/>
+                        <viewControllerLayoutGuide type="bottom" id="eTz-4J-vYz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dhj-YV-PWu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logomark-color" translatesAutoresizingMaskIntoConstraints="NO" id="XXL-TK-o5k">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="0.94684103259999997" green="0.94684103259999997" blue="0.94684103259999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PdG-Pz-bpo">
+                                <rect key="frame" x="20" y="348" width="46" height="30"/>
+                                <state key="normal" title="Close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="close:" destination="lIZ-4b-ABI" eventType="touchUpInside" id="Cdc-j3-pHB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPp-On-mYQ">
+                                <rect key="frame" x="235" y="348" width="65" height="30"/>
+                                <state key="normal" title="Tutorial">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sw-Ce-Epa">
+                                <rect key="frame" x="20" y="190" width="280" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Welcome to Swift.nV, the intentionally vulnerable Swift iOS "secret keeper" application. As this application is used to demonstrate known security flaws, DO NOT USE IT for sensitive information. For more information on Swift.nV, iOS, and Mobile Security Training, please visit http://www.nvisium.com/ </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1sp-UM-aWS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1169" y="-254"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="JMA-qE-0y6">
@@ -208,7 +270,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MfA-as-KoU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1169" y="338"/>
+            <point key="canvasLocation" x="1169" y="380"/>
         </scene>
         <!--Add Item View Controller - add-->
         <scene sceneID="FjX-AX-ryL">
