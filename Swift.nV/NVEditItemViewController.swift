@@ -41,17 +41,60 @@ class NVEditItemViewController: UIViewController {
     }
     
     @IBAction func saveItem(sender : AnyObject) {
-    }
-    
-    @IBAction func deleteItem(sender : AnyObject) {
-    }
-    
-    @IBAction func cancel(sender : AnyObject) {
-        self.dismissModalViewControllerAnimated(true)
+        item.name = nameField.text
+        item.value = valueField.text
+        item.notes = notesField.text
+        
+        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let context = delegate.managedObjectContext
+        var err :NSError?
+        context.save(&err)
+        if err != nil {
+            NSLog("%@",err!)
+        }
         nameField.text = ""
         valueField.text=""
         notesField.text=""
         createdLabel.text=""
+        self.dismissModalViewControllerAnimated(true)
+    }
+    
+    @IBAction func deleteItem(sender : AnyObject) {
+        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let context = delegate.managedObjectContext
+        
+        var err :NSError?
+        var alert : UIAlertController = UIAlertController(title: "Delete Item", message: "Are you sure?", preferredStyle: UIAlertControllerStyle.Alert)
+        var yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
+            (action:UIAlertAction!) in
+            NSLog("Delete item \(self.item.name)")
+            self.nameField.text = ""
+            self.valueField.text=""
+            self.notesField.text=""
+            self.createdLabel.text=""
+            context.deleteObject(self.item)
+            context.save(&err)
+            self.dismissModalViewControllerAnimated(true)
+            //self.tabBarController.selectedIndex = 0
+            
+            })
+        var noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
+            (action:UIAlertAction!) in
+            alert.dismissViewControllerAnimated(true, completion: nil)
+            })
+        
+        alert.addAction(yesItem)
+        alert.addAction(noItem)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func cancel(sender : AnyObject) {
+        nameField.text = ""
+        valueField.text=""
+        notesField.text=""
+        createdLabel.text=""
+        self.dismissModalViewControllerAnimated(true)
     }
     
     /*

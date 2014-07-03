@@ -58,7 +58,7 @@ class NVAddItemViewController: UIViewController {
             if error != nil {
                 NSLog("%@",error!)
             } else {
-                var alert : UIAlertController = UIAlertController(title: "Item Added", message: "Would you like to add another item?", preferredStyle: UIAlertControllerStyle.Alert)
+                var alert : UIAlertController = UIAlertController(title: "Item Added", message: "Add another item?", preferredStyle: UIAlertControllerStyle.Alert)
                 var yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
                         (action:UIAlertAction!) in
                         NSLog("Yes")
