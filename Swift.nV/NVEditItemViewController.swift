@@ -52,10 +52,7 @@ class NVEditItemViewController: UIViewController {
         if err != nil {
             NSLog("%@",err!)
         }
-        nameField.text = ""
-        valueField.text=""
-        notesField.text=""
-        createdLabel.text=""
+        self.clearform()
         self.dismissModalViewControllerAnimated(true)
     }
     
@@ -68,15 +65,10 @@ class NVEditItemViewController: UIViewController {
         var yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction!) in
             NSLog("Delete item \(self.item.name)")
-            self.nameField.text = ""
-            self.valueField.text=""
-            self.notesField.text=""
-            self.createdLabel.text=""
+            self.clearform()
             context.deleteObject(self.item)
             context.save(&err)
             self.dismissModalViewControllerAnimated(true)
-            //self.tabBarController.selectedIndex = 0
-            
             })
         var noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction!) in
@@ -90,13 +82,16 @@ class NVEditItemViewController: UIViewController {
     }
     
     @IBAction func cancel(sender : AnyObject) {
+        self.clearform()
+        self.dismissModalViewControllerAnimated(true)
+    }
+    
+    func clearform () {
         nameField.text = ""
         valueField.text=""
         notesField.text=""
         createdLabel.text=""
-        self.dismissModalViewControllerAnimated(true)
     }
-    
     /*
     // #pragma mark - Navigation
 
