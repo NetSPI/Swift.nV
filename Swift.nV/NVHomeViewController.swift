@@ -9,10 +9,11 @@
 import UIKit
 
 class NVHomeViewController: UITabBarController {
-
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        // Custom initialization
+    
+    var appUser : User!
+    
+    init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
 
     override func viewDidLoad() {
@@ -27,14 +28,17 @@ class NVHomeViewController: UITabBarController {
     }
     
 
-    /*
+    
     // #pragma mark - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
+    /*// In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-    }
-    */
+        if segue.identifier == "Settings" {
+            var dv : NVSettingsViewController = segue.destinationViewController as NVSettingsViewController
+            dv.appUser = self.appUser
+        }
+    }*/
 
 }

@@ -6,4 +6,12 @@
 //  Copyright (c) 2014 nVisium. All rights reserved.
 //
 
-import Foundation
+import CoreData
+
+@objc(User)
+class User: NSManagedObject {
+    @NSManaged var email: String
+    @NSManaged var password: String
+    @NSManaged var firstname: String
+    @NSManaged var lastname: String
+}

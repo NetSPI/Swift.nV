@@ -10,13 +10,27 @@ import UIKit
 
 class NVEditItemViewController: UIViewController {
 
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        // Custom initialization
-    }
-
+    @IBOutlet var nameField : UITextField
+    @IBOutlet var valueField : UITextView
+    @IBOutlet var notesField : UITextView
+    @IBOutlet var createdLabel : UILabel
+    
+    var item : Item!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (item != nil) {
+            nameField.text = item.name
+            valueField.text = item.value
+            notesField.text = item.notes
+            var df : NSDateFormatter = NSDateFormatter()
+            df.dateFormat = "dd/MM/yyyy"
+            
+            createdLabel.text = NSString(format: "created %@",df.stringFromDate(item.created))
+        } else {
+            NSLog("NVEditItemViewController: Item is nil")
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -26,7 +40,20 @@ class NVEditItemViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func saveItem(sender : AnyObject) {
+    }
+    
+    @IBAction func deleteItem(sender : AnyObject) {
+    }
+    
+    @IBAction func cancel(sender : AnyObject) {
+        self.dismissModalViewControllerAnimated(true)
+        nameField.text = ""
+        valueField.text=""
+        notesField.text=""
+        createdLabel.text=""
+    }
+    
     /*
     // #pragma mark - Navigation
 
