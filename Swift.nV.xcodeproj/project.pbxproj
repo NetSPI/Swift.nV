@@ -22,6 +22,7 @@
 		5DA17F4519647A2100C805F2 /* NVItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F4419647A2100C805F2 /* NVItemsTableViewController.swift */; };
 		5DA17F471964D60300C805F2 /* NVEditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */; };
 		5DA17F491965FCBD00C805F2 /* NVHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */; };
+		5DA17F4B196604B500C805F2 /* NVInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F4A196604B500C805F2 /* NVInitViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		5DA17F4419647A2100C805F2 /* NVItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVItemsTableViewController.swift; sourceTree = "<group>"; };
 		5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVEditItemViewController.swift; sourceTree = "<group>"; };
 		5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVHelpViewController.swift; sourceTree = "<group>"; };
+		5DA17F4A196604B500C805F2 /* NVInitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVInitViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */,
 				5D8BE02E1958C2D00030428C /* Main.storyboard */,
 				5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */,
+				5DA17F4A196604B500C805F2 /* NVInitViewController.swift */,
 				5DA17F4419647A2100C805F2 /* NVItemsTableViewController.swift */,
 				5D41359C1963651900DAC6C5 /* NVAddItemViewController.swift */,
 				5D41359619632DF800DAC6C5 /* NVSettingsViewController.swift */,
@@ -273,6 +276,7 @@
 				5DA17F491965FCBD00C805F2 /* NVHelpViewController.swift in Sources */,
 				5D8BE03E195A6BA30030428C /* NVLoginViewController.swift in Sources */,
 				5D23C056196323BE00053E65 /* NVHomeViewController.swift in Sources */,
+				5DA17F4B196604B500C805F2 /* NVInitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
