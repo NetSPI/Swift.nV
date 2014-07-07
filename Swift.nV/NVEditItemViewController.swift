@@ -16,13 +16,15 @@ class NVEditItemViewController: UIViewController {
     @IBOutlet var createdLabel : UILabel
     
     var item : Item!
+    var showValue:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if (item != nil) {
             nameField.text = item.name
-            valueField.text = item.value
+            var val:NSString = item.value
+            valueField.text = String(count:val.length,repeatedValue:"*" as Character)
             notesField.text = item.notes
             var df : NSDateFormatter = NSDateFormatter()
             df.dateFormat = "dd/MM/yyyy"
@@ -42,7 +44,9 @@ class NVEditItemViewController: UIViewController {
     
     @IBAction func saveItem(sender : AnyObject) {
         item.name = nameField.text
-        item.value = valueField.text
+        if showValue {
+            item.value = valueField.text
+        }
         item.notes = notesField.text
         
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -79,6 +83,17 @@ class NVEditItemViewController: UIViewController {
         alert.addAction(noItem)
         
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func toggleValue(sender : AnyObject) {
+        if showValue == true {
+            var val:NSString = item.value
+            valueField.text = String(count:val.length,repeatedValue:"*" as Character)
+            showValue = false
+        } else {
+            valueField.text = item.value
+            showValue = true
+        }
     }
     
     @IBAction func cancel(sender : AnyObject) {
