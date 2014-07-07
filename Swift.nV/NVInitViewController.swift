@@ -7,22 +7,41 @@
 //
 
 import UIKit
+import CoreData
 
 class NVInitViewController: UIViewController {
 
     @IBOutlet var message : UILabel
+    var email : NSString?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.message.text = "loading"
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(5), target: self, selector: Selector("updateMessage"), userInfo: nil, repeats: false)
-        //NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(5), invocation: <#NSInvocation?#>, repeats: <#Bool#>)
+        var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if defaults.objectForKey("email") != nil {
+            var email : NSString = defaults.stringForKey("email") as NSString
+            if email == "" {
+                NSLog("email is blank")
+            } else {
+                NSLog("email in NSUserDefaults is '\(email)'")
+            }
+        } else {
+                NSLog("no email in defaults, setting up storage")
+                setupPreferences(defaults)
+        }
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(3), target: self, selector: Selector("updateMessage"), userInfo: nil, repeats: false)
         // Do any additional setup after loading the view.
     }
     
     func updateMessage() {
         self.message.text = "press the big orange dot"
+    }
+    
+    func setupPreferences(defaults: NSUserDefaults) {
+        defaults.setObject("", forKey: "email")
+        defaults.setBool(false, forKey: "loggedin")
+        defaults.synchronize()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,14 +50,41 @@ class NVInitViewController: UIViewController {
     }
     
 
-    /*
+    @IBAction func go(sender : AnyObject) {
+        var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        self.email = defaults.stringForKey("email") as NSString
+        var loggedin :Bool = defaults.boolForKey("loggedin")
+        if self.email == "" || self.email == nil {
+            self.performSegueWithIdentifier("InitLogin", sender: self)
+        } else {
+            self.performSegueWithIdentifier("InitHome", sender: self)
+        }
+    }
+    
+    
     // #pragma mark - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject?) {
+
+        if (segue.identifier == "InitHome") {
+            var dv : NVHomeViewController = segue.destinationViewController as NVHomeViewController
+            
+            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let context = delegate.managedObjectContext
+            
+            let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
+            fr.returnsObjectsAsFaults = false
+            fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", nil)
+            
+            var error:NSError? = nil
+            var users : NSArray = context.executeFetchRequest(fr, error: &error)
+            
+            var user : User = users[0] as User
+            
+            NSLog("passing \(user.email) (\(user.firstname) \(user.lastname))")
+            dv.appUser = user
+        }
     }
-    */
 
 }

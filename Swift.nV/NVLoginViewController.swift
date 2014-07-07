@@ -62,6 +62,13 @@ class NVLoginViewController: UIViewController {
         if users.count > 0 {
             NSLog("auth (\(self.username.text):\(self.password.text))")
             appUser = users[0] as? User
+            var te : NSString = self.username.text
+            var defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(te, forKey: "email")
+            defaults.setBool(true, forKey: "loggedin")
+            defaults.synchronize()
+            NSLog("Setting email key in NSUserDefaults to \(te)")
+            //NSLog("Defaults: %@",defaults)
             
             self.performSegueWithIdentifier("Home", sender: self)
             auth = true

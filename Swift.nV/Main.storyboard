@@ -16,7 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnZ-a7-LJ0">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="press the big orange dot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx6-as-teC">
+                                <rect key="frame" x="106" y="547" width="108" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="obA-kZ-XNX"/>
+                                    <constraint firstAttribute="width" constant="108" id="t9P-Lk-Z0p"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnZ-a7-LJ0">
                                 <rect key="frame" x="74" y="208" width="173" height="152"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" none="YES" button="YES" image="YES"/>
@@ -25,29 +35,29 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="eXf-eU-Lk1" kind="modal" id="K2b-cY-ZiD"/>
+                                    <action selector="go:" destination="U7d-6j-5yF" eventType="touchUpInside" id="GM1-HK-XNM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="press the big orange dot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx6-as-teC">
-                                <rect key="frame" x="106" y="547" width="108" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="gnZ-a7-LJ0" secondAttribute="centerY" id="Akv-uR-FXK"/>
                             <constraint firstAttribute="centerX" secondItem="gnZ-a7-LJ0" secondAttribute="centerX" constant="-0.5" id="FRi-86-fEC"/>
+                            <constraint firstItem="gnZ-a7-LJ0" firstAttribute="top" secondItem="uMy-m9-kOy" secondAttribute="bottom" constant="188" id="PVn-nk-lgH"/>
+                            <constraint firstItem="gnZ-a7-LJ0" firstAttribute="leading" secondItem="9F0-VC-fYt" secondAttribute="leading" constant="74" id="RHf-Ym-O4Q"/>
+                            <constraint firstItem="tx6-as-teC" firstAttribute="centerX" secondItem="gnZ-a7-LJ0" secondAttribute="centerX" id="j2w-yF-CBv"/>
+                            <constraint firstAttribute="bottom" secondItem="tx6-as-teC" secondAttribute="bottom" id="lxe-aL-YvA"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="message" destination="tx6-as-teC" id="N2N-f8-Bf9"/>
+                        <segue destination="VGJ-DY-0ER" kind="modal" identifier="InitHome" id="Gh3-DE-jZw"/>
+                        <segue destination="eXf-eU-Lk1" kind="modal" identifier="InitLogin" id="I3k-Zh-A1W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6oq-Dc-UR0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="329" y="510"/>
+            <point key="canvasLocation" x="243" y="817"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="GeA-0E-A3H">
@@ -128,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aW1-5L-zsX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="735" y="510"/>
+            <point key="canvasLocation" x="732" y="510"/>
         </scene>
         <!--Help View Controller-->
         <scene sceneID="BR9-xs-Lo5">
@@ -175,7 +185,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1sp-UM-aWS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1169" y="-254"/>
+            <point key="canvasLocation" x="1209" y="-143"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="JMA-qE-0y6">
@@ -273,7 +283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MfA-as-KoU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1169" y="380"/>
+            <point key="canvasLocation" x="1209" y="510"/>
         </scene>
         <!--Add Item View Controller - add-->
         <scene sceneID="FjX-AX-ryL">
@@ -309,19 +319,17 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" text="notes" translatesAutoresizingMaskIntoConstraints="NO" id="Ggw-OR-eCD">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ggw-OR-eCD">
                                 <rect key="frame" x="20" y="311" width="280" height="165"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KO4-AF-KJp">
                                 <rect key="frame" x="20" y="120" width="280" height="154"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                             </textView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyL-1H-KMN">
                                 <rect key="frame" x="70" y="24" width="230" height="21"/>
@@ -442,7 +450,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94684103259999997" green="0.94684103259999997" blue="0.94684103259999997" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell alpha="0.90000000000000002" contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" id="6lS-0d-yg6">
+                            <tableViewCell alpha="0.90000000000000002" contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="6lS-0d-yg6">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6lS-0d-yg6" id="MiL-tB-kwf">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -492,14 +500,12 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V0V-31-vB9">
                                 <rect key="frame" x="20" y="116" width="280" height="147"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                             </textView>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UT9-wj-sUQ">
                                 <rect key="frame" x="20" y="49" width="280" height="30"/>
@@ -583,7 +589,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MOB-O1-XO6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1169" y="1020"/>
+            <point key="canvasLocation" x="1209" y="1187"/>
         </scene>
     </scenes>
     <resources>
@@ -597,4 +603,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="JPc-dF-oMo"/>
+    </inferredMetricsTieBreakers>
 </document>

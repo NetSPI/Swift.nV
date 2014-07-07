@@ -37,6 +37,9 @@ class NVSettingsViewController: UIViewController {
     }
     
     @IBAction func logout(sender : AnyObject) {
+        NSUserDefaults.standardUserDefaults().setObject("", forKey: "email")
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "loggedin")
+        NSUserDefaults.standardUserDefaults().synchronize()
         self.dismissModalViewControllerAnimated(true)
     }
 
