@@ -105,11 +105,6 @@ class NVEditItemViewController: UIViewController {
         }
     }
     
-    @IBAction func cancel(sender : AnyObject) {
-        self.clearform()
-        self.dismissModalViewControllerAnimated(true)
-    }
-    
     func clearform () {
         nameField.text = ""
         valueField.text=""

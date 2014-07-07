@@ -52,7 +52,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         
         var err:NSError? = nil
         self.items = context.executeFetchRequest(fr, error: &err)
-        NSLog("Items: \(self.items)")
+        //NSLog("Items: \(self.items)")
         
         self.tableView.reloadData()
     }
