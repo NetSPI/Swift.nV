@@ -96,6 +96,15 @@ class NVEditItemViewController: UIViewController {
         }
     }
     
+    @IBAction func copyValue(sender : AnyObject) {
+        var pb :UIPasteboard = UIPasteboard.generalPasteboard()
+        if showValue {
+            pb.string = valueField.text
+        } else {
+            pb.string = item.value
+        }
+    }
+    
     @IBAction func cancel(sender : AnyObject) {
         self.clearform()
         self.dismissModalViewControllerAnimated(true)
