@@ -33,7 +33,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         //let iv : UIImageView = UIImageView(image: UIImage(contentsOfFile: "logo-color.png"))
         //self.tableView.backgroundView = iv
-        
+        //self.tableView.contentInset(22,0,0,0)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -55,6 +55,11 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         //NSLog("Items: \(self.items)")
         
         self.tableView.reloadData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.contentInset.top = 22
     }
     
     func childrenFetchedResultsController (email:NSString,context:NSManagedObjectContext) -> NSFetchedResultsController {

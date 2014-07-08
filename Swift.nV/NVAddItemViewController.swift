@@ -28,9 +28,9 @@ class NVAddItemViewController: UIViewController {
     }
 
     @IBAction func save(sender : AnyObject) {
-        if self.nameField.text == "name" {
+        if self.nameField.text == "" {
             self.message.text = "name required"
-        } else if self.valueField.text == "value" {
+        } else if self.valueField.text == "" {
             self.message.text = "value required"
         } else {
             var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
@@ -61,18 +61,13 @@ class NVAddItemViewController: UIViewController {
                 var alert : UIAlertController = UIAlertController(title: "Item Added", message: "Add another item?", preferredStyle: UIAlertControllerStyle.Alert)
                 var yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
                         (action:UIAlertAction!) in
-                        NSLog("Yes")
-                        self.nameField.text = "name"
-                        self.valueField.text = "value"
-                        self.notesField.text = "notes"
+                        self.resetForm()
                         alert.dismissViewControllerAnimated(true, completion: nil)
                     })
                 var noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
                         (action:UIAlertAction!) in
                         NSLog("No")
-                        self.nameField.text = "name"
-                        self.valueField.text = "value"
-                        self.notesField.text = "notes"
+                        self.resetForm()
                         self.tabBarController.selectedIndex = 0
                     })
 
@@ -85,6 +80,12 @@ class NVAddItemViewController: UIViewController {
                 [alert show]; */
             }
         }
+    }
+    
+    func resetForm() {
+        self.nameField.text = ""
+        self.valueField.text = ""
+        self.notesField.text = ""
     }
     
     /*

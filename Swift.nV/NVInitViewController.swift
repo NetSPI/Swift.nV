@@ -54,7 +54,7 @@ class NVInitViewController: UIViewController {
         var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
         self.email = defaults.stringForKey("email") as NSString
         var loggedin :Bool = defaults.boolForKey("loggedin")
-        if self.email == "" || self.email == nil {
+        if self.email == "" || self.email == nil || !loggedin {
             self.performSegueWithIdentifier("InitLogin", sender: self)
         } else {
             self.performSegueWithIdentifier("InitHome", sender: self)

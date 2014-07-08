@@ -13,6 +13,7 @@ class NVSettingsViewController: UIViewController {
     @IBOutlet var userLabel : UILabel
     @IBOutlet var firstLabel : UILabel
     @IBOutlet var lastLabel : UILabel
+    @IBOutlet var remember : UISwitch
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ class NVSettingsViewController: UIViewController {
             self.userLabel.text = u.email
             self.firstLabel.text = u.firstname
             self.lastLabel.text = u.lastname
+            remember.on = NSUserDefaults.standardUserDefaults().boolForKey("loggedin")
         }
     }
 
@@ -43,6 +45,11 @@ class NVSettingsViewController: UIViewController {
         self.dismissModalViewControllerAnimated(true)
     }
 
+    @IBAction func rememberMe(sender : AnyObject) {
+        NSUserDefaults.standardUserDefaults().setBool(remember.on, forKey: "loggedin")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
     /*
     // #pragma mark - Navigation
 

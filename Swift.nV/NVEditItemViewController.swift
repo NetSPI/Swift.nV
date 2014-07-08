@@ -8,12 +8,13 @@
 
 import UIKit
 
-class NVEditItemViewController: UIViewController {
+class NVEditItemViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet var nameField : UITextField
     @IBOutlet var valueField : UITextView
     @IBOutlet var notesField : UITextView
     @IBOutlet var createdLabel : UILabel
+    @IBOutlet var showButton : UIButton
     
     var item : Item!
     var showValue:Bool = false
@@ -37,6 +38,27 @@ class NVEditItemViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    //- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+    
+    func textViewShouldBeginEditing(textView:UITextView) -> Bool {
+        valueField.text = item.value
+        showValue = true
+        return true
+    }
+    
+    func textViewShouldEndEditing(textView:UITextView) -> Bool {
+        var val:NSString = item.value
+        valueField.text = String(count:val.length,repeatedValue:"*" as Character)
+        showValue = false
+        return true
+    }
+    
+    //- (void)textViewDidChange:(UITextView *)textView
+    
+    func textViewDidChange(textView:UITextView) {
+        item.value = valueField.text
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -83,17 +105,6 @@ class NVEditItemViewController: UIViewController {
         alert.addAction(noItem)
         
         self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction func toggleValue(sender : AnyObject) {
-        if showValue == true {
-            var val:NSString = item.value
-            valueField.text = String(count:val.length,repeatedValue:"*" as Character)
-            showValue = false
-        } else {
-            valueField.text = item.value
-            showValue = true
-        }
     }
     
     @IBAction func copyValue(sender : AnyObject) {
