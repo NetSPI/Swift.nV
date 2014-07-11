@@ -1,33 +1,68 @@
+class User
+	include DataMapper::Resource
+	property :id,			Serial
+	property :fname,		String
+	property :lname, 		String
+	property :email,		String
+	property :password_hash,String
+	property :is_active,	Boolean
+	property :created_at,	DateTime
+	property :updated_at,	DateTime
+	property :api_token,	String
+
+	has n, :secrets
+
+	def self.gen_api_token
+		SecureRandom.uuid
+	end
+
+	def self.by_token(token)
+		User.first(:api_token => token)
+	end
+end
+
 post '/users/register' do
   params = JSON.parse(request.body.read)
+
+  password_hash = BCrypt::Password.create(params["password"])
+  # Remove password value because it's not an attribute of user
+  params.delete("password")
+
   @user = User.new(params)
-  @user.api_token = User.gen_api_token
+  @user.password_hash = password_hash
 
   if @user.save
-  	jsonify(@user)
+  	@user.to_json
   else
   	{ :error => "Error creating user." }.to_json
   end
 end
 
-# Seed Data
-get '/create/admin' do
-	adm = User.new
-	adm.fname = "john"
-	adm.lname = "poulin"
-	adm.email = "john.m.poulin@gmail.com"
-	adm.is_active = true
-	adm.save
-end
-
+# Authenticate by email and password
 post '/users/authenticate' do
 	params = JSON.parse(request.body.read)
+	email = params["email"]
+	password = params["password"]
+
+	possible_user = User.first(:email => email)
+
+	if possible_user
+		if BCrypt::Password.new(possible_user.password_hash) == password
+			possible_user.api_token = User.gen_api_token
+			possible_user.save
+			possible_user.to_json
+		else
+			{ :error => "Password not valid for user: #{email}" }.to_json
+		end
+	else
+		{ :error => "Could not find user: #{email}" }.to_json
+	end
 end
 
-get '/users/find/:id' do
+get '/user/:id' do
 	@user = User.get(params[:id])
 	if @user
-		jsonify(@user)
+		@user.to_json
 	else
 		{ :error => "User with that id does not exist" }.to_json
 	end
