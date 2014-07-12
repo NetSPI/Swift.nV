@@ -73,7 +73,9 @@ put '/secret/:secret_id' do
 end
 
 delete '/secret/:secret_id' do
-	if Secret.get(params[:secret_id]).destroy
+	secret = Secret.get(params[:secret_id])
+	if secret
+		secret.destroy
 		MultiJson.dump({ :success => "Successfully destroyed secret" })
 	else
 		MultiJson.dump({ :error => "Unable to destroy secret" })
