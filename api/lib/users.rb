@@ -67,3 +67,9 @@ get '/user/:id' do
 		{ :error => "User with that id does not exist" }.to_json
 	end
 end
+
+# Not working, wtf
+post '/user/logout' do
+	current_user.api_token = nil
+	current_user.save
+end

@@ -5,7 +5,8 @@ class Secret
 	property :contents, 	String
 	property :version,		Integer
 	property :checksum,		String
-
+	property :status,		String
+	property :root_id,		Integer
 	belongs_to	:user
 end
 
@@ -38,7 +39,7 @@ end
 post '/secret' do
 	params = JSON.parse(request.body.read)
 	secret = Secret.new(params)
-
+	secret.user = current_user
 	if secret.save
 		secret.to_json
 	else
@@ -46,7 +47,29 @@ post '/secret' do
 	end
 end
 
-put '/secret/:id' do 
-	# How do we want to handle updates?
-	# Create new object, disassociate previous object?
+put '/secret/:id' do
+	# Check if secret exists, first
+	if Secret.get(params[:id])
+		# How do we want to handle updates?
+		# Create new object, disassociate previous object?
+		old_secret = Secret.get(params[:id])
+		old_secret.status = "old"
+		old_secret.save
+
+		new_secret = Secret.new
+		new_secret.name = params[:name]
+		new_secret.contents = params[:contents]
+		new_secret.checksum = params[:checksum]
+		new_secret.version = old_secret.version + 1
+		new_secret.user = current_user
+		new_secret.root_id = old_secret.root_id || old_secret.id
+		
+		if new_secret.save
+			new_secret.to_json
+		else
+			{ :error => "Cannot update secret"}
+		end
+	else
+		{ :error => "Cannot find secret with id: #{params[:id]}"}
+	end
 end
