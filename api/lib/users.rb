@@ -34,7 +34,7 @@ post '/users/register' do
   if @user.save
   	@user.to_json
   else
-  	{ :error => "Error creating user." }.to_json
+  	MultiJson.dump({ :error => "Error creating user." })
   end
 end
 
@@ -52,10 +52,10 @@ post '/users/authenticate' do
 			possible_user.save
 			possible_user.to_json
 		else
-			{ :error => "Password not valid for user: #{email}" }.to_json
+			MultiJson.dump({ :error => "Password not valid for user: #{email}" })
 		end
 	else
-		{ :error => "Could not find user: #{email}" }.to_json
+		MultiJson.dump({ :error => "Could not find user: #{email}" })
 	end
 end
 
@@ -64,7 +64,7 @@ get '/user/:id' do
 	if @user
 		@user.to_json
 	else
-		{ :error => "User with that id does not exist" }.to_json
+		MultiJson.dump({ :error => "User with that id does not exist" })
 	end
 end
 

@@ -29,7 +29,6 @@ get '/secrets' do
 	current_user.secrets.to_json
 end
 
-
 # Create new secret
 post '/secret' do
 	params = MultiJson.load(request.body.read)
@@ -40,7 +39,7 @@ post '/secret' do
 		secret.save
 		secret.to_json
 	else
-		{ :error => "Error creating secret" }
+		MultiJson.dump({ :error => "Error creating secret" })
 	end
 end
 
@@ -66,9 +65,17 @@ put '/secret/:secret_id' do
 		if new_secret.save
 			new_secret.to_json
 		else
-			{ :error => "Cannot update secret"}
+			MultiJson.dump({ :error => "Cannot update secret"})
 		end
 	else
-		{ :error => "Cannot find secret with id: #{params[:id]}"}
+		MultiJson.dump({ :error => "Cannot find secret with id: #{params[:id]}"})
+	end
+end
+
+delete '/secret/:secret_id' do
+	if Secret.get(params[:secret_id]).destroy
+		MultiJson.dump({ :success => "Successfully destroyed secret" })
+	else
+		MultiJson.dump({ :error => "Unable to destroy secret" })
 	end
 end
