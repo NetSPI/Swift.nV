@@ -3,7 +3,7 @@ require 'sinatra'
 require 'dm-core'
 require 'dm-timestamps'
 require 'dm-migrations'
-require 'dm-serializer'
+require 'dm-serializer/to_json'
 require 'bcrypt'
 
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/api.db")
@@ -21,3 +21,4 @@ configure do
 end
 
 DataMapper.auto_upgrade!
+

@@ -22,7 +22,7 @@ class User
 end
 
 post '/users/register' do
-  params = JSON.parse(request.body.read)
+  params = MultiJson.load(request.body.read)
 
   password_hash = BCrypt::Password.create(params["password"])
   # Remove password value because it's not an attribute of user
@@ -40,7 +40,7 @@ end
 
 # Authenticate by email and password
 post '/users/authenticate' do
-	params = JSON.parse(request.body.read)
+	params = MultiJson.load(request.body.read)
 	email = params["email"]
 	password = params["password"]
 

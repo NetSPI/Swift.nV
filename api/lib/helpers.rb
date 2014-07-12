@@ -1,5 +1,10 @@
 def current_user
-	# Get api-token from header and return user object
+	# Get api-token from request
 	apitoken = params[:apitoken]
-	User.by_token(apitoken)
+
+	unless apitoken.nil?
+		User.by_token(apitoken)
+	else
+		User.new
+	end
 end
