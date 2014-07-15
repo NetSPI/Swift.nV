@@ -11,6 +11,7 @@
 		5D41359719632DF800DAC6C5 /* NVSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D41359619632DF800DAC6C5 /* NVSettingsViewController.swift */; };
 		5D41359B19635A5200DAC6C5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D41359A19635A5200DAC6C5 /* Item.swift */; };
 		5D41359D1963651900DAC6C5 /* NVAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D41359C1963651900DAC6C5 /* NVAddItemViewController.swift */; };
+		5D6815AF19748BBC002D2104 /* Environment.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D6815AE19748BBC002D2104 /* Environment.plist */; };
 		5D8BE0141958C25B0030428C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE0131958C25B0030428C /* AppDelegate.swift */; };
 		5D8BE0171958C25B0030428C /* Swift_nV.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE0151958C25B0030428C /* Swift_nV.xcdatamodeld */; };
 		5D8BE0191958C25B0030428C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D8BE0181958C25B0030428C /* Images.xcassets */; };
@@ -61,6 +62,7 @@
 		5D41359619632DF800DAC6C5 /* NVSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVSettingsViewController.swift; sourceTree = "<group>"; };
 		5D41359A19635A5200DAC6C5 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		5D41359C1963651900DAC6C5 /* NVAddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVAddItemViewController.swift; sourceTree = "<group>"; };
+		5D6815AE19748BBC002D2104 /* Environment.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Environment.plist; sourceTree = "<group>"; };
 		5D8BE00E1958C25B0030428C /* Swift.nV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swift.nV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D8BE0121958C25B0030428C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D8BE0131958C25B0030428C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				5D8BE0121958C25B0030428C /* Info.plist */,
+				5D6815AE19748BBC002D2104 /* Environment.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D8BE0191958C25B0030428C /* Images.xcassets in Resources */,
+				5D6815AF19748BBC002D2104 /* Environment.plist in Resources */,
 				5D8BE02F1958C2D00030428C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,7 +2,8 @@ class Secret
 	include DataMapper::Resource
 	property :id,			Serial
 	property :name,			String
-	property :contents, 	String
+	property :contents, 		String
+	property :notes,		String
 	property :version,		Integer
 	property :checksum,		String
 	property :status,		String
@@ -23,7 +24,7 @@ end
 get '/secret/:root_id/current_version' do
 	Secret.last(:root_id => params[:root_id]).to_json
 end
-
+3
 # Fetch all secrets for user
 get '/secrets' do
 	current_user.secrets.to_json
@@ -57,6 +58,7 @@ put '/secret/:secret_id' do
 		new_secret = Secret.new
 		new_secret.name = json_params["name"]
 		new_secret.contents = json_params["contents"]
+		new_secret.notes = json_params["notes"]
 		new_secret.checksum = json_params["checksum"]
 		new_secret.version = old_secret.version + 1
 		new_secret.user = current_user

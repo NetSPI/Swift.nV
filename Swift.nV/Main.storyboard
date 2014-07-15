@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="U7d-6j-5yF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="U7d-6j-5yF">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
     </dependencies>
@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="press the big orange dot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx6-as-teC">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="loading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx6-as-teC">
                                 <rect key="frame" x="106" y="547" width="108" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="obA-kZ-XNX"/>
@@ -26,26 +26,12 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnZ-a7-LJ0">
-                                <rect key="frame" x="74" y="208" width="173" height="152"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" button="YES" image="YES"/>
-                                </accessibility>
-                                <state key="normal" image="logomark-color">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="go:" destination="U7d-6j-5yF" eventType="touchUpInside" id="GM1-HK-XNM"/>
-                                </connections>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nvisbot" translatesAutoresizingMaskIntoConstraints="NO" id="0lZ-4y-Hzf">
+                                <rect key="frame" x="53" y="102" width="214" height="364"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="gnZ-a7-LJ0" secondAttribute="centerY" id="Akv-uR-FXK"/>
-                            <constraint firstAttribute="centerX" secondItem="gnZ-a7-LJ0" secondAttribute="centerX" constant="-0.5" id="FRi-86-fEC"/>
-                            <constraint firstItem="gnZ-a7-LJ0" firstAttribute="top" secondItem="uMy-m9-kOy" secondAttribute="bottom" constant="188" id="PVn-nk-lgH"/>
-                            <constraint firstItem="gnZ-a7-LJ0" firstAttribute="leading" secondItem="9F0-VC-fYt" secondAttribute="leading" constant="74" id="RHf-Ym-O4Q"/>
-                            <constraint firstItem="tx6-as-teC" firstAttribute="centerX" secondItem="gnZ-a7-LJ0" secondAttribute="centerX" id="j2w-yF-CBv"/>
                             <constraint firstAttribute="bottom" secondItem="tx6-as-teC" secondAttribute="bottom" id="lxe-aL-YvA"/>
                         </constraints>
                     </view>
@@ -79,7 +65,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                 <connections>
-                                    <action selector="go:" destination="eXf-eU-Lk1" eventType="editingDidEnd" id="wSc-BL-t7G"/>
                                     <outlet property="delegate" destination="eXf-eU-Lk1" id="nZj-2T-6S4"/>
                                 </connections>
                             </textField>
@@ -617,6 +602,7 @@
     <resources>
         <image name="logomark-color" width="125" height="124"/>
         <image name="logomark_on_light_bg_50px" width="50" height="50"/>
+        <image name="nvisbot" width="418" height="660"/>
         <image name="plus" width="32" height="32"/>
         <image name="settings" width="32" height="32"/>
     </resources>

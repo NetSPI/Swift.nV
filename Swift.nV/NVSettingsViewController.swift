@@ -42,6 +42,7 @@ class NVSettingsViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().setObject("", forKey: "email")
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "loggedin")
         NSUserDefaults.standardUserDefaults().synchronize()
+        //var parent = self.parentViewController
         self.dismissModalViewControllerAnimated(true)
     }
 

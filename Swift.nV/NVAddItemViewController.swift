@@ -44,6 +44,7 @@ class NVAddItemViewController: UIViewController {
             var item : Item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as Item
             item.name = self.nameField.text
             item.value = self.valueField.text
+            item.version = 1
             if self.notesField.text == "notes" {
                 item.notes = ""
             } else {

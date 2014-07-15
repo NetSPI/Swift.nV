@@ -30,12 +30,14 @@ class NVInitViewController: UIViewController {
                 NSLog("no email in defaults, setting up storage")
                 setupPreferences(defaults)
         }
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(3), target: self, selector: Selector("updateMessage"), userInfo: nil, repeats: false)
+        // NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(3), target: self, selector: Selector("go"), userInfo: nil, repeats: false)
         // Do any additional setup after loading the view.
     }
     
-    func updateMessage() {
-        self.message.text = "press the big orange dot"
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        //self.go()
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target: self, selector: Selector("go"), userInfo: nil, repeats: false)
     }
     
     func setupPreferences(defaults: NSUserDefaults) {
@@ -50,7 +52,7 @@ class NVInitViewController: UIViewController {
     }
     
 
-    @IBAction func go(sender : AnyObject) {
+    func go() {
         var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
         self.email = defaults.stringForKey("email") as NSString
         var loggedin :Bool = defaults.boolForKey("loggedin")
