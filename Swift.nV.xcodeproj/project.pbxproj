@@ -24,6 +24,7 @@
 		5DA17F471964D60300C805F2 /* NVEditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */; };
 		5DA17F491965FCBD00C805F2 /* NVHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */; };
 		5DA17F4B196604B500C805F2 /* NVInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F4A196604B500C805F2 /* NVInitViewController.swift */; };
+		8133383319828AD1004F1C31 /* Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8133383219828AD1004F1C31 /* Crypto.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,9 @@
 		5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVEditItemViewController.swift; sourceTree = "<group>"; };
 		5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVHelpViewController.swift; sourceTree = "<group>"; };
 		5DA17F4A196604B500C805F2 /* NVInitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVInitViewController.swift; sourceTree = "<group>"; };
+		8133383019828AB4004F1C31 /* Crypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
+		8133383119828AD1004F1C31 /* Swift.nV-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Swift.nV-Bridging-Header.h"; sourceTree = "<group>"; };
+		8133383219828AD1004F1C31 /* Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crypto.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,9 @@
 				5D41359A19635A5200DAC6C5 /* Item.swift */,
 				5D8BE043195E8C990030428C /* User.swift */,
 				5D8BE0111958C25B0030428C /* Supporting Files */,
+				8133383019828AB4004F1C31 /* Crypto.h */,
+				8133383219828AD1004F1C31 /* Crypto.m */,
+				8133383119828AD1004F1C31 /* Swift.nV-Bridging-Header.h */,
 			);
 			path = Swift.nV;
 			sourceTree = "<group>";
@@ -268,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8133383319828AD1004F1C31 /* Crypto.m in Sources */,
 				5D8BE0141958C25B0030428C /* AppDelegate.swift in Sources */,
 				5DA17F471964D60300C805F2 /* NVEditItemViewController.swift in Sources */,
 				5D8BE040195B8FF30030428C /* NVRegisterViewController.swift in Sources */,
@@ -392,6 +400,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "Swift.nV.bridging-header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -402,10 +411,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Swift.nV/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swift.nV/Swift.nV-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -415,10 +427,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Swift.nV/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swift.nV/Swift.nV-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -44,6 +44,14 @@ class NVAddItemViewController: UIViewController {
             var item : Item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as Item
             item.name = self.nameField.text
             item.value = self.valueField.text
+            
+            var crypto: Crypto = Crypto()
+            // Create Checksum
+            var checksum = crypto.sha256HashFor(item.value)
+            
+            // Create Ciphertext
+            item.value = NSData.aes
+            
             item.version = 1
             if self.notesField.text == "notes" {
                 item.notes = ""
