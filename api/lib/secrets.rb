@@ -24,7 +24,7 @@ end
 get '/secret/:root_id/current_version' do
 	Secret.last(:root_id => params[:root_id]).to_json
 end
-3
+
 # Fetch all secrets for user
 get '/secrets' do
 	current_user.secrets.to_json

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Foundation
 
 class NVAddItemViewController: UIViewController {
 
@@ -33,6 +34,9 @@ class NVAddItemViewController: UIViewController {
         } else if self.valueField.text == "" {
             self.message.text = "value required"
         } else {
+            var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+            var envs = NSDictionary(contentsOfFile: envPlist)
+            
             var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
             var appUser : User = hvc.appUser
             NSLog("Storing \(self.nameField.text) for \(appUser.email)")
@@ -46,11 +50,15 @@ class NVAddItemViewController: UIViewController {
             item.value = self.valueField.text
             
             var crypto: Crypto = Crypto()
+            
             // Create Checksum
             var checksum = crypto.sha256HashFor(item.value)
             
             // Create Ciphertext
-            item.value = NSData.aes
+            let plainText = (item.value as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+            var cipherText = plainText.AES256EncryptWithKey(envs.valueForKey("CryptoKey") as String)
+            NSLog("Cipher Text: \(cipherText)")
+            item.checksum = checksum
             
             item.version = 1
             if self.notesField.text == "notes" {
@@ -60,6 +68,29 @@ class NVAddItemViewController: UIViewController {
             }
             item.created = NSDate()
             item.email = appUser.email
+            
+            var secret = [
+                "name": item.name,
+                "contents": item.value,
+                "checksum": item.checksum,
+                "version": item.version,
+                "notes": item.notes,
+            ]
+            
+            var err:NSError? = nil
+            var j = NSJSONSerialization.dataWithJSONObject(secret, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
+            
+            var tURL = envs.valueForKey("NewSecretURL") as String
+            var secURL = NSURL(string: tURL)
+            
+            NSLog("Adding secret for user with checksum: \(checksum)")
+            
+            var request = NSMutableURLRequest(URL: secURL)
+            request.HTTPMethod = "POST"
+            request.HTTPBody = j
+            
+            var queue = NSOperationQueue()
+            var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
             
             var error : NSError? = nil
             context.save(&error)

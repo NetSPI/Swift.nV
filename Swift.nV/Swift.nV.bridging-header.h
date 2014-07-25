@@ -6,3 +6,5 @@
 //  Copyright (c) 2014 nVisium. All rights reserved.
 //
 
+#import <CommonCrypto/CommonDigest.h>
+
