@@ -12,7 +12,7 @@ import CoreData
 class NVInitViewController: UIViewController {
 
     @IBOutlet var message : UILabel!
-    var email : NSString?
+    var email : NSString = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +20,12 @@ class NVInitViewController: UIViewController {
         self.message.text = "loading"
         var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if defaults.objectForKey("email") {
-            var email : NSString = defaults.stringForKey("email") as NSString
-            if email == "" {
+            var temp_email : NSString = defaults.stringForKey("email") as NSString
+            if temp_email == "" {
                 NSLog("email is blank")
             } else {
-                NSLog("email in NSUserDefaults is '\(email)'")
+                NSLog("email in NSUserDefaults is '\(temp_email)'")
+                //self.email = temp_email
             }
         } else {
                 NSLog("no email in defaults, setting up storage")
@@ -80,6 +81,7 @@ class NVInitViewController: UIViewController {
             fr.returnsObjectsAsFaults = false
             fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", argumentArray: nil)
             
+            NSLog("Predicate: %@",fr.predicate)
             var error:NSError? = nil
             var users : NSArray = context.executeFetchRequest(fr, error: &error)
             
