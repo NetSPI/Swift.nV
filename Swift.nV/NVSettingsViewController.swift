@@ -10,10 +10,11 @@ import UIKit
 
 class NVSettingsViewController: UIViewController {
 
-    @IBOutlet var userLabel : UILabel
-    @IBOutlet var firstLabel : UILabel
-    @IBOutlet var lastLabel : UILabel
-    @IBOutlet var remember : UISwitch
+    @IBOutlet var userLabel : UILabel!
+    @IBOutlet var firstLabel : UILabel!
+    @IBOutlet var lastLabel : UILabel!
+    @IBOutlet var remember : UISwitch!
+    @IBOutlet var sync : UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,7 @@ class NVSettingsViewController: UIViewController {
             self.firstLabel.text = u.firstname
             self.lastLabel.text = u.lastname
             remember.on = NSUserDefaults.standardUserDefaults().boolForKey("loggedin")
+            remember.on = NSUserDefaults.standardUserDefaults().boolForKey("sync")
         }
     }
 
@@ -43,7 +45,7 @@ class NVSettingsViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "loggedin")
         NSUserDefaults.standardUserDefaults().synchronize()
         //var parent = self.parentViewController
-        self.dismissModalViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     @IBAction func rememberMe(sender : AnyObject) {
@@ -51,6 +53,10 @@ class NVSettingsViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
+    @IBAction func syncWithServer(sender : AnyObject) {
+        NSUserDefaults.standardUserDefaults().setBool(remember.on, forKey: "sync")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
     /*
     // #pragma mark - Navigation
 

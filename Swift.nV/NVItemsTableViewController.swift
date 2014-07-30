@@ -48,7 +48,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         //let frc = self.childrenFetchedResultsController(appUser.email, context: context)
         let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
         fr.returnsObjectsAsFaults = false
-        fr.predicate = NSPredicate(format: "email LIKE '\(appUser.email)'", nil)
+        fr.predicate = NSPredicate(format: "email LIKE '\(appUser.email)'", argumentArray: nil)
         
         var err:NSError? = nil
         self.items = context.executeFetchRequest(fr, error: &err)
@@ -64,7 +64,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     
     func childrenFetchedResultsController (email:NSString,context:NSManagedObjectContext) -> NSFetchedResultsController {
         let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
-        fr.predicate = NSPredicate(format: "email LIKE '\(email)'", nil)
+        fr.predicate = NSPredicate(format: "email LIKE '\(email)'", argumentArray: nil)
         return NSFetchedResultsController(fetchRequest: fr, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil )
     }
     

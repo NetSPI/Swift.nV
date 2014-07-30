@@ -11,10 +11,10 @@ import CoreData
 
 class NVAddItemViewController: UIViewController {
 
-    @IBOutlet var nameField : UITextField
-    @IBOutlet var valueField : UITextView
-    @IBOutlet var notesField : UITextView
-    @IBOutlet var message : UILabel
+    @IBOutlet var nameField : UITextField!
+    @IBOutlet var valueField : UITextView!
+    @IBOutlet var notesField : UITextView!
+    @IBOutlet var message : UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,8 +77,6 @@ class NVAddItemViewController: UIViewController {
                 
                 self.presentViewController(alert, animated: true, completion: nil)
                 
-                /* UIAlertView alert = [[UIAlertView alloc] initWithTitle:@"Wait" message:@"Are you sure you want to delete this.  This action cannot be undone" delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Cancel", nil];
-                [alert show]; */
             }
         }
     }

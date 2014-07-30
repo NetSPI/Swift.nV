@@ -415,17 +415,29 @@
                                 </connections>
                             </button>
                             <switch opaque="NO" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T1k-eC-UbD">
-                                <rect key="frame" x="182" y="154" width="51" height="31"/>
+                                <rect key="frame" x="62" y="159" width="51" height="31"/>
                                 <connections>
                                     <action selector="rememberMe:" destination="w82-tv-d7i" eventType="valueChanged" id="f7c-Rb-vPB"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="remember me?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oh9-2i-n1D">
-                                <rect key="frame" x="89" y="159" width="85" height="21"/>
+                                <rect key="frame" x="128" y="164" width="85" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="sync items to server?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zno-ba-LPg">
+                                <rect key="frame" x="128" y="198" width="130" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZIb-eH-l0P">
+                                <rect key="frame" x="62" y="198" width="51" height="31"/>
+                                <connections>
+                                    <action selector="syncWithServer:" destination="w82-tv-d7i" eventType="valueChanged" id="28L-rk-paU"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -434,6 +446,7 @@
                         <outlet property="firstLabel" destination="oXH-yw-HOv" id="QRA-rK-zfp"/>
                         <outlet property="lastLabel" destination="WrH-mN-zLi" id="eyU-dm-dz7"/>
                         <outlet property="remember" destination="T1k-eC-UbD" id="mWJ-Sa-UTb"/>
+                        <outlet property="sync" destination="ZIb-eH-l0P" id="Z8M-JT-INX"/>
                         <outlet property="userLabel" destination="8Tu-cn-BzC" id="30O-qD-s2C"/>
                     </connections>
                 </viewController>

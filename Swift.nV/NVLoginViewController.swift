@@ -11,11 +11,11 @@ import CoreData
 
 class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
 
-    @IBOutlet var message : UILabel
-    @IBOutlet var username : UITextField
-    @IBOutlet var password : UITextField
-    @IBOutlet var goButton : UIButton
-    @IBOutlet var register : UIButton
+    @IBOutlet var message : UILabel!
+    @IBOutlet var username : UITextField!
+    @IBOutlet var password : UITextField!
+    @IBOutlet var goButton : UIButton!
+    @IBOutlet var register : UIButton!
     
     var appUser : User!
     
@@ -102,7 +102,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             
             let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
             fr.returnsObjectsAsFaults = false
-            fr.predicate = NSPredicate(format: "(email LIKE '\(self.username.text)')", nil)
+            fr.predicate = NSPredicate(format: "(email LIKE '\(self.username.text)')", argumentArray: nil)
             
             var error:NSError? = nil
             var users : NSArray = context.executeFetchRequest(fr, error: &error)

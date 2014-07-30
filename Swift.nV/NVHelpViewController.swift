@@ -22,7 +22,8 @@ class NVHelpViewController: UIViewController {
     }
     
     @IBAction func close(sender : AnyObject) {
-        self.dismissModalViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
+        //self.dismissModalViewControllerAnimated(true)
     }
 
     /*

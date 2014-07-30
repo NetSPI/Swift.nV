@@ -10,11 +10,11 @@ import UIKit
 
 class NVEditItemViewController: UIViewController, UITextViewDelegate {
 
-    @IBOutlet var nameField : UITextField
-    @IBOutlet var valueField : UITextView
-    @IBOutlet var notesField : UITextView
-    @IBOutlet var createdLabel : UILabel
-    @IBOutlet var showButton : UIButton
+    @IBOutlet var nameField : UITextField!
+    @IBOutlet var valueField : UITextView!
+    @IBOutlet var notesField : UITextView!
+    @IBOutlet var createdLabel : UILabel!
+    @IBOutlet var showButton : UIButton!
     
     var item : Item!
     var showValue:Bool = false
@@ -79,7 +79,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             NSLog("%@",err!)
         }
         self.clearform()
-        self.dismissModalViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func deleteItem(sender : AnyObject) {
@@ -94,7 +94,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             self.clearform()
             context.deleteObject(self.item)
             context.save(&err)
-            self.dismissModalViewControllerAnimated(true)
+            self.dismissViewControllerAnimated(true, completion: nil)
             })
         var noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction!) in
