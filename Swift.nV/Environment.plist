@@ -12,5 +12,7 @@
 	<string>http://127.0.0.1:4567/secret</string>
 	<key>SecretsURL</key>
 	<string>http://127.0.0.1:4567/secrets</string>
+	<key>UpdateSecretURL</key>
+	<string>http://127.0.0.1:4567/secret/</string>
 </dict>
 </plist>

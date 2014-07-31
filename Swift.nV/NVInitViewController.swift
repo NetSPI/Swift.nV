@@ -11,15 +11,15 @@ import CoreData
 
 class NVInitViewController: UIViewController {
 
-    @IBOutlet var message : UILabel
-    var email : NSString?
+    @IBOutlet var message : UILabel!
+    var email : NSString = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.message.text = "loading"
         var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if defaults.objectForKey("email") != nil {
+        if defaults.objectForKey("email") {
             var email : NSString = defaults.stringForKey("email") as NSString
             if email == "" {
                 NSLog("email is blank")
@@ -77,7 +77,7 @@ class NVInitViewController: UIViewController {
             
             let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
             fr.returnsObjectsAsFaults = false
-            fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", nil)
+            fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", argumentArray: nil)
             
             var error:NSError? = nil
             var users : NSArray = context.executeFetchRequest(fr, error: &error)

@@ -10,12 +10,13 @@ import UIKit
 import CoreData
 
 class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
-    @IBOutlet var email : UITextField
-    @IBOutlet var password1 : UITextField
-    @IBOutlet var password2 : UITextField
-    @IBOutlet var firstname : UITextField
-    @IBOutlet var lastname : UITextField
-    @IBOutlet var message : UILabel
+    
+    @IBOutlet var email : UITextField!
+    @IBOutlet var password1 : UITextField!
+    @IBOutlet var password2 : UITextField!
+    @IBOutlet var firstname : UITextField!
+    @IBOutlet var lastname : UITextField!
+    @IBOutlet var message : UILabel!
     
     var data = NSMutableData()
 
@@ -72,7 +73,8 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
     }
 
     @IBAction func cancel(sender : AnyObject) {
-        self.dismissModalViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
+
     }
     
     // NSURLConnectionDataDelegate Classes
@@ -96,10 +98,9 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
         
         if res["id"] {
-            var id : Integer = res["id"] as NSInteger
             self.message.text = "success"
-        
-            self.dismissModalViewControllerAnimated(true)
+            self.dismissViewControllerAnimated(true, completion: nil)
+
         } else {
             self.message.text = "error"
         }

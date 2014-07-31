@@ -10,10 +10,10 @@ import UIKit
 
 class NVSettingsViewController: UIViewController {
 
-    @IBOutlet var userLabel : UILabel
-    @IBOutlet var firstLabel : UILabel
-    @IBOutlet var lastLabel : UILabel
-    @IBOutlet var remember : UISwitch
+    @IBOutlet var userLabel : UILabel!
+    @IBOutlet var firstLabel : UILabel!
+    @IBOutlet var lastLabel : UILabel!
+    @IBOutlet var remember : UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ class NVSettingsViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "loggedin")
         NSUserDefaults.standardUserDefaults().synchronize()
         //var parent = self.parentViewController
-        self.dismissModalViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     @IBAction func rememberMe(sender : AnyObject) {

@@ -10,22 +10,27 @@ import UIKit
 
 class NVEditItemViewController: UIViewController, UITextViewDelegate {
 
-    @IBOutlet var nameField : UITextField
-    @IBOutlet var valueField : UITextView
-    @IBOutlet var notesField : UITextView
-    @IBOutlet var createdLabel : UILabel
-    @IBOutlet var showButton : UIButton
+    @IBOutlet var nameField : UITextField!
+    @IBOutlet var valueField : UITextView!
+    @IBOutlet var notesField : UITextView!
+    @IBOutlet var createdLabel : UILabel!
+    @IBOutlet var showButton : UIButton!
     
     var item : Item!
+    var data = NSMutableData()
+
+    var decryptedVal : NSString = ""
     var showValue:Bool = false
+    var oldChecksum = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if (item != nil) {
             nameField.text = item.name
-            var val:NSString = item.value
-            valueField.text = String(count:val.length,repeatedValue:"*" as Character)
+            self.decryptedVal = decryptString(item.value)
+            self.oldChecksum = item.checksum
+            valueField.text = String(count:decryptedVal.length,repeatedValue:"*" as Character)
             notesField.text = item.notes
             var df : NSDateFormatter = NSDateFormatter()
             df.dateFormat = "dd/MM/yyyy"
@@ -41,14 +46,13 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     //- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
     
     func textViewShouldBeginEditing(textView:UITextView) -> Bool {
-        valueField.text = item.value
+        valueField.text = decryptedVal
         showValue = true
         return true
     }
     
     func textViewShouldEndEditing(textView:UITextView) -> Bool {
-        var val:NSString = item.value
-        valueField.text = String(count:val.length,repeatedValue:"*" as Character)
+        valueField.text = String(count:decryptedVal.length,repeatedValue:"*" as Character)
         showValue = false
         return true
     }
@@ -56,7 +60,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     //- (void)textViewDidChange:(UITextView *)textView
     
     func textViewDidChange(textView:UITextView) {
-        item.value = valueField.text
+        self.decryptedVal = valueField.text
     }
     
     override func didReceiveMemoryWarning() {
@@ -67,9 +71,43 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     @IBAction func saveItem(sender : AnyObject) {
         item.name = nameField.text
         if showValue {
-            item.value = valueField.text
+            item.value = encryptString(valueField.text)
+        } else {
+            item.value = encryptString(decryptedVal)
         }
+        
+        var crypto: Crypto = Crypto()
+        item.checksum = crypto.sha256HashFor(item.value)
         item.notes = notesField.text
+        
+        if item.checksum != self.oldChecksum {
+            var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+            var envs = NSDictionary(contentsOfFile: envPlist)
+            
+            var secret = [
+                "name": item.name,
+                "contents": item.value,
+                "checksum": item.checksum,
+                "version": item.version,
+                "notes": item.notes,
+            ]
+            
+            var err:NSError? = nil
+            var j = NSJSONSerialization.dataWithJSONObject(secret, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
+            
+            var tURL = envs.valueForKey("UpdateSecretURL") as String
+            var upURL = "\(tURL)\(item.item_id)"
+            var secURL = NSURL(string: upURL)
+            
+            NSLog("Updating secret for user with checksum: \(item.checksum)")
+            
+            var request = NSMutableURLRequest(URL: secURL)
+            request.HTTPMethod = "PUT"
+            request.HTTPBody = j
+            
+            var queue = NSOperationQueue()
+            var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
+        }
         
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let context = delegate.managedObjectContext
@@ -79,7 +117,8 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             NSLog("%@",err!)
         }
         self.clearform()
-        self.dismissModalViewControllerAnimated(true)
+        
+        //self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func deleteItem(sender : AnyObject) {
@@ -94,7 +133,8 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             self.clearform()
             context.deleteObject(self.item)
             context.save(&err)
-            self.dismissModalViewControllerAnimated(true)
+            self.dismissViewControllerAnimated(true, completion: nil)
+
             })
         var noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction!) in
@@ -122,6 +162,41 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         notesField.text=""
         createdLabel.text=""
     }
+    
+    // NSURLConnectionDataDelegate Classes
+    
+    func connection(con: NSURLConnection!, didReceiveData _data:NSData!) {
+        NSLog("didReceiveData")
+        self.data.appendData(_data)
+    }
+    
+    /* func connection(con: NSURLConnection!, didReceiveResponse _response:NSURLResponse!) {
+    NSLog("didReceiveResponse")
+    var response : NSHTTPURLResponse = _response
+    
+    }*/
+    
+    func connectionDidFinishLoading(con: NSURLConnection!) {
+        NSLog("connectionDidFinishLoading")
+        var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
+        NSLog("response: \(resStr)")
+        
+        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+        
+        if res["id"] {
+            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let context = delegate.managedObjectContext
+            self.item.item_id = res["id"] as NSNumber
+            var error : NSError? = nil
+            context.save(&error)
+            NSLog("Update Item \(self.item.item_id) in database")
+        } else {
+            NSLog("No ID on the response, strange")
+        }
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     /*
     // #pragma mark - Navigation
 
