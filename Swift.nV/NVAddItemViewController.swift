@@ -11,10 +11,10 @@ import CoreData
 
 class NVAddItemViewController: UIViewController {
 
-    @IBOutlet var nameField : UITextField
-    @IBOutlet var valueField : UITextView
-    @IBOutlet var notesField : UITextView
-    @IBOutlet var message : UILabel
+    @IBOutlet var nameField : UITextField!
+    @IBOutlet var valueField : UITextView!
+    @IBOutlet var notesField : UITextView!
+    @IBOutlet var message : UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

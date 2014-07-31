@@ -11,15 +11,15 @@ import CoreData
 
 class NVInitViewController: UIViewController {
 
-    @IBOutlet var message : UILabel
-    var email : NSString?
+    @IBOutlet var message : UILabel!
+    var email : NSString = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.message.text = "loading"
         var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if defaults.objectForKey("email") != nil {
+        if defaults.objectForKey("email") {
             var email : NSString = defaults.stringForKey("email") as NSString
             if email == "" {
                 NSLog("email is blank")
@@ -30,7 +30,8 @@ class NVInitViewController: UIViewController {
                 NSLog("no email in defaults, setting up storage")
                 setupPreferences(defaults)
         }
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(3), target: self, selector: Selector("updateMessage"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(3), target: self, selector: Selector("go"), userInfo: nil, repeats: false)
+        
         // Do any additional setup after loading the view.
     }
     
@@ -50,7 +51,7 @@ class NVInitViewController: UIViewController {
     }
     
 
-    @IBAction func go(sender : AnyObject) {
+    func go() {
         var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
         self.email = defaults.stringForKey("email") as NSString
         var loggedin :Bool = defaults.boolForKey("loggedin")
@@ -75,7 +76,7 @@ class NVInitViewController: UIViewController {
             
             let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
             fr.returnsObjectsAsFaults = false
-            fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", nil)
+            fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", argumentArray: nil)
             
             var error:NSError? = nil
             var users : NSArray = context.executeFetchRequest(fr, error: &error)

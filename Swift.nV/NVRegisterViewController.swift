@@ -10,12 +10,13 @@ import UIKit
 import CoreData
 
 class NVRegisterViewController: UIViewController {
-    @IBOutlet var email : UITextField
-    @IBOutlet var password1 : UITextField
-    @IBOutlet var password2 : UITextField
-    @IBOutlet var firstname : UITextField
-    @IBOutlet var lastname : UITextField
-    @IBOutlet var message : UILabel
+    
+    @IBOutlet var email : UITextField!
+    @IBOutlet var password1 : UITextField!
+    @IBOutlet var password2 : UITextField!
+    @IBOutlet var firstname : UITextField!
+    @IBOutlet var lastname : UITextField!
+    @IBOutlet var message : UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,12 +56,12 @@ class NVRegisterViewController: UIViewController {
             if error != nil {
                 NSLog("%@",error!)
             }
-            self.dismissModalViewControllerAnimated(true)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
 
     @IBAction func cancel(sender : AnyObject) {
-        self.dismissModalViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     /*
     // #pragma mark - Navigation

@@ -11,11 +11,11 @@ import CoreData
 
 class NVLoginViewController: UIViewController {
 
-    @IBOutlet var message : UILabel
-    @IBOutlet var username : UITextField
-    @IBOutlet var password : UITextField
-    @IBOutlet var goButton : UIButton
-    @IBOutlet var register : UIButton
+    @IBOutlet var message : UILabel!
+    @IBOutlet var username : UITextField!
+    @IBOutlet var password : UITextField!
+    @IBOutlet var goButton : UIButton!
+    @IBOutlet var register : UIButton!
     
     var appUser : User!
     
@@ -53,7 +53,8 @@ class NVLoginViewController: UIViewController {
 
         let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
         fr.returnsObjectsAsFaults = false
-        fr.predicate = NSPredicate(format: "(email LIKE '\(self.username.text)') AND (password == '\(self.password.text)')", nil)
+        fr.predicate = NSPredicate(format: "(email LIKE '\(self.username.text)') AND (password LIKE '\(self.password.text)')",argumentArray: nil)
+        NSLog("Predicate %@",fr.predicate)
         
         var error:NSError? = nil
         var users : NSArray = context.executeFetchRequest(fr, error: &error)
