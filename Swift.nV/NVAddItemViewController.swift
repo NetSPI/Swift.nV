@@ -16,12 +16,10 @@ class NVAddItemViewController: UIViewController {
     @IBOutlet var valueField : UITextView!
     @IBOutlet var notesField : UITextView!
     @IBOutlet var message : UILabel!
-<<<<<<< HEAD
     
     var item : Item!
     var data = NSMutableData()
-=======
->>>>>>> origin/master
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,11 +53,6 @@ class NVAddItemViewController: UIViewController {
             item.name = self.nameField.text
             item.value = encryptString(self.valueField.text)
             
-            var crypto: Crypto = Crypto()
-            
-            // Create Checksum
-            item.checksum = crypto.sha256HashFor(item.value)
-            
             item.version = 1
             if self.notesField.text == "notes" {
                 item.notes = ""
@@ -68,6 +61,8 @@ class NVAddItemViewController: UIViewController {
             }
             item.created = NSDate()
             item.email = appUser.email
+            
+            item.checksum = generateChecksum(item)
             
             var secret = [
                 "name": item.name,
@@ -150,7 +145,6 @@ class NVAddItemViewController: UIViewController {
         
         if res["id"] {
             self.message.text = "success"
-            self.dismissViewControllerAnimated(true, completion: nil)
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
             let context = delegate.managedObjectContext
             self.item.item_id = res["id"] as NSNumber

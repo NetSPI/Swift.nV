@@ -77,8 +77,8 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         }
         
         var crypto: Crypto = Crypto()
-        item.checksum = crypto.sha256HashFor(item.value)
         item.notes = notesField.text
+        item.checksum = generateChecksum(item)
         
         if item.checksum != self.oldChecksum {
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
@@ -107,8 +107,20 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             
             var queue = NSOperationQueue()
             var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
+            
+            self.saveContext()
+            self.clearform()
+            
+        } else {
+            self.saveContext()
+            self.clearform()
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
         
+
+    }
+    
+    func saveContext() {
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let context = delegate.managedObjectContext
         var err :NSError?
@@ -116,9 +128,6 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         if err != nil {
             NSLog("%@",err!)
         }
-        self.clearform()
-        
-        //self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func deleteItem(sender : AnyObject) {

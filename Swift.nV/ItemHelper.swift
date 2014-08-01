@@ -8,7 +8,7 @@
 
 import Foundation
 
-func encryptString(toEncrypt: String)->String {
+func encryptString(toEncrypt: String) -> String {
 
     var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
     var envs = NSDictionary(contentsOfFile: envPlist)
@@ -25,7 +25,7 @@ func encryptString(toEncrypt: String)->String {
     return ret
 }
 
-func decryptString(toDecrypt: String)->String {
+func decryptString(toDecrypt: String) -> String {
     var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
     var envs = NSDictionary(contentsOfFile: envPlist)
     let cryptoKey = envs.valueForKey("CryptoKey") as String
@@ -38,4 +38,9 @@ func decryptString(toDecrypt: String)->String {
     NSLog("Decrypting \(toDecrypt) as \(ret)")
     
     return ret
+}
+
+func generateChecksum(myItem: Item) -> String {
+    var crypto: Crypto = Crypto()
+    return crypto.sha256HashFor("\(myItem.name)\(myItem.value)\(myItem.notes)")
 }
