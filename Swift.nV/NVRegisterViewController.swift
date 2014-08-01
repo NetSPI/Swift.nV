@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class NVRegisterViewController: UIViewController {
+class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
     
     @IBOutlet var email : UITextField!
     @IBOutlet var password1 : UITextField!
@@ -17,6 +17,8 @@ class NVRegisterViewController: UIViewController {
     @IBOutlet var firstname : UITextField!
     @IBOutlet var lastname : UITextField!
     @IBOutlet var message : UILabel!
+    
+    var data = NSMutableData()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,33 +38,74 @@ class NVRegisterViewController: UIViewController {
            (self.firstname.text == "") ||
             (self.lastname.text == "") {
                 self.message.text = "all fields required"
+        } else if self.password1.text != self.password2.text {
+            self.message.text = "passwords must match"
         } else {
             self.message.text = "registering \(self.email.text)"
-            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-            let context = delegate.managedObjectContext
-            let entityD = NSEntityDescription.entityForName("User", inManagedObjectContext: context)
-            var user : User = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as User
-            //Name("User",inManagedObjectContext: context) as NSManagedObject
-            user.email = self.email.text
-            if self.password1.text == self.password2.text {
-                user.password = self.password1.text
-            }
-            user.firstname = self.firstname.text
-            user.lastname = self.lastname.text
+            //NSLog("registering \(self.email.text)")
             
-            var error:NSError? = nil
-            context.save(&error)
+            var user = [
+                "email": self.email.text,
+                "fname": self.firstname.text,
+                "lname": self.lastname.text,
+                "password": self.password1.text
+            ]
             
-            if error != nil {
-                NSLog("%@",error!)
-            }
-            self.dismissViewControllerAnimated(true, completion: nil)
+            NSLog("u: \(user)")
+            var err:NSError? = nil
+            var j = NSJSONSerialization.dataWithJSONObject(user, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
+            
+            var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+            var envs = NSDictionary(contentsOfFile: envPlist)
+            var tURL = envs.valueForKey("RegisterURL") as String
+            var regURL = NSURL(string: tURL)
+            
+            NSLog("registering \(self.email.text) with \(regURL)")
+            
+            var request = NSMutableURLRequest(URL: regURL)
+            request.HTTPMethod = "POST"
+            request.HTTPBody = j
+            
+            var queue = NSOperationQueue()
+            var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
+            
         }
     }
 
     @IBAction func cancel(sender : AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
+
     }
+    
+    // NSURLConnectionDataDelegate Classes
+    
+    func connection(con: NSURLConnection!, didReceiveData _data:NSData!) {
+        NSLog("didReceiveData")
+        self.data.appendData(_data)
+    }
+    
+    /* func connection(con: NSURLConnection!, didReceiveResponse _response:NSURLResponse!) {
+        NSLog("didReceiveResponse")
+        var response : NSHTTPURLResponse = _response
+        
+    }*/
+    
+    func connectionDidFinishLoading(con: NSURLConnection!) {
+        NSLog("connectionDidFinishLoading")
+        var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
+        NSLog("response: \(resStr)")
+        
+        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+        
+        if res["id"] {
+            self.message.text = "success"
+            self.dismissViewControllerAnimated(true, completion: nil)
+
+        } else {
+            self.message.text = "error"
+        }
+    }
+    
     /*
     // #pragma mark - Navigation
 

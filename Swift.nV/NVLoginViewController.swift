@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class NVLoginViewController: UIViewController {
+class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
 
     @IBOutlet var message : UILabel!
     @IBOutlet var username : UITextField!
@@ -18,6 +18,8 @@ class NVLoginViewController: UIViewController {
     @IBOutlet var register : UIButton!
     
     var appUser : User!
+    
+    var data = NSMutableData()
     
     init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
@@ -48,39 +50,105 @@ class NVLoginViewController: UIViewController {
         self.message.text = "Logging in as \(self.username.text)"
         // authenticate here!!!
         
-        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        let context = delegate.managedObjectContext
+        var authRequest = [
+            "email": self.username.text,
+            "password": self.password.text
+        ]
+        
+        var err:NSError? = nil
+        var j = NSJSONSerialization.dataWithJSONObject(authRequest, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
+        
+        var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+        var envs = NSDictionary(contentsOfFile: envPlist)
+        var tURL = envs.valueForKey("AuthenticateURL") as String
+        var authURL = NSURL(string: tURL)
+        
+        NSLog("authenticate \(self.username.text) with \(authURL)")
+        
+        var request = NSMutableURLRequest(URL: authURL)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = j
+        
+        var queue = NSOperationQueue()
+        var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
 
-        let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
-        fr.returnsObjectsAsFaults = false
-        fr.predicate = NSPredicate(format: "(email LIKE '\(self.username.text)') AND (password LIKE '\(self.password.text)')",argumentArray: nil)
-        NSLog("Predicate %@",fr.predicate)
         
-        var error:NSError? = nil
-        var users : NSArray = context.executeFetchRequest(fr, error: &error)
-        
-        var auth = false
-        if users.count > 0 {
-            NSLog("auth (\(self.username.text):\(self.password.text))")
-            appUser = users[0] as? User
-            var te : NSString = self.username.text
-            var defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject(te, forKey: "email")
-            defaults.setBool(true, forKey: "loggedin")
-            defaults.synchronize()
-            NSLog("Setting email key in NSUserDefaults to \(te)")
-            //NSLog("Defaults: %@",defaults)
-            
-            self.performSegueWithIdentifier("Home", sender: self)
-            auth = true
-            
-        } else {
-            NSLog("auth failed (\(self.username.text):\(self.password.text))")
-            self.message.text = "auth failed"
-        }
+        /**/
     
     }
 
+    
+    // NSURLConnectionDataDelegate Classes
+    
+    func connection(con: NSURLConnection!, didReceiveData _data:NSData!) {
+        NSLog("didReceiveData")
+        self.data.appendData(_data)
+    }
+    
+    func connectionDidFinishLoading(con: NSURLConnection!) {
+        NSLog("connectionDidFinishLoading")
+        var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
+        NSLog("response: \(resStr)")
+        
+        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+        
+        if res["error"] {
+            self.message.text = res["error"] as String
+            self.data.setData(nil)
+        } else if res["id"] {
+            // User Authenticated. Make sure they exist in the DB and log them in.
+            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let context = delegate.managedObjectContext
+            
+            let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
+            fr.returnsObjectsAsFaults = false
+            fr.predicate = NSPredicate(format: "(email LIKE '\(self.username.text)')",argumentArray:  nil)
+            
+            var error:NSError? = nil
+            var users : NSArray = context.executeFetchRequest(fr, error: &error)
+            
+            var auth = false
+            if users.count > 0 {
+                self.appUser = users[0] as? User
+                auth = true
+                
+            } else {
+                NSLog("user \(self.username.text) does not exist, storing")
+                
+                var user : User = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as User
+                
+                //var uid : String = (res["id"] as NSNumber).stringValue
+                user.email = res["email"] as String
+                user.password = self.password.text
+                user.firstname = res["fname"] as String
+                user.lastname = res["lname"] as String
+                user.user_id = res["id"] as NSNumber
+                user.token = res["api_token"] as String
+                
+                var err:NSError? = nil
+                context.save(&err)
+                
+                if err != nil {
+                    NSLog("%@",err!)
+                }
+                
+                self.appUser = user
+
+            }
+            
+            var defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(self.username.text as NSString, forKey: "email")
+            defaults.setBool(true, forKey: "loggedin")
+            defaults.synchronize()
+            NSLog("Setting email key in NSUserDefaults to \(self.username.text)")
+            
+            self.data.setData(nil)
+            self.performSegueWithIdentifier("Home", sender: self)
+        } else {
+            self.message.text = "error"
+        }
+        
+    }
     
     // #pragma mark - Navigation
 

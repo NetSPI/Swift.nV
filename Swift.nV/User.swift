@@ -14,4 +14,6 @@ class User: NSManagedObject {
     @NSManaged var password: String
     @NSManaged var firstname: String
     @NSManaged var lastname: String
+    @NSManaged var user_id: NSNumber
+    @NSManaged var token: String
 }
