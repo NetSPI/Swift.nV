@@ -16,9 +16,12 @@ class NVAddItemViewController: UIViewController {
     @IBOutlet var valueField : UITextView!
     @IBOutlet var notesField : UITextView!
     @IBOutlet var message : UILabel!
+<<<<<<< HEAD
     
     var item : Item!
     var data = NSMutableData()
+=======
+>>>>>>> origin/master
     
     override func viewDidLoad() {
         super.viewDidLoad()
