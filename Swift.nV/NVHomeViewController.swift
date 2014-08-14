@@ -12,7 +12,7 @@ class NVHomeViewController: UITabBarController {
     
     var appUser : User!
     
-    init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
     }
 

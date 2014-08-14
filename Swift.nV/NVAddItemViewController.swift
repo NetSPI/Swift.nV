@@ -97,6 +97,7 @@ class NVAddItemViewController: UIViewController {
                 var yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
                         (action:UIAlertAction!) in
                         self.resetForm()
+                        self.data.setData(nil)
                         alert.dismissViewControllerAnimated(true, completion: nil)
                     })
                 var noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
@@ -121,6 +122,7 @@ class NVAddItemViewController: UIViewController {
         self.nameField.text = ""
         self.valueField.text = ""
         self.notesField.text = ""
+        self.message.text = ""
     }
     
     // NSURLConnectionDataDelegate Classes
