@@ -17,6 +17,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
     @IBOutlet var firstname : UITextField!
     @IBOutlet var lastname : UITextField!
     @IBOutlet var message : UILabel!
+    @IBOutlet weak var registerScroll: UIScrollView!
     
     var data = NSMutableData()
 
@@ -24,6 +25,11 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        registerScroll.contentSize = CGSizeMake(241, 450)
     }
 
     override func didReceiveMemoryWarning() {

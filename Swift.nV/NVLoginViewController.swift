@@ -16,6 +16,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
     @IBOutlet var password : UITextField!
     @IBOutlet var goButton : UIButton!
     @IBOutlet var register : UIButton!
+    @IBOutlet weak var loginScroll: UIScrollView!
     
     var appUser : User!
     
@@ -39,6 +40,11 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.loginScroll.contentSize = CGSizeMake(320, 300)
     }
 
     override func didReceiveMemoryWarning() {

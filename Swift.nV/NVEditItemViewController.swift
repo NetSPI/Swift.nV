@@ -15,6 +15,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var notesField : UITextView!
     @IBOutlet var createdLabel : UILabel!
     @IBOutlet var showButton : UIButton!
+    @IBOutlet weak var editItemScroll: UIScrollView!
     
     var item : Item!
     var data = NSMutableData()
@@ -41,6 +42,10 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         }
 
         // Do any additional setup after loading the view.
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        editItemScroll.contentSize = CGSizeMake(320, 750)
     }
 
     //- (BOOL)textViewShouldBeginEditing:(UITextView *)textView

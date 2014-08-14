@@ -16,6 +16,7 @@ class NVAddItemViewController: UIViewController {
     @IBOutlet var valueField : UITextView!
     @IBOutlet var notesField : UITextView!
     @IBOutlet var message : UILabel!
+    @IBOutlet weak var addItemScroll: UIScrollView!
     
     var item : Item!
     var data = NSMutableData()
@@ -25,6 +26,11 @@ class NVAddItemViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.addItemScroll.contentSize = CGSizeMake(320, 750)
     }
 
     override func didReceiveMemoryWarning() {
