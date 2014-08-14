@@ -112,6 +112,11 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         }
     }
     
+    func connection(connection: NSURLConnection!, didFailWithError error: NSError!) {
+        self.message.text = "Connection to API failed"
+        NSLog("%@",error!)
+    }
+    
     /*
     // #pragma mark - Navigation
 

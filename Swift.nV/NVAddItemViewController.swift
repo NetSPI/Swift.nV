@@ -93,35 +93,7 @@ class NVAddItemViewController: UIViewController {
             var queue = NSOperationQueue()
             var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
             
-            var error : NSError? = nil
-            context.save(&error)
-            
-            if error != nil {
-                NSLog("%@",error!)
-            } else {
-                var alert : UIAlertController = UIAlertController(title: "Item Added", message: "Add another item?", preferredStyle: UIAlertControllerStyle.Alert)
-                var yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
-                        (action:UIAlertAction!) in
-                        self.resetForm()
-                        self.data.setData(nil)
-                        alert.dismissViewControllerAnimated(true, completion: nil)
-                    })
-                var noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
-                        (action:UIAlertAction!) in
-                        NSLog("No")
-                        self.resetForm()
-                        self.tabBarController.selectedIndex = 0
-                    })
-
-                alert.addAction(yesItem)
-                alert.addAction(noItem)
-                
-                self.presentViewController(alert, animated: true, completion: nil)
-                
-                /* UIAlertView alert = [[UIAlertView alloc] initWithTitle:@"Wait" message:@"Are you sure you want to delete this.  This action cannot be undone" delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Cancel", nil];
-                [alert show]; */
             }
-        }
     }
     
     func resetForm() {
@@ -138,12 +110,6 @@ class NVAddItemViewController: UIViewController {
         self.data.appendData(_data)
     }
     
-    /* func connection(con: NSURLConnection!, didReceiveResponse _response:NSURLResponse!) {
-    NSLog("didReceiveResponse")
-    var response : NSHTTPURLResponse = _response
-    
-    }*/
-    
     func connectionDidFinishLoading(con: NSURLConnection!) {
         NSLog("connectionDidFinishLoading")
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
@@ -159,9 +125,38 @@ class NVAddItemViewController: UIViewController {
             var error : NSError? = nil
             context.save(&error)
             
+            if error != nil {
+                NSLog("@%",error!)
+            } else {
+                var alert : UIAlertController = UIAlertController(title: "Item Added", message: "Add another item?", preferredStyle: UIAlertControllerStyle.Alert)
+                var yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
+                    (action:UIAlertAction!) in
+                    self.resetForm()
+                    self.data.setData(nil)
+                    self.nameField.becomeFirstResponder()
+                    alert.dismissViewControllerAnimated(true, completion: nil)
+                })
+                var noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
+                    (action:UIAlertAction!) in
+                    NSLog("No")
+                    self.resetForm()
+                    self.tabBarController.selectedIndex = 0
+                })
+                
+                alert.addAction(yesItem)
+                alert.addAction(noItem)
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        
         } else {
             self.message.text = "error"
         }
+    }
+    
+    func connection(connection: NSURLConnection!, didFailWithError error: NSError!) {
+        self.message.text = "Connection to API failed"
+        NSLog("%@",error!)
     }
     
     /*

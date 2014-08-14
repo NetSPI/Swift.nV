@@ -156,6 +156,11 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         
     }
     
+    func connection(connection: NSURLConnection!, didFailWithError error: NSError!) {
+        self.message.text = "Connection to API failed"
+        NSLog("%@",error!)
+    }
+    
     // #pragma mark - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -211,6 +211,11 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func connection(connection: NSURLConnection!, didFailWithError error: NSError!) {
+        //self.message.text = "Connection to API failed"
+        NSLog("%@",error!)
+    }
+    
     /*
     // #pragma mark - Navigation
 
