@@ -10,10 +10,11 @@ import UIKit
 
 class NVSettingsViewController: UIViewController {
 
-    @IBOutlet var userLabel : UILabel!
-    @IBOutlet var firstLabel : UILabel!
-    @IBOutlet var lastLabel : UILabel!
-    @IBOutlet var remember : UISwitch!
+    @IBOutlet weak var userLabel : UILabel!
+    @IBOutlet weak var firstLabel : UILabel!
+    @IBOutlet weak var lastLabel : UILabel!
+    @IBOutlet weak var remember : UISwitch!
+    @IBOutlet weak var networkStorage: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,7 @@ class NVSettingsViewController: UIViewController {
             self.firstLabel.text = u.firstname
             self.lastLabel.text = u.lastname
             remember.on = NSUserDefaults.standardUserDefaults().boolForKey("loggedin")
+            networkStorage.on = NSUserDefaults.standardUserDefaults().boolForKey("networkStorage")
         }
     }
 
@@ -48,6 +50,11 @@ class NVSettingsViewController: UIViewController {
 
     @IBAction func rememberMe(sender : AnyObject) {
         NSUserDefaults.standardUserDefaults().setBool(remember.on, forKey: "loggedin")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    @IBAction func toggleNetwork(sender: AnyObject) {
+        NSUserDefaults.standardUserDefaults().setBool(networkStorage.on, forKey: "networkStorage")
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     

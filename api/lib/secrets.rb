@@ -26,15 +26,18 @@ get '/secret/:root_id/current_version' do
 end
 
 # Fetch all secrets for user
-get '/secrets' do
-	current_user.secrets.to_json
+get '/secrets/:user_id' do
+	user_id = params[:user_id]
+	#user_id.to_json
+	secrets = User.get(user_id).secrets
+	MultiJson.dump({ :secrets => secrets })
 end
 
 # Create new secret
 post '/secret' do
 	params = MultiJson.load(request.body.read)
 	secret = Secret.new(params)
-	secret.user = current_user
+	secret.user = User.get(secret.user_id)
 	if secret.save
 		secret.root_id = secret.id
 		secret.save
@@ -49,23 +52,23 @@ put '/secret/:secret_id' do
 	if Secret.get(params[:secret_id])
 		# How do we want to handle updates?
 		# Create new object, disassociate previous object?
-		old_secret = Secret.get(params[:secret_id])
-		old_secret.status = "old"
-		old_secret.save
+		updated_secret = Secret.get(params[:secret_id])
+		#old_secret.status = "old"
+		#old_secret.save
 
 		json_params = MultiJson.load(request.body.read)
 
-		new_secret = Secret.new
-		new_secret.name = json_params["name"]
-		new_secret.contents = json_params["contents"]
-		new_secret.notes = json_params["notes"]
-		new_secret.checksum = json_params["checksum"]
-		new_secret.version = old_secret.version + 1
-		new_secret.user = current_user
-		new_secret.root_id = old_secret.root_id || old_secret.id
+		#new_secret = Secret.new
+		updated_secret.name = json_params["name"]
+		updated_secret.contents = json_params["contents"]
+		updated_secret.notes = json_params["notes"]
+		updated_secret.checksum = json_params["checksum"]
+		updated_secret.version = updated_secret.version + 1
+		updated_secret.user = User.get(json_params["user_id"])
+		#updated_secret.root_id = old_secret.root_id || old_secret.id
 
-		if new_secret.save
-			new_secret.to_json
+		if updated_secret.save
+			updated_secret.to_json
 		else
 			MultiJson.dump({ :error => "Cannot update secret"})
 		end

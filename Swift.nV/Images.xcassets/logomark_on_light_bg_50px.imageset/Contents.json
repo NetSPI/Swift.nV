@@ -4,6 +4,11 @@
       "idiom" : "universal",
       "scale" : "1x",
       "filename" : "logomark_on_light_bg_50px.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "filename" : "logomark_on_light_bg_100px.png"
     }
   ],
   "info" : {

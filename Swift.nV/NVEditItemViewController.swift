@@ -24,6 +24,8 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     var showValue:Bool = false
     var oldChecksum = ""
     
+    var appUser : User!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,12 +91,16 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
             var envs = NSDictionary(contentsOfFile: envPlist)
             
+            //var itvc : NVItemsTableViewController = self.parentViewController as NVItemsTableViewController
+            //self.appUser = itvc.appUser
+            
             var secret = [
                 "name": item.name,
                 "contents": item.value,
                 "checksum": item.checksum,
                 "version": item.version,
                 "notes": item.notes,
+                "user_id": self.appUser.user_id
             ]
             
             var err:NSError? = nil
@@ -180,7 +186,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     // NSURLConnectionDataDelegate Classes
     
     func connection(con: NSURLConnection!, didReceiveData _data:NSData!) {
-        NSLog("didReceiveData")
+        //NSLog("didReceiveData")
         self.data.appendData(_data)
     }
     
@@ -191,9 +197,9 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     }*/
     
     func connectionDidFinishLoading(con: NSURLConnection!) {
-        NSLog("connectionDidFinishLoading")
+        //NSLog("connectionDidFinishLoading")
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
-        NSLog("response: \(resStr)")
+        //NSLog("response: \(resStr)")
         
         var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
         
@@ -205,6 +211,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             context.save(&error)
             NSLog("Update Item \(self.item.item_id) in database")
         } else {
+            self.data.setData(nil)
             NSLog("No ID on the response, strange")
         }
         

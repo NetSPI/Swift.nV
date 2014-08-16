@@ -19,12 +19,14 @@ class NVAddItemViewController: UIViewController {
     @IBOutlet weak var addItemScroll: UIScrollView!
     
     var item : Item!
+    var appUser : User!
     var data = NSMutableData()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.nameField.becomeFirstResponder()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -53,7 +55,7 @@ class NVAddItemViewController: UIViewController {
             var envs = NSDictionary(contentsOfFile: envPlist)
             
             var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
-            var appUser : User = hvc.appUser
+            self.appUser = hvc.appUser
             NSLog("Storing \(self.nameField.text) for \(appUser.email)")
             
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -81,6 +83,7 @@ class NVAddItemViewController: UIViewController {
                 "checksum": item.checksum,
                 "version": item.version,
                 "notes": item.notes,
+                "user_id": self.appUser.user_id
             ]
             
             var err:NSError? = nil
@@ -89,7 +92,7 @@ class NVAddItemViewController: UIViewController {
             var tURL = envs.valueForKey("NewSecretURL") as String
             var secURL = NSURL(string: tURL)
             
-            NSLog("Adding secret for user with checksum: \(item.checksum)")
+            NSLog("Adding secret \(j) for user (\(self.appUser.user_id)) with checksum: \(item.checksum)")
             
             var request = NSMutableURLRequest(URL: secURL)
             request.HTTPMethod = "POST"
@@ -111,14 +114,14 @@ class NVAddItemViewController: UIViewController {
     // NSURLConnectionDataDelegate Classes
     
     func connection(con: NSURLConnection!, didReceiveData _data:NSData!) {
-        NSLog("didReceiveData")
+        //NSLog("didReceiveData")
         self.data.appendData(_data)
     }
     
     func connectionDidFinishLoading(con: NSURLConnection!) {
-        NSLog("connectionDidFinishLoading")
+        //NSLog("connectionDidFinishLoading")
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
-        NSLog("response: \(resStr)")
+        //NSLog("response: \(resStr)")
         
         var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
         
@@ -155,6 +158,8 @@ class NVAddItemViewController: UIViewController {
             }
         
         } else {
+            self.data.setData(nil)
+            self.nameField.becomeFirstResponder()
             self.message.text = "error"
         }
     }

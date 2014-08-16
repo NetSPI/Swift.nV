@@ -3,7 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "nvisbot.png"
+      "filename" : "nvisbot_original-1.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "filename" : "nvisbot_original.png"
     }
   ],
   "info" : {

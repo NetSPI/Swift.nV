@@ -43,6 +43,8 @@ class NVInitViewController: UIViewController {
     func setupPreferences(defaults: NSUserDefaults) {
         defaults.setObject("", forKey: "email")
         defaults.setBool(false, forKey: "loggedin")
+        defaults.setBool(true, forKey: "networkStorage")
+
         defaults.synchronize()
     }
 

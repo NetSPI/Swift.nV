@@ -87,14 +87,14 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
     // NSURLConnectionDataDelegate Classes
     
     func connection(con: NSURLConnection!, didReceiveData _data:NSData!) {
-        NSLog("didReceiveData")
+        //NSLog("didReceiveData")
         self.data.appendData(_data)
     }
     
     func connectionDidFinishLoading(con: NSURLConnection!) {
-        NSLog("connectionDidFinishLoading")
+        //NSLog("connectionDidFinishLoading")
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
-        NSLog("response: \(resStr)")
+        //NSLog("response: \(resStr)")
         
         var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
         
@@ -151,6 +151,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             self.data.setData(nil)
             self.performSegueWithIdentifier("Home", sender: self)
         } else {
+            self.data.setData(nil)
             self.message.text = "error"
         }
         
