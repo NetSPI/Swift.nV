@@ -122,7 +122,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         var df : NSDateFormatter = NSDateFormatter()
         df.dateFormat = "dd/MM/yyyy HH:mm"
         
-        cell.detailTextLabel.text = NSString(format: "created %@",df.stringFromDate(item.created))
+        cell.detailTextLabel.text = NSString(format: "%@",df.stringFromDate(item.created))
         //NSLog("built cell for \(item.name)")
         
         return cell
