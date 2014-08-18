@@ -8,21 +8,21 @@ Setup
 
 Swift.nV has currently been tested using:
 
-	- XCode 6 beta5
-	- iPhone Simulator 
+	XCode 6 beta5
+	iOS Simulator 
 		- iPhone 4/5/5s
 		- iPad 2/Air
 		- iOS 8.0
-	- Ruby + Sinatra (for the backend web service)
+	Ruby + Sinatra (for the backend web service)
 
 
 Run
 ---
-	- Open up the Swift.nV.xcodeproj using XCode 6 beta4
+	- Open up the Swift.nV.xcodeproj using XCode 6 beta5
 	- Start the Sinatra backend web service:
 		- In the api directory run "ruby api.rb"
 		- This service should run on localhost (127.0.0.1) port 4567
-	- Click the Run icon after selecting one of the iPhone Simulator targets
+	- Click the Run icon after selecting one of the iOS Simulator targets
 
 Use
 ---
