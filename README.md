@@ -1,9 +1,7 @@
 Swift.nV
 ==========
 
-Swift.nV is a vulnerable iOS "secret keeper" application.
-
-More information about Swift.nV and its vulnerabilities can be found [here](https://github.com/nVisium/Swift.nV/wiki)
+Swift.nV is a vulnerable iOS "secret keeper" application. It is intended as a security training tool instructing Swift developers on common mobile application vulnerabilities, how they are found, and how to prevent them.
 
 Setup
 -----
@@ -11,7 +9,7 @@ Setup
 Swift.nV has currently been tested using:
 
 	- XCode 6 beta5
-	- iPhone Simulutor 
+	- iPhone Simulator 
 		- iPhone 4/5/5s
 		- iPad 2/Air
 		- iOS 8.0
