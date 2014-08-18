@@ -52,3 +52,4 @@ Intentional Vulnerabilities
 	- Poor Authorization and Authentication (M5) - Same email address can be registered multiple times, allowing a user to view another's secrets.
 	- Broken Cryptography (M6) - Shared Secret "CryptoKey" is stored within the Environment.plist file
 	- Client Side Injection (M7) - multiple locations, including Format String Injection on the login screen
+	- Improper Session Handling (M8) - App completely lacks any session tokens or they are unused for interaction with API.
