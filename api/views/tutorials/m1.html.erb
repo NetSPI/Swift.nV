@@ -1,0 +1,117 @@
+<div class="panel-group" id="accordion">
+<h4>M1: Insecure Direct Object Reference</h4>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Description
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <p>Applications often leverage parameters such as ID's or filenames to provide the application with access to certain resources, such as database records or files. In many situations the application does not verify that the current user should have access to the particular resource.</p>
+
+		<p>Within Swift.nV it is possible to leverage the following Insecure Direct Object Reference vulnerabilities to READ / UPDATE / DESTROY the encrypted secrets of other users, and also download the entire user object for other users.</p>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          Bug
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+	    api/controllers/secrets_controller.rb:
+        <pre class="ruby">
+			# Fetch single secret by id
+			get '/secret/:id' do
+			    secret = Secret.get(params[:id])
+			    if secret
+			        secret.to_json
+			    else
+			        { :error => "Secret with that id does not exist" }.to_json
+			    end
+			end
+		</pre>
+		<pre class="ruby">
+			# Fetch all secrets for user
+			get '/secrets/:user_id' do
+			    user_id = params[:user_id]
+			    #user_id.to_json
+			    secrets = User.get(user_id).secrets
+			    MultiJson.dump({ :secrets => secrets })
+			end
+		</pre>
+		<pre class="ruby">
+			put '/secret/:secret_id' do
+			    # Check if secret exists, first
+			    if Secret.get(params[:secret_id])
+			        ... Update Secret
+			    else
+			        MultiJson.dump({ :error => "Cannot find secret with id: #{params[:id]}"})
+			    end
+			end
+		</pre>
+		<pre class="ruby">
+			delete '/secret/:secret_id' do
+			    secret = Secret.get(params[:secret_id])
+			    if secret
+			        secret.destroy
+			        MultiJson.dump({ :success => "Successfully destroyed secret" })
+			    else
+			        MultiJson.dump({ :error => "Unable to destroy secret" })
+			    end
+			end
+		</pre>
+		api/controller/users_controller.rb:
+		<pre class="ruby">
+			get '/user/:id' do
+			    @user = User.get(params[:id])
+			    if @user
+			        @user.to_json
+			    else
+			        MultiJson.dump({ :error => "User with that id does not exist" })
+			    end
+			end
+		</pre>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          Solution
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+       	<p>To properly mitigate Insecure Direct Object Reference vulnerabilities, it is important to always leverage access controls before granting the user with the ability to perform CRUD operations.</p>
+
+		<p>Applications that communicate with a backend web service are often vulnerable to Insecure Direct Object Reference vulnerabilities.</p>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+          Hint
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse">
+      <div class="panel-body">
+        <a target="_blank" href="https://www.owasp.org/index.php/Top_10_2010-A4-Insecure_Direct_Object_References"> 
+	     [1] OWASP Insecure Direct Object Reference
+	    </a>
+      </div>
+    </div>
+  </div>
+</div>

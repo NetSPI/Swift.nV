@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Swift.nV</title>
+  <script type="text/javascript" src="/javascripts/jquery-1.11.0.js"></script>
+  <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
+  <script type="text/javascript" src="/javascripts/jquery.snippet.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.css">
+  <link rel="stylesheet" type="text/css" href="/css/simple-sidebar.css">
+  <link rel="stylesheet" type="text/css" href="/css/jquery.snippet.css">
+</head>
+<body>
+	
+	
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/tutorial">Swift.nV Tutorials</a>
+  </div>
+</nav>
+
+<div id="wrapper">
+	<%= partial "shared/sidebar".to_sym %>
+	<div class="container">
+		<%= yield %>
+	</div>
+</div>	
+
+<script type="text/js">
+$(document).ready(function(){ 
+	$("pre.ruby").snippet("ruby");
+});	
+</script>
+</body>
+</html>
