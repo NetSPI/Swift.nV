@@ -1,0 +1,63 @@
+<div class="panel-group" id="accordion">
+<h4>M1: Insecure Direct Object Reference</h4>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Description
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <p>Applications often leverage parameters such as ID's or filenames to provide the application with access to certain resources, such as database records or files. In many situations the application does not verify that the current user should have access to the particular resource.</p>
+
+		<p>Within Swift.nV it is possible to leverage the following Insecure Direct Object Reference vulnerabilities to READ / UPDATE / DESTROY the encrypted secrets of other users, and also download the entire user object for other users.</p>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          Bug
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+        insert bug
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          Solution
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+       	<p>To properly mitigate Insecure Direct Object Reference vulnerabilities, it is important to always leverage access controls before granting the user with the ability to perform CRUD operations.</p>
+
+		<p>Applications that communicate with a backend web service are often vulnerable to Insecure Direct Object Reference vulnerabilities.</p>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+          Hint
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse">
+      <div class="panel-body">
+        insert hint
+      </div>
+    </div>
+  </div>
+</div>
