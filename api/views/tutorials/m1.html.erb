@@ -26,7 +26,59 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
-        insert bug
+	    api/controllers/secrets_controller.rb:
+        <pre class="ruby">
+			# Fetch single secret by id
+			get '/secret/:id' do
+			    secret = Secret.get(params[:id])
+			    if secret
+			        secret.to_json
+			    else
+			        { :error => "Secret with that id does not exist" }.to_json
+			    end
+			end
+		</pre>
+		<pre class="ruby">
+			# Fetch all secrets for user
+			get '/secrets/:user_id' do
+			    user_id = params[:user_id]
+			    #user_id.to_json
+			    secrets = User.get(user_id).secrets
+			    MultiJson.dump({ :secrets => secrets })
+			end
+		</pre>
+		<pre class="ruby">
+			put '/secret/:secret_id' do
+			    # Check if secret exists, first
+			    if Secret.get(params[:secret_id])
+			        ... Update Secret
+			    else
+			        MultiJson.dump({ :error => "Cannot find secret with id: #{params[:id]}"})
+			    end
+			end
+		</pre>
+		<pre class="ruby">
+			delete '/secret/:secret_id' do
+			    secret = Secret.get(params[:secret_id])
+			    if secret
+			        secret.destroy
+			        MultiJson.dump({ :success => "Successfully destroyed secret" })
+			    else
+			        MultiJson.dump({ :error => "Unable to destroy secret" })
+			    end
+			end
+		</pre>
+		api/controller/users_controller.rb:
+		<pre class="ruby">
+			get '/user/:id' do
+			    @user = User.get(params[:id])
+			    if @user
+			        @user.to_json
+			    else
+			        MultiJson.dump({ :error => "User with that id does not exist" })
+			    end
+			end
+		</pre>
       </div>
     </div>
   </div>
@@ -56,7 +108,9 @@
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
-        insert hint
+        <a target="_blank" href="https://www.owasp.org/index.php/Top_10_2010-A4-Insecure_Direct_Object_References"> 
+	     [1] OWASP Insecure Direct Object Reference
+	    </a>
       </div>
     </div>
   </div>
