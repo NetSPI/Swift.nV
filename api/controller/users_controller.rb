@@ -1,3 +1,4 @@
+
 post '/users/register' do
   params = MultiJson.load(request.body.read)
 

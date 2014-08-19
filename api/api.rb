@@ -9,7 +9,10 @@ require 'bcrypt'
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/api.db")
 
 before do
-	headers "Content-Type" => "application/json; charset=utf-8"	
+  # Tutorials are HTML files so we really don't want them to be served as JSON
+  if !(request.path_info.include?("tutorial"))
+	  headers "Content-Type" => "application/json; charset=utf-8"	
+	end  
 end
 
 # load all libraries
