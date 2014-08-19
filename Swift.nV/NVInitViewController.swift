@@ -19,8 +19,8 @@ class NVInitViewController: UIViewController {
 
         self.message.text = "loading"
         var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if defaults.objectForKey("email") {
-            var email : NSString = defaults.stringForKey("email") as NSString
+        if defaults.objectForKey("email") != nil {
+            var email : NSString = defaults.stringForKey("email")! as NSString
             if email == "" {
                 NSLog("email is blank")
             } else {
@@ -56,9 +56,9 @@ class NVInitViewController: UIViewController {
 
     func go() {
         var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        self.email = defaults.stringForKey("email") as NSString
+        self.email = defaults.stringForKey("email")! as NSString
         var loggedin :Bool = defaults.boolForKey("loggedin")
-        if self.email == "" || self.email == nil || !loggedin {
+        if self.email == "" || !loggedin {
             self.performSegueWithIdentifier("InitLogin", sender: self)
         } else {
             self.performSegueWithIdentifier("InitHome", sender: self)
@@ -75,7 +75,7 @@ class NVInitViewController: UIViewController {
             var dv : NVHomeViewController = segue.destinationViewController as NVHomeViewController
             
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-            let context = delegate.managedObjectContext
+            let context = delegate.managedObjectContext!
             
             let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
             fr.returnsObjectsAsFaults = false

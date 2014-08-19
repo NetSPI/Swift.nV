@@ -62,7 +62,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
             var j = NSJSONSerialization.dataWithJSONObject(user, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
             
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist)
+            var envs = NSDictionary(contentsOfFile: envPlist!)
             var tURL = envs.valueForKey("RegisterURL") as String
             var regURL = NSURL(string: tURL)
             
@@ -103,7 +103,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         
         var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
         
-        if res["id"] {
+        if( res["id"] != nil) {
             self.message.text = "success"
             self.dismissViewControllerAnimated(true, completion: nil)
 

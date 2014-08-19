@@ -89,7 +89,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         
         if item.checksum != self.oldChecksum {
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist)
+            var envs = NSDictionary(contentsOfFile: envPlist!)
             
             //var itvc : NVItemsTableViewController = self.parentViewController as NVItemsTableViewController
             //self.appUser = itvc.appUser
@@ -133,7 +133,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     
     func saveContext() {
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        let context = delegate.managedObjectContext
+        let context = delegate.managedObjectContext!
         var err :NSError?
         context.save(&err)
         if err != nil {
@@ -143,7 +143,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func deleteItem(sender : AnyObject) {
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        let context = delegate.managedObjectContext
+        let context = delegate.managedObjectContext!
         
         var err :NSError?
         var alert : UIAlertController = UIAlertController(title: "Delete Item", message: "Are you sure?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -169,11 +169,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func copyValue(sender : AnyObject) {
         var pb :UIPasteboard = UIPasteboard.generalPasteboard()
-        if showValue {
-            pb.string = valueField.text
-        } else {
-            pb.string = item.value
-        }
+        pb.string = self.decryptedVal
     }
     
     func clearform () {
@@ -203,15 +199,15 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         
         var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
         
-        if res["id"] {
+        if (res["id"] != nil) {
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-            let context = delegate.managedObjectContext
+            let context = delegate.managedObjectContext!
             self.item.item_id = res["id"] as NSNumber
             var error : NSError? = nil
             context.save(&error)
             NSLog("Update Item \(self.item.item_id) in database")
         } else {
-            self.data.setData(nil)
+            self.data.setData(NSData())
             NSLog("No ID on the response, strange")
         }
         

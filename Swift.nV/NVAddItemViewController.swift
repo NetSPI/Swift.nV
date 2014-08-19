@@ -52,7 +52,7 @@ class NVAddItemViewController: UIViewController {
             self.message.text = "value required"
         } else {
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist)
+            var envs = NSDictionary(contentsOfFile: envPlist!)
             
             var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
             self.appUser = hvc.appUser
@@ -125,13 +125,13 @@ class NVAddItemViewController: UIViewController {
         
         var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
         
-        if res["id"] {
+        if (res["id"] != nil) {
             self.message.text = "success"
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
             let context = delegate.managedObjectContext
             self.item.item_id = res["id"] as NSNumber
             var error : NSError? = nil
-            context.save(&error)
+            context!.save(&error)
             
             if error != nil {
                 NSLog("@%",error!)
@@ -140,7 +140,7 @@ class NVAddItemViewController: UIViewController {
                 var yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
                     (action:UIAlertAction!) in
                     self.resetForm()
-                    self.data.setData(nil)
+                    self.data.setData(NSData())
                     self.nameField.becomeFirstResponder()
                     alert.dismissViewControllerAnimated(true, completion: nil)
                 })
@@ -158,7 +158,7 @@ class NVAddItemViewController: UIViewController {
             }
         
         } else {
-            self.data.setData(nil)
+            self.data.setData(NSData())
             self.nameField.becomeFirstResponder()
             self.message.text = "error"
         }

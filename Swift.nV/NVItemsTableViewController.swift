@@ -22,9 +22,10 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         super.init(style: style)
         // Custom initialization
     }
-    
-    required init(coder aDecoder: NSCoder!) {
+
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        //fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -49,7 +50,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         super.viewDidAppear(animated)
         
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        let context = delegate.managedObjectContext
+        let context = delegate.managedObjectContext!
         var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
         appUser = hvc.appUser
         NSLog("Getting items for \(appUser.email)")
@@ -58,7 +59,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         
         if (netStore && self.firstLoad) {
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist)
+            var envs = NSDictionary(contentsOfFile: envPlist!)
         
             var err:NSError? = nil
         
@@ -148,7 +149,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         
         var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
         //NSLog("%@",res["secrets"])
-        if (res["secrets"]) {
+        if ((res["secrets"]) != nil) {
             
             var secrets: NSArray = res["secrets"] as NSArray
             var secret : NSDictionary!
@@ -163,7 +164,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
                 }
             }
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-            let context = delegate.managedObjectContext
+            let context = delegate.managedObjectContext!
             let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
             fr.returnsObjectsAsFaults = false
             fr.predicate = NSPredicate(format: "email LIKE '\(appUser.email)'", argumentArray: nil)
@@ -176,7 +177,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
             self.tableView.reloadData()
         
         }
-        self.data.setData(nil)
+        self.data.setData(NSData())
         
     }
     
@@ -186,7 +187,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     
     func addItem(secret: NSDictionary) {
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        let context = delegate.managedObjectContext
+        let context = delegate.managedObjectContext!
         
         var new_item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as Item
         
@@ -207,7 +208,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     
     func itemExists(item_id: Int, checksum: NSString) -> Bool {
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        let context = delegate.managedObjectContext
+        let context = delegate.managedObjectContext!
         let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
         fr.predicate = NSPredicate(format: "item_id = \(item_id) AND checksum = '\(checksum)'", argumentArray: nil)
         var items: NSArray = context.executeFetchRequest(fr, error: nil)

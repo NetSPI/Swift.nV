@@ -22,10 +22,6 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
     
     var data = NSMutableData()
     
-    required init(coder aDecoder: NSCoder!) {
-        super.init(coder: aDecoder)
-    }
-    
     @IBAction func go(sender : AnyObject) {
         //if self.username.text == "" {
         //    self.message.text = "username & password required"
@@ -65,7 +61,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         var j = NSJSONSerialization.dataWithJSONObject(authRequest, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
         
         var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-        var envs = NSDictionary(contentsOfFile: envPlist)
+        var envs = NSDictionary(contentsOfFile: envPlist!)
         var tURL = envs.valueForKey("AuthenticateURL") as String
         var authURL = NSURL(string: tURL)
         
@@ -98,13 +94,13 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         
         var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
         
-        if res["error"] {
+        if (res["error"] != nil) {
             self.message.text = res["error"] as String
-            self.data.setData(nil)
-        } else if res["id"] {
+            self.data.setData(NSData())
+        } else if (res["id"] != nil) {
             // User Authenticated. Make sure they exist in the DB and log them in.
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-            let context = delegate.managedObjectContext
+            let context = delegate.managedObjectContext!
             
             let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
             fr.returnsObjectsAsFaults = false
@@ -148,10 +144,10 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             defaults.synchronize()
             NSLog("Setting email key in NSUserDefaults to \(self.username.text)")
             
-            self.data.setData(nil)
+            self.data.setData(NSData())
             self.performSegueWithIdentifier("Home", sender: self)
         } else {
-            self.data.setData(nil)
+            self.data.setData(NSData())
             self.message.text = "error"
         }
         

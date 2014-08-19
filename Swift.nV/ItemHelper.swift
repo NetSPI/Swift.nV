@@ -11,11 +11,11 @@ import Foundation
 func encryptString(toEncrypt: String) -> String {
 
     var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-    var envs = NSDictionary(contentsOfFile: envPlist)
+    var envs = NSDictionary(contentsOfFile: envPlist!)
     var cryptoKey = envs.valueForKey("CryptoKey") as String
 
     // Create Ciphertext
-    let plainText = (toEncrypt as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+    let plainText = (toEncrypt as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
     var cipherText = plainText.AES256EncryptWithKey(cryptoKey)
 
     var ret = cipherText.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.fromRaw(0)!)
@@ -27,7 +27,7 @@ func encryptString(toEncrypt: String) -> String {
 
 func decryptString(toDecrypt: String) -> String {
     var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-    var envs = NSDictionary(contentsOfFile: envPlist)
+    var envs = NSDictionary(contentsOfFile: envPlist!)
     let cryptoKey = envs.valueForKey("CryptoKey") as String
     
     // Create PlainText

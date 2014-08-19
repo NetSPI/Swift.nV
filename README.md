@@ -8,21 +8,22 @@ Setup
 
 Swift.nV has currently been tested using:
 
-	XCode 6 beta5
+	XCode 6 beta6
 	iOS Simulator 
 		- iPhone 4/5/5s
-		- iPad 2/Air
+		- iPad 2/Air/Retina
 		- iOS 8.0
 	Ruby + Sinatra (for the backend web service)
 
 
 Run
 ---
-	- Open up the Swift.nV.xcodeproj using XCode 6 beta5
+	- Open up the Swift.nV.xcodeproj using XCode 6 beta6
 	- Start the Sinatra backend web service:
 		- In the api directory run "ruby api.rb"
 		- This service should run on localhost (127.0.0.1) port 4567
 	- Click the Run icon after selecting one of the iOS Simulator targets
+	- If the build fails with linker errors, remove the Swift.nV-* directories in ~/Library/Developer/Xcode/DerivedData
 
 Use
 ---
@@ -40,14 +41,15 @@ Intentional Vulnerabilities
 ---------------------------
 	- Weak Server Side Controls (M1) - Backend web service is vulnerable to forced browsing.
 	- Weak Server Side Controls (M1) - Backend web service is vulnerable to authentication bypass.
-	- Insecure Data Storage (M2) - Core Data stores all items in the local sqlite database
-	- Insecure Data Storage (M2) - Username/email address is in the user preferences plist file
+	- Insecure Data Storage (M2) - Core Data stores all items in the local sqlite database.
+	- Insecure Data Storage (M2) - Username/email address is in the user preferences plist file.
 	- Insufficient Transport Layer Protection (M3) - No SSL for backend web service.
-	- Unintended Data Leakage (M4) - No protections of automatic iOS background screenshots
-	- Unintended Data Leakage (M4) - Log contains multiple sensitive strings
+	- Unintended Data Leakage (M4) - No protections of automatic iOS background screenshots.
+	- Unintended Data Leakage (M4) - Log contains multiple sensitive strings.
 	- Unintended Data Leakage (M4) - Autocomplete is not enabled on sensitive screens (secret entry).
+	- Unintended Data Leakage (M4) - Login form is not cleared upone successful login.
 	- Poor Authorization and Authentication (M5) - Changes to insecure stored data (email address) bypasses authentication.
 	- Poor Authorization and Authentication (M5) - Same email address can be registered multiple times, allowing a user to view another's secrets.
-	- Broken Cryptography (M6) - Shared Secret "CryptoKey" is stored within the Environment.plist file
-	- Client Side Injection (M7) - multiple locations, including Format String Injection on the login screen
+	- Broken Cryptography (M6) - Shared Secret "CryptoKey" is stored within the Environment.plist file.
+	- Client Side Injection (M7) - multiple locations, including Format String Injection on the login screen.
 	- Improper Session Handling (M8) - App completely lacks any session tokens or they are unused for interaction with API.

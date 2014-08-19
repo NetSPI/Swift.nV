@@ -23,7 +23,7 @@ class NVSettingsViewController: UIViewController {
         
         var u : User = hvc.appUser as User!
         // Do any additional setup after loading the view.
-        if u == nil {
+        if u.email == "" {
             // Uhhh, how did this happen?
             self.userLabel.text = "not logged in"
         } else {

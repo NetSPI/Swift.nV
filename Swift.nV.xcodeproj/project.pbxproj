@@ -64,6 +64,7 @@
 		5D41359619632DF800DAC6C5 /* NVSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVSettingsViewController.swift; sourceTree = "<group>"; };
 		5D41359A19635A5200DAC6C5 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		5D41359C1963651900DAC6C5 /* NVAddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVAddItemViewController.swift; sourceTree = "<group>"; };
+		5D49F04819A3BEAB00424249 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		5D5D41E0198ACB840069A58B /* ItemHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemHelper.swift; sourceTree = "<group>"; };
 		5D6815AE19748BBC002D2104 /* Environment.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Environment.plist; sourceTree = "<group>"; };
 		5D8BE00E1958C25B0030428C /* Swift.nV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swift.nV.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +109,7 @@
 		5D8BE0051958C25B0030428C = {
 			isa = PBXGroup;
 			children = (
+				5D49F04819A3BEAB00424249 /* libstdc++.dylib */,
 				5D8BE0101958C25B0030428C /* Swift.nV */,
 				5D8BE0211958C25B0030428C /* Swift.nVTests */,
 				5D8BE00F1958C25B0030428C /* Products */,
