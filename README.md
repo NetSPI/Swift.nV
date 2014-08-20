@@ -14,6 +14,8 @@ Swift.nV has currently been tested using:
 		- iPad 2/Air/Retina
 		- iOS 8.0
 	Ruby + Sinatra (for the backend web service)
+		Required Ruby Gems:
+		- sinatra, dm-core, dm-timestamps, dm-migrations, dm-serializer, bcrypt
 
 
 Run
@@ -43,6 +45,7 @@ Explore
 
 Intentional Vulnerabilities
 ---------------------------
+Not all vulnerabilities have associated tutorials. View the tutorial list included at http://localhost:4567/tutorial for a walk through.
 	- Weak Server Side Controls (M1) - Backend web service is vulnerable to forced browsing.
 	- Weak Server Side Controls (M1) - Backend web service is vulnerable to authentication bypass.
 	- Insecure Data Storage (M2) - Core Data stores all items in the local sqlite database.

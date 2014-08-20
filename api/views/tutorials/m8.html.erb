@@ -1,5 +1,5 @@
 <div class="panel-group" id="accordion">
-<h4>M8: Insert Title</h4>
+<h4>M8: Security Decisions via Untrusted Inputs</h4>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -10,7 +10,7 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
-        insert desc
+        <p>Mobile applications often allow unintended application functionality through the abuse of internal communications or external calls to other web applications. The APIs and widgets provided by Apple implement little to no security when calling external services or inputing data through supported OS mechanisms such as the PasteBoard. How the application responds to unintended requests or unexpected connections may result in user confusion, exposure of unintended user data in the application cache, or application denial of service.</p>
       </div>
     </div>
   </div>
@@ -24,7 +24,23 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
-        insert bug
+        NVWebViewController.swift:
+        <pre class="swift">
+    @IBOutlet weak var wv: UIWebView!
+
+    ...
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+        var envs = NSDictionary(contentsOfFile: envPlist!)
+        self.tURL = envs.valueForKey("TutorialURL") as String
+        
+        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")))
+
+        // Do any additional setup after loading the view.
+    }</pre>
       </div>
     </div>
   </div>
@@ -32,13 +48,22 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Solution
+          Solution - Attack
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
-       	insert solution
+       	<ul>
+        <li>Logout of the Swift.nV application.
+        <li>From the Login screen, click the help button (the question mark "?").
+        <li>Enter the Web View provided by the tutorials.
+        <li>Open up the References section of a tutorial.
+        <li>Click a link to the OWASP web site.
+        <li>Search for a link to Facebook on the OWASP site.
+        <li>Follow links to Facebook and login.
+        <li>The application cache and cookies for Swift.nV now contain Facebook related tokens and data.
+        </ul>
       </div>
     </div>
   </div>
@@ -46,14 +71,47 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          Hint
+          Solution - Fix
         </a>
       </h4>
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
-        insert hint
+        <p>All implemented iOS features should include limits to the functionality provided. In this case, implementation of the UIWebView should be restricted to known valid URLs to protect the user from browsing the web with a less-than-secure browser. Alternatively, the application should trust Apple's built-in controls and spawn an external application like Safari when accessing web sites.</p>
       </div>
     </div>
   </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          Hint
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+        <p>What does the in-application tutorial allow?</p>
+      </div>
+    </div>
+  </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+          Reference
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse">
+      <div class="panel-body">
+        <a href="https://www.owasp.org/index.php/Mobile_Top_10_2014-M8">
+        OWASP Mobile Top 10 2014 - M8 - Security Decisions via Untrusted Inputs
+        </a>
+      </div>
+    </div>
+  </div>
+
 </div>

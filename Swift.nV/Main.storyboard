@@ -234,12 +234,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vXs-aq-FfW">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXs-aq-FfW">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="vXs-aq-FfW" secondAttribute="centerY" id="95X-Id-WQ0"/>
+                            <constraint firstItem="vXs-aq-FfW" firstAttribute="top" secondItem="cfG-Qj-R7m" secondAttribute="top" id="FHF-5I-uef"/>
+                            <constraint firstItem="vXs-aq-FfW" firstAttribute="leading" secondItem="cfG-Qj-R7m" secondAttribute="leading" id="QYe-NF-B2B"/>
+                            <constraint firstAttribute="bottom" secondItem="vXs-aq-FfW" secondAttribute="bottom" id="S1T-f8-XnO"/>
+                            <constraint firstAttribute="trailing" secondItem="vXs-aq-FfW" secondAttribute="trailing" id="Tbb-d5-fWf"/>
+                            <constraint firstAttribute="centerX" secondItem="vXs-aq-FfW" secondAttribute="centerX" id="lfB-CR-vwr"/>
+                        </constraints>
                     </view>
                     <toolbarItems>
                         <barButtonItem systemItem="stop" id="ep2-Cg-ZEm">

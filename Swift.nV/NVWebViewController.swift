@@ -16,7 +16,7 @@ class NVWebViewController: UIViewController {
     @IBOutlet weak var nextButton: UIBarButtonItem!
     
     var tURL: String = ""
-    var lastTut: Int = 6
+    var lastTut: Int = 8
     var curTut: Int = 1
 
     override func viewDidLoad() {

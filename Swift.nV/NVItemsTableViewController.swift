@@ -34,7 +34,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
         
         self.appUser = hvc.appUser as User!
-        NSLog("appUser is for itemsTable is \(self.appUser.email) (\(self.appUser.user_id))")
+        NSLog("appUser for itemsTable is \(self.appUser.email) (\(self.appUser.user_id))")
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -75,14 +75,11 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
             var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
         }
         
-        //let frc = self.childrenFetchedResultsController(appUser.email, context: context)
         let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
         fr.returnsObjectsAsFaults = false
-        //fr.predicate = NSPredicate(format: "email LIKE '\(appUser.email)'", argumentArray: nil)
         
         var err:NSError? = nil
         self.items = context.executeFetchRequest(fr, error: &err)
-        //NSLog("Items: \(self.items)")
         
         self.tableView.reloadData()
 

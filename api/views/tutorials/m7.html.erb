@@ -1,5 +1,5 @@
 <div class="panel-group" id="accordion">
-<h4>M7: Insert Title</h4>
+<h4>M7: Client Side Injection</h4>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -10,7 +10,7 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
-        insert desc
+        As with web applications, mobile applications must be careful when handling any user-modifiable data. Injection attacks are possible through various methods, including SQL, XML, JSON, and Format String injection techniques. Any of these services that use string building techniques when interacting with internal and external services can expose data to unauthorized users in the case of a compromised device. While it is easy to use any field provided by the running application, preferences and other content on the device may be vulnerable to injection as well.
       </div>
     </div>
   </div>
@@ -24,7 +24,40 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
-        insert bug
+        NVInitViewController.swift:
+        <pre class="swift">
+    func go() {
+        var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        self.email = defaults.stringForKey("email")! as NSString
+        var loggedin :Bool = defaults.boolForKey("loggedin")
+        if self.email == "" || !loggedin {
+            self.performSegueWithIdentifier("InitLogin", sender: self)
+        } else {
+            self.performSegueWithIdentifier("InitHome", sender: self)
+        }
+    }</pre>
+        <pre class="swift">
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject?) {
+
+        if (segue.identifier == "InitHome") {
+            var dv : NVHomeViewController = segue.destinationViewController as NVHomeViewController
+            
+            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let context = delegate.managedObjectContext!
+            
+            let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
+            fr.returnsObjectsAsFaults = false
+            fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", argumentArray: nil)
+            
+            var error:NSError? = nil
+            var users : NSArray = context.executeFetchRequest(fr, error: &error)
+            
+            var user : User = users[0] as User
+            
+            NSLog("passing \(user.email) (\(user.firstname) \(user.lastname))")
+            dv.appUser = user
+        }
+    }</pre>
       </div>
     </div>
   </div>
@@ -32,13 +65,36 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Solution
+          Solution - Attack
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
-       	insert solution
+       	<ul>
+        <li>Logout of the Swift.nV application using the Settings tab.
+        <li>Stop the running iOS Simulator application using Xcode.
+        <li>Locate the com.nvisium.Swift-nV.plist that corresponds to the running device.
+        <li>Modify the two preferences (loggedin and email) associated with the remember me functionality.
+        <pre>
+$ plutil -p com.nvisium.Swift-nV.plist 
+{
+  "loggedin" => 0
+  "networkStorage" => 1
+  "email" => ""
+}</pre>
+        <li>Set email to a Format String wildcard (*) to login as the first available user.
+<pre>
+$ plutil -replace email -string \* com.nvisium.Swift-nV.plist
+$ plutil -replace loggedin -bool true com.nvisium.Swift-nV.plist
+$ plutil -p com.nvisium.Swift-nV.plist 
+{
+  "loggedin" => 1
+  "networkStorage" => 1
+  "email" => "*"
+}</pre>
+        <li>Run the Swift.nV application from Xcode.   
+        </ul>
       </div>
     </div>
   </div>
@@ -46,14 +102,52 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          Hint
+          Solution - Fix
         </a>
       </h4>
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
-        insert hint
+        <p>Remediation of format string injection vulnerabilities is a fairly simple matter. First of all, convert the format string 'LIKE' keyword to '='. A 'LIKE' query is unnecessary within the authentication routine. However, the format string is still vulnerable to injection and can be bypassed by using more complicated predicate instructions. For example, entering the string ') OR 1=1 OR (password LIKE '* into the email preference allows an attacker to successfully bypass the authentication requirement when an equals sign. To complete the secure format string, move the user input to format string objects that are added at runtime as follows.</p>
+        <pre class="swift">fr.predicate = NSPredicate(format: "email = %@", argumentArray: [self.email])</pre>
+        <p>Other injection attacks should be remediated in a similar manner, using built-in iOS and framework functions to differentiate between data and command. Most injection vulnerabilities can be resolved using input validation techniques, where only known, good content is allowed.</p>
       </div>
     </div>
   </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          Hint
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+        <p>The wildcard for format strings is the star character (*).</p>
+      </div>
+    </div>
+  </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+          Reference
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse">
+      <div class="panel-body">
+        <a href="https://www.owasp.org/index.php/Mobile_Top_10_2014-M7">
+        OWASP Mobile Top 10 2014 - M7 - Client Side Injection
+        </a><br>
+        <a href="https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet">
+        OWASP Input Validation Cheat Sheet
+        </a>
+      </div>
+    </div>
+  </div>
+
 </div>

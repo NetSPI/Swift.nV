@@ -24,7 +24,46 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
-        <p>Swift.nV contains a bug where user data is never removed from the local database, even when a new user logs in. Use this bug to access a previous users' secrets through the Swift.nV application. Bug is found in interactions between NVLoginViewController, NVRegisterViewController, and NVItemsTableViewController classes.</p>
+      NVItemsTableViewController.swift
+        <pre class="swift">
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let context = delegate.managedObjectContext!
+        var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
+        appUser = hvc.appUser
+        NSLog("Getting items for \(appUser.email)")
+        
+        var netStore : Bool = NSUserDefaults.standardUserDefaults().boolForKey("networkStorage")
+        
+        if (netStore && self.firstLoad) {
+            var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+            var envs = NSDictionary(contentsOfFile: envPlist!)
+        
+            var err:NSError? = nil
+        
+            var tURL = envs.valueForKey("SecretsURL") as String
+            var secURL = NSURL(string: "\(tURL)/\(self.appUser.user_id)")
+        
+            NSLog("Getting secrets \(secURL)")
+        
+            var request = NSMutableURLRequest(URL: secURL)
+            request.HTTPMethod = "GET"
+        
+            var queue = NSOperationQueue()
+            var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
+        }
+        
+        let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
+        fr.returnsObjectsAsFaults = false
+        
+        var err:NSError? = nil
+        self.items = context.executeFetchRequest(fr, error: &err)
+        
+        self.tableView.reloadData()
+
+    }</pre>
       </div>
     </div>
   </div>
@@ -57,7 +96,7 @@
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
-        <p>Local cached data should be deleted whenever it is not required for application use. Clear out local secrets and data associated with previous users when a new user logs in.</p>
+        <p>Local cached data should be protected or deleted whenever it is not required for current application use. Clear local secrets and data associated with previous users when a new user logs in.</p>
       </div>
     </div>
   </div>
