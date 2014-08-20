@@ -21,6 +21,7 @@
 		5D8BE03E195A6BA30030428C /* NVLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE03D195A6BA30030428C /* NVLoginViewController.swift */; };
 		5D8BE040195B8FF30030428C /* NVRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE03F195B8FF30030428C /* NVRegisterViewController.swift */; };
 		5D8BE044195E8C990030428C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE043195E8C990030428C /* User.swift */; };
+		5D988E0019A4470400E74A3F /* NVWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D988DFF19A4470400E74A3F /* NVWebViewController.swift */; };
 		5DA17F4519647A2100C805F2 /* NVItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F4419647A2100C805F2 /* NVItemsTableViewController.swift */; };
 		5DA17F471964D60300C805F2 /* NVEditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */; };
 		5DA17F491965FCBD00C805F2 /* NVHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */; };
@@ -79,6 +80,7 @@
 		5D8BE03D195A6BA30030428C /* NVLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVLoginViewController.swift; sourceTree = "<group>"; };
 		5D8BE03F195B8FF30030428C /* NVRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVRegisterViewController.swift; sourceTree = "<group>"; };
 		5D8BE043195E8C990030428C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5D988DFF19A4470400E74A3F /* NVWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVWebViewController.swift; sourceTree = "<group>"; };
 		5DA17F4419647A2100C805F2 /* NVItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVItemsTableViewController.swift; sourceTree = "<group>"; };
 		5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVEditItemViewController.swift; sourceTree = "<group>"; };
 		5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVHelpViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				5D8BE02E1958C2D00030428C /* Main.storyboard */,
 				5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */,
 				5DA17F4A196604B500C805F2 /* NVInitViewController.swift */,
+				5D988DFF19A4470400E74A3F /* NVWebViewController.swift */,
 				5DA17F4419647A2100C805F2 /* NVItemsTableViewController.swift */,
 				5D41359C1963651900DAC6C5 /* NVAddItemViewController.swift */,
 				5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */,
@@ -285,6 +288,7 @@
 				5DA17F471964D60300C805F2 /* NVEditItemViewController.swift in Sources */,
 				5D8BE040195B8FF30030428C /* NVRegisterViewController.swift in Sources */,
 				5D41359719632DF800DAC6C5 /* NVSettingsViewController.swift in Sources */,
+				5D988E0019A4470400E74A3F /* NVWebViewController.swift in Sources */,
 				5D8BE0171958C25B0030428C /* Swift_nV.xcdatamodeld in Sources */,
 				5D41359B19635A5200DAC6C5 /* Item.swift in Sources */,
 				5D41359D1963651900DAC6C5 /* NVAddItemViewController.swift in Sources */,
