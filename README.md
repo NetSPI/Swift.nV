@@ -31,6 +31,10 @@ Use
 	- Login with the registered user
 	- Add secrets
 
+Tutorials
+---------
+	- Located within the API at http://localhost:4567/tutorial
+
 Explore
 -------
 	- View the simulator data storage under:
