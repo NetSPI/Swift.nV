@@ -11,8 +11,7 @@
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
         <p>Applications often leverage parameters such as ID's or filenames to provide the application with access to certain resources, such as database records or files. In many situations the application does not verify that the current user should have access to the particular resource.</p>
-
-		<p>Within Swift.nV it is possible to leverage the following Insecure Direct Object Reference vulnerabilities to READ / UPDATE / DESTROY the encrypted secrets of other users, and also download the entire user object for other users.</p>
+		<p>Applications that communicate with a backend web service are often vulnerable to Insecure Direct Object Reference vulnerabilities.</p>
       </div>
     </div>
   </div>
@@ -26,6 +25,7 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
+	<p>Within Swift.nV it is possible to leverage the following Insecure Direct Object Reference vulnerabilities to READ / UPDATE / DESTROY the encrypted secrets of other users, and also download the entire user object for other users.</p>
 	    api/controllers/secrets_controller.rb:
         <pre class="ruby">
 			# Fetch single secret by id
@@ -82,34 +82,64 @@
       </div>
     </div>
   </div>
+  
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Solution
+          Solution - Attack
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
-       	<p>To properly mitigate Insecure Direct Object Reference vulnerabilities, it is important to always leverage access controls before granting the user with the ability to perform CRUD operations.</p>
-
-		<p>Applications that communicate with a backend web service are often vulnerable to Insecure Direct Object Reference vulnerabilities.</p>
+       	<p>After registering two users, retrieve their details directly from http://localhost:4567/user/&lt;id&gt; without authentication.</p>
       </div>
     </div>
   </div>
+
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          Hint
+          Solution - Fix
         </a>
       </h4>
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
+       	<p>To properly mitigate Insecure Direct Object Reference vulnerabilities, it is important to always leverage access controls before granting the user with the ability to perform CRUD operations.	In addition, randomly generated IDs eliminate the ability of attackers to effectively enumerate valid database items.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          Hint
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+      	<p>User IDs are assigned sequentially within the Swift.nV backend system. What path is called in the user.rb file to retrieve user details.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+          Reference
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse">
+      <div class="panel-body">
         <a target="_blank" href="https://www.owasp.org/index.php/Top_10_2010-A4-Insecure_Direct_Object_References"> 
-	     [1] OWASP Insecure Direct Object Reference
+	     OWASP Insecure Direct Object Reference
 	    </a>
       </div>
     </div>

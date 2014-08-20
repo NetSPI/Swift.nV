@@ -50,7 +50,6 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
 
     func login() {
         self.message.text = "Logging in as \(self.username.text)"
-        // authenticate here!!!
         
         var authRequest = [
             "email": self.username.text,
@@ -73,10 +72,6 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         
         var queue = NSOperationQueue()
         var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
-
-        
-        /**/
-    
     }
 
     

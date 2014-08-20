@@ -1,5 +1,5 @@
 <div class="panel-group" id="accordion">
-<h4>M2: Insert Title</h4>
+<h4>M2: Insecure Data Storage</h4>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -10,7 +10,7 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
-        insert desc
+        <p>Apple provides a multiple methods for storing and retrieving information within the iOS framework. This includes default preferences, application specifice preferences, and a managed object model (MOM). Preferences are stored in binary or XML format as plist files. In contrast to this, the MOM is a local sqlite database. It should be noted that potentially sensitive data is stored within these containers in an unencrypted fashion. In addition, these sources are backed up with all other user-specific data during the iTunes backup process, exposing the information to additional attack vectors.</p>
       </div>
     </div>
   </div>
@@ -24,7 +24,19 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
-        insert bug
+        <p>User default preferences and other custom preferences are programatically accessed using the NSUserDefaults and NSBundle classes. Interaction with the application MOM happens whenever data is retrieved or stored in the MOM. Searching the Swift.nV project for the NSFetchRequest object gives a good overview of the number of times the database is used.</p>
+        NVInitViewController.swift:
+        <pre class="swift">
+    func go() {
+        var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        self.email = defaults.stringForKey("email")! as NSString
+        var loggedin :Bool = defaults.boolForKey("loggedin")
+        if self.email == "" || !loggedin {
+            self.performSegueWithIdentifier("InitLogin", sender: self)
+        } else {
+            self.performSegueWithIdentifier("InitHome", sender: self)
+        }
+    }</pre>
       </div>
     </div>
   </div>
@@ -32,13 +44,18 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Solution
+          Solution - Attack
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
-       	insert solution
+        <ul>
+        <li>Login to Swift.nV with a previously registered user.
+        <li>Stop the running application using Xcode.
+        <li>Locate the com.nvisium.Swift-nV.plist that corresponds to the running device.
+        <li>Change the email address stored in the plist: <i>plutil -replace email -string t2@test.com com.nvisium.Swift-nV.plist</i>
+        </ul>
       </div>
     </div>
   </div>
@@ -46,13 +63,46 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          Hint
+          Solution - Fix
         </a>
       </h4>
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
-        insert hint
+        <p>Sensitive data should never be stored in an unencrypted format. To properly protect information on the iOS platform, use a standard iOS encryption library such as CommonCrypto to protect data before storing the data. In addition, use of NSUserDefaults is discouraged for storage and authentication or authorization decisions within the application. Store any sensitive preferences in the iOS keychain.</p>
+        <p>See NVAddItemViewController.swift and ItemHelper.swift for examples of encryption.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          Hint
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+        <p>The iOS Simulator for Xcode6 stores data in the ~/Library/Developer/CoreSimulator/Devices directory.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+          Reference
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse">
+      <div class="panel-body">
+        <a href="https://www.owasp.org/index.php/Mobile_Top_10_2014-M2">
+        OWASP Mobile Top 10 2014 - M2 - Insecure Data Storage
+        </a>
       </div>
     </div>
   </div>

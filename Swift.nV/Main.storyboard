@@ -431,7 +431,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYV-vh-Rik" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1716" y="1992"/>
+            <point key="canvasLocation" x="1336" y="2201"/>
         </scene>
         <!--settings-->
         <scene sceneID="JjZ-VP-ubr">
@@ -585,11 +585,20 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Items" image="logomark_on_light_bg_50px" id="uBr-e8-2bt"/>
                     <connections>
+                        <outlet property="searchDisplayController" destination="4wb-3Q-0GU" id="pDo-61-4zb"/>
                         <outlet property="tableView" destination="UjG-Vl-ToP" id="h9y-aO-rUm"/>
                         <segue destination="rjx-Lx-nBL" kind="modal" identifier="Edit Item" id="0PJ-Ve-SML"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h1E-Ys-A50" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="4wb-3Q-0GU">
+                    <connections>
+                        <outlet property="delegate" destination="nGs-Zr-eqG" id="V37-Re-dfx"/>
+                        <outlet property="searchContentsController" destination="nGs-Zr-eqG" id="hRb-Zv-yFV"/>
+                        <outlet property="searchResultsDataSource" destination="nGs-Zr-eqG" id="MdW-rY-6Z2"/>
+                        <outlet property="searchResultsDelegate" destination="nGs-Zr-eqG" id="UHp-7E-tKn"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1716" y="1338"/>
         </scene>

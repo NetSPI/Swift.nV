@@ -1,5 +1,5 @@
 <div class="panel-group" id="accordion">
-<h4>M5: Insert Title</h4>
+<h4>M5: Poor Authorization and Authentication</h4>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -10,7 +10,7 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
-        insert desc
+        <p>All applications with sensitive functions depend on user identification, authentication, and authorization. Mobile applications are no exception. While seemingly simple on the surface, creating secure routines for these functions is a constant battle for developers. Developers making simple mistakes or overlooking edge cases allow an attacker to potentially access data or compromise other users' accounts.</p>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
-        insert bug
+        <p>Swift.nV contains a bug where user data is never removed from the local database, even when a new user logs in. Use this bug to access a previous users' secrets through the Swift.nV application. Bug is found in interactions between NVLoginViewController, NVRegisterViewController, and NVItemsTableViewController classes.</p>
       </div>
     </div>
   </div>
@@ -32,13 +32,18 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Solution
+          Solution - Attack
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
-       	insert solution
+        <ul>
+       	<li>Register a second user and login to Swift.nV. Notice the momentary list of secrets after login.
+        <li>Stop the running application from Xcode.
+        <li>Stop the backend web service.
+        <li>Re-run the application from Xcode. All of the stored secrets are accessible from within Swift.nV
+        </ul>
       </div>
     </div>
   </div>
@@ -46,14 +51,47 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          Hint
+          Solution - Fix
         </a>
       </h4>
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
-        insert hint
+        <p>Local cached data should be deleted whenever it is not required for application use. Clear out local secrets and data associated with previous users when a new user logs in.</p>
       </div>
     </div>
   </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          Hint
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+        <p>Initial NVItemsTableViewController setup loads all items in Core Data.</p>
+      </div>
+    </div>
+  </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+          Reference
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse">
+      <div class="panel-body">
+        <a href="https://www.owasp.org/index.php/Mobile_Top_10_2014-M5">
+        OWASP Mobile Top 10 2014 - M5 - Poor Authorization and Authentication
+        </a>
+      </div>
+    </div>
+  </div>
+
 </div>

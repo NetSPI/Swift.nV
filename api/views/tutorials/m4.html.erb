@@ -1,5 +1,5 @@
 <div class="panel-group" id="accordion">
-<h4>M4: Insert Title</h4>
+<h4>M4: Unintended Data Leakage</h4>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -10,7 +10,7 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
-        insert desc
+        <p>Mobile application platforms often contain internal processes that store and retrieve data to help with user interaction. iOS in particular contains multiple documented processes that can expose sensitive information through unintended channels. In particular, iOS screenshots applications when the Home button is pressed. This screenshot is stored within the application cache and used as a splash screen when a user re-opens the application.</p>
       </div>
     </div>
   </div>
@@ -24,7 +24,12 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
-        insert bug
+        <p>Application background screenshots can contain sensitive information, including Swift.nV "secrets".</p>
+        AppDelegate.swift:
+        <pre class="swift">
+    func applicationDidEnterBackground(application: UIApplication) {
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }</pre>
       </div>
     </div>
   </div>
@@ -32,13 +37,13 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Solution
+          Solution - Attack
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
-       	insert solution
+       	<p>Edit a previously entered secret and edit the "value" field. Create a background screenshot by closing the application (Command-Shift-h in the iOS simulator).</p>
       </div>
     </div>
   </div>
@@ -46,14 +51,47 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          Hint
+          Solution - Fix
         </a>
       </h4>
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
-        insert hint
+        <p>Within the applicationDidEnterBackground event used to handle when an application is closed (see AppDelegate.swift), clear any sensitive fields of their data if they are displayed unmasked. As an example, passwords are typically masked as they are typed, while financial information or personally identifiable information is displayed in plain text. Another solution is to utilize the same event but render an image to overlay the sensitive fields. The recommended approach is to clear sensitive data as it serves a dual purpose of limiting how long the data is held in memory.</p>
       </div>
     </div>
   </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          Hint
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+        <p>The iOS Simulator for Xcode6 stores data in the ~/Library/Developer/CoreSimulator/Devices directory.</p>
+      </div>
+    </div>
+  </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+          Reference
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse">
+      <div class="panel-body">
+        <a href="https://www.owasp.org/index.php/Mobile_Top_10_2014-M4">
+        OWASP Mobile Top 10 2014 - M4 - Unintended Data Leakage
+        </a>
+      </div>
+    </div>
+  </div>
+
 </div>

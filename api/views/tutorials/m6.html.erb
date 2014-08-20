@@ -1,5 +1,5 @@
 <div class="panel-group" id="accordion">
-<h4>M6: Insert Title</h4>
+<h4>M6: Broken Cryptography</h4>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -10,7 +10,7 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
-        insert desc
+        <p>Implementing secure cryptographic algorithms can be difficult, especially handling and generating of keys and values used to encrypt sensitive data. Hard-coded keys are commonly seen in mobile and web applications, but these values are especially dangerous when dealing with mobile devices where attackers control and can decode what values are stored in the application binary.</p>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
-        insert bug
+        <p>Swift.nV uses a hard-coded value to encrypt users' secrets.</p>
       </div>
     </div>
   </div>
@@ -32,13 +32,13 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Solution
+          Solution - Attack
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
-       	insert solution
+       	<p>A "CryptoKey" value of "password" is contained in the Environment.plist file. This value can be used to decrypt all secrets in the sqlite database, regardless of user.</p>
       </div>
     </div>
   </div>
@@ -46,14 +46,47 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          Hint
+          Solution - Fix
         </a>
       </h4>
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
-        insert hint
+        <p>Keys used to encrypt sensitive values should be randomly-generated specific to each user of the application. Keys should be protected within the iOS keychain to prevent unauthorized access.</p>
       </div>
     </div>
   </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          Hint
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+        <p>Where does the key come from in ItemHelper.swift?</p>
+      </div>
+    </div>
+  </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+          Reference
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse">
+      <div class="panel-body">
+        <a href="https://www.owasp.org/index.php/Mobile_Top_10_2014-M6">
+        OWASP Mobile Top 10 2014 - M6 - Broken Cryptography
+        </a>
+      </div>
+    </div>
+  </div>
+
 </div>

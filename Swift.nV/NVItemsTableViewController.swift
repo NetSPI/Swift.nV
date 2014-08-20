@@ -78,7 +78,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         //let frc = self.childrenFetchedResultsController(appUser.email, context: context)
         let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
         fr.returnsObjectsAsFaults = false
-        fr.predicate = NSPredicate(format: "email LIKE '\(appUser.email)'", argumentArray: nil)
+        //fr.predicate = NSPredicate(format: "email LIKE '\(appUser.email)'", argumentArray: nil)
         
         var err:NSError? = nil
         self.items = context.executeFetchRequest(fr, error: &err)
