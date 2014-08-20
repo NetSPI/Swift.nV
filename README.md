@@ -40,8 +40,8 @@ Tutorials
 Explore
 -------
 	- View the simulator data storage under:
-		- <Home Directory>/Library/Developer/CoreSimulator/Devices/<Device-ID>/data/Containers/Data/Application/<Application-ID>/Documents
-		-  <Home Directory>/Library/Developer/CoreSimulator/Devices/<Device-ID>/data/Library/Preferences/
+		- ~/Library/Developer/CoreSimulator/Devices/<Device-ID>/data/Containers/Data/Application/<Application-ID>/Documents
+		- ~/Library/Developer/CoreSimulator/Devices/<Device-ID>/data/Library/Preferences/
 
 Intentional Vulnerabilities
 ---------------------------
