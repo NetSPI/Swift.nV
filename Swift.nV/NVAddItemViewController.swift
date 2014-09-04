@@ -12,10 +12,10 @@ import Foundation
 
 class NVAddItemViewController: UIViewController {
 
-    @IBOutlet var nameField : UITextField!
-    @IBOutlet var valueField : UITextView!
-    @IBOutlet var notesField : UITextView!
-    @IBOutlet var message : UILabel!
+    @IBOutlet weak var nameField : UITextField!
+    @IBOutlet weak var valueField : UITextView!
+    @IBOutlet weak var notesField : UITextView!
+    @IBOutlet weak var message : UILabel!
     @IBOutlet weak var addItemScroll: UIScrollView!
     
     var item : Item!
@@ -59,7 +59,7 @@ class NVAddItemViewController: UIViewController {
             NSLog("Storing \(self.nameField.text) for \(appUser.email)")
             
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-            let context = delegate.managedObjectContext
+            let context = delegate.managedObjectContext!
             let entityD = NSEntityDescription.entityForName("Item", inManagedObjectContext: context)
             
             item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as Item
@@ -148,7 +148,8 @@ class NVAddItemViewController: UIViewController {
                     (action:UIAlertAction!) in
                     NSLog("No")
                     self.resetForm()
-                    self.tabBarController.selectedIndex = 0
+                    self.tabBarController?.selectedIndex = 0
+                    //self.tabBarController.selectedIndex = 0
                 })
                 
                 alert.addAction(yesItem)

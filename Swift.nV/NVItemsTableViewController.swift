@@ -79,7 +79,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         fr.returnsObjectsAsFaults = false
         
         var err:NSError? = nil
-        self.items = context.executeFetchRequest(fr, error: &err)
+        self.items = context.executeFetchRequest(fr, error: &err)!
         
         self.tableView.reloadData()
 
@@ -107,26 +107,26 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     
 
     // #pragma mark - Table view data source
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //NSLog("have \(self.items.count) items to display")
         return self.items.count
     }
     
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell : UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
         
         var item : Item = self.items.objectAtIndex(indexPath.row) as Item
-        cell.textLabel.text = item.name
+        cell.textLabel!.text = item.name
         var df : NSDateFormatter = NSDateFormatter()
         df.dateFormat = "dd/MM/yyyy HH:mm"
         
-        cell.detailTextLabel.text = NSString(format: "%@",df.stringFromDate(item.created))
+        cell.detailTextLabel!.text = NSString(format: "%@",df.stringFromDate(item.created))
         //NSLog("built cell for \(item.name)")
         
         return cell
     }
     
-    override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var item : Item = self.items.objectAtIndex(indexPath.row) as Item
         selectedItem = item
         NSLog("Selected item \(item.name)")
@@ -167,7 +167,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
             fr.predicate = NSPredicate(format: "email LIKE '\(appUser.email)'", argumentArray: nil)
             
             var err:NSError? = nil
-            self.items = context.executeFetchRequest(fr, error: &err)
+            self.items = context.executeFetchRequest(fr, error: &err)!
             //NSLog("Items: \(self.items)")
             
             self.firstLoad = false
@@ -208,7 +208,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         let context = delegate.managedObjectContext!
         let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
         fr.predicate = NSPredicate(format: "item_id = \(item_id) AND checksum = '\(checksum)'", argumentArray: nil)
-        var items: NSArray = context.executeFetchRequest(fr, error: nil)
+        var items: NSArray = context.executeFetchRequest(fr, error: nil)!
         
         if (items.count > 0) {
             return true
@@ -266,7 +266,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     // #pragma mark - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "Edit Item") {
             var dv : NVEditItemViewController = segue.destinationViewController as NVEditItemViewController
             dv.item = self.selectedItem!

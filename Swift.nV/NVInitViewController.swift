@@ -69,7 +69,7 @@ class NVInitViewController: UIViewController {
     // #pragma mark - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
         if (segue.identifier == "InitHome") {
             var dv : NVHomeViewController = segue.destinationViewController as NVHomeViewController
@@ -82,7 +82,7 @@ class NVInitViewController: UIViewController {
             fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", argumentArray: nil)
             
             var error:NSError? = nil
-            var users : NSArray = context.executeFetchRequest(fr, error: &error)
+            var users : NSArray = context.executeFetchRequest(fr, error: &error)!
             
             var user : User = users[0] as User
             

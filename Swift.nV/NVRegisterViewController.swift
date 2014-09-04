@@ -11,12 +11,12 @@ import CoreData
 
 class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
     
-    @IBOutlet var email : UITextField!
-    @IBOutlet var password1 : UITextField!
-    @IBOutlet var password2 : UITextField!
-    @IBOutlet var firstname : UITextField!
-    @IBOutlet var lastname : UITextField!
-    @IBOutlet var message : UILabel!
+    @IBOutlet weak var email : UITextField!
+    @IBOutlet weak var password1 : UITextField!
+    @IBOutlet weak var password2 : UITextField!
+    @IBOutlet weak var firstname : UITextField!
+    @IBOutlet weak var lastname : UITextField!
+    @IBOutlet weak var message : UILabel!
     @IBOutlet weak var registerScroll: UIScrollView!
     
     var data = NSMutableData()

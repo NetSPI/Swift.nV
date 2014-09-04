@@ -11,11 +11,11 @@ import CoreData
 
 class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
 
-    @IBOutlet var message : UILabel!
-    @IBOutlet var username : UITextField!
-    @IBOutlet var password : UITextField!
-    @IBOutlet var goButton : UIButton!
-    @IBOutlet var register : UIButton!
+    @IBOutlet weak var message : UILabel!
+    @IBOutlet weak var username : UITextField!
+    @IBOutlet weak var password : UITextField!
+    @IBOutlet weak var goButton : UIButton!
+    @IBOutlet weak var register : UIButton!
     @IBOutlet weak var loginScroll: UIScrollView!
     
     var appUser : User!
@@ -90,7 +90,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
         
         if (res["error"] != nil) {
-            self.message.text = res["error"] as String
+            self.message.text = res["error"] as? String
             self.data.setData(NSData())
         } else if (res["id"] != nil) {
             // User Authenticated. Make sure they exist in the DB and log them in.
@@ -102,7 +102,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             fr.predicate = NSPredicate(format: "(email LIKE '\(self.username.text)')",argumentArray:  nil)
             
             var error:NSError? = nil
-            var users : NSArray = context.executeFetchRequest(fr, error: &error)
+            var users : NSArray = context.executeFetchRequest(fr, error: &error)!
             
             var auth = false
             if users.count > 0 {
@@ -156,7 +156,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
     // #pragma mark - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if (segue.identifier == "Home") {

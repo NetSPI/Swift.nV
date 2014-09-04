@@ -10,11 +10,11 @@ import UIKit
 
 class NVEditItemViewController: UIViewController, UITextViewDelegate {
 
-    @IBOutlet var nameField : UITextField!
-    @IBOutlet var valueField : UITextView!
-    @IBOutlet var notesField : UITextView!
-    @IBOutlet var createdLabel : UILabel!
-    @IBOutlet var showButton : UIButton!
+    @IBOutlet weak var nameField : UITextField!
+    @IBOutlet weak var valueField : UITextView!
+    @IBOutlet weak var notesField : UITextView!
+    @IBOutlet weak var createdLabel : UILabel!
+    @IBOutlet weak var showButton : UIButton!
     @IBOutlet weak var editItemScroll: UIScrollView!
     
     var item : Item!

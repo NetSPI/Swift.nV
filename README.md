@@ -8,7 +8,7 @@ Setup
 
 Swift.nV has currently been tested using:
 
-	XCode 6 beta6
+	XCode 6 beta7
 	iOS Simulator 
 		- iPhone 4/5/5s
 		- iPad 2/Air/Retina
