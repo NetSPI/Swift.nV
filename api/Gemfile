@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 # Sinatra
 gem 'sinatra'
 
+#to start service
+gem 'foreman'
+
 # DataMapper gems
 gem 'dm-core'
 gem 'dm-timestamps'
