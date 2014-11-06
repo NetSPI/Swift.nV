@@ -22,6 +22,7 @@ Run
 ---
 	- Open up the Swift.nV.xcodeproj using XCode 6 beta6
 	- Start the Sinatra backend web service:
+		- In the api directory run "bundle install" this will install the needed gems	
 		- In the api directory run "ruby api.rb"
 		- This service should run on localhost (127.0.0.1) port 4567
 	- Click the Run icon after selecting one of the iOS Simulator targets
