@@ -62,13 +62,13 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
             var j = NSJSONSerialization.dataWithJSONObject(user, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
             
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist!)
+            var envs = NSDictionary(contentsOfFile: envPlist!)!
             var tURL = envs.valueForKey("RegisterURL") as String
             var regURL = NSURL(string: tURL)
             
             NSLog("registering \(self.email.text) with \(regURL)")
             
-            var request = NSMutableURLRequest(URL: regURL)
+            var request = NSMutableURLRequest(URL: regURL!)
             request.HTTPMethod = "POST"
             request.HTTPBody = j
             

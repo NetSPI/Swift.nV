@@ -23,10 +23,10 @@ class NVWebViewController: UIViewController {
         super.viewDidLoad()
         
         var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-        var envs = NSDictionary(contentsOfFile: envPlist!)
+        var envs = NSDictionary(contentsOfFile: envPlist!)!
         self.tURL = envs.valueForKey("TutorialURL") as String
         
-        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")))
+        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")!))
 
         // Do any additional setup after loading the view.
     }
@@ -45,7 +45,7 @@ class NVWebViewController: UIViewController {
         } else {
             self.curTut = self.curTut-1
         }
-        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")))
+        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")!))
     }
     @IBAction func nextTutorial(sender: AnyObject) {
         if self.curTut == self.lastTut {
@@ -53,7 +53,7 @@ class NVWebViewController: UIViewController {
         } else {
             self.curTut = self.curTut + 1
         }
-        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")))
+        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")!))
     }
     /*
     // MARK: - Navigation

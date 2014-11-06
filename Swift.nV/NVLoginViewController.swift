@@ -60,13 +60,13 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         var j = NSJSONSerialization.dataWithJSONObject(authRequest, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
         
         var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-        var envs = NSDictionary(contentsOfFile: envPlist!)
+        var envs = NSDictionary(contentsOfFile: envPlist!)!
         var tURL = envs.valueForKey("AuthenticateURL") as String
         var authURL = NSURL(string: tURL)
         
         NSLog("authenticate \(self.username.text) with \(authURL)")
         
-        var request = NSMutableURLRequest(URL: authURL)
+        var request = NSMutableURLRequest(URL: authURL!)
         request.HTTPMethod = "POST"
         request.HTTPBody = j
         

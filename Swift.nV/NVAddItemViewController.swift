@@ -52,7 +52,7 @@ class NVAddItemViewController: UIViewController {
             self.message.text = "value required"
         } else {
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist!)
+            var envs = NSDictionary(contentsOfFile: envPlist!)!
             
             var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
             self.appUser = hvc.appUser
@@ -94,7 +94,7 @@ class NVAddItemViewController: UIViewController {
             
             NSLog("Adding secret \(j) for user (\(self.appUser.user_id)) with checksum: \(item.checksum)")
             
-            var request = NSMutableURLRequest(URL: secURL)
+            var request = NSMutableURLRequest(URL: secURL!)
             request.HTTPMethod = "POST"
             request.HTTPBody = j
             

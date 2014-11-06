@@ -59,7 +59,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         
         if (netStore && self.firstLoad) {
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist!)
+            var envs = NSDictionary(contentsOfFile: envPlist!)!
         
             var err:NSError? = nil
         
@@ -68,7 +68,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         
             NSLog("Getting secrets \(secURL)")
         
-            var request = NSMutableURLRequest(URL: secURL)
+            var request = NSMutableURLRequest(URL: secURL!)
             request.HTTPMethod = "GET"
         
             var queue = NSOperationQueue()
@@ -116,7 +116,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         var cell : UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
         
         var item : Item = self.items.objectAtIndex(indexPath.row) as Item
-        cell.textLabel!.text = item.name
+        cell.textLabel.text = item.name
         var df : NSDateFormatter = NSDateFormatter()
         df.dateFormat = "dd/MM/yyyy HH:mm"
         

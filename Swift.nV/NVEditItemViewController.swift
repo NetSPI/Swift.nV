@@ -89,7 +89,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         
         if item.checksum != self.oldChecksum {
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist!)
+            var envs = NSDictionary(contentsOfFile: envPlist!)!
             
             //var itvc : NVItemsTableViewController = self.parentViewController as NVItemsTableViewController
             //self.appUser = itvc.appUser
@@ -112,7 +112,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             
             NSLog("Updating secret for user with checksum: \(item.checksum)")
             
-            var request = NSMutableURLRequest(URL: secURL)
+            var request = NSMutableURLRequest(URL: secURL!)
             request.HTTPMethod = "PUT"
             request.HTTPBody = j
             
