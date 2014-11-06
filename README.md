@@ -8,11 +8,11 @@ Setup
 
 Swift.nV has currently been tested using:
 
-	XCode 6 beta7
+	XCode 6.1
 	iOS Simulator 
-		- iPhone 4/5/5s
+		- iPhone 4/5/5s/6/6+
 		- iPad 2/Air/Retina
-		- iOS 8.0
+		- iOS 8.0/8.1
 	Ruby + Sinatra (for the backend web service)
 		Required Ruby Gems:
 		- sinatra, dm-core, dm-timestamps, dm-migrations, dm-serializer, bcrypt
