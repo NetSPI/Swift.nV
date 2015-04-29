@@ -61,7 +61,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         
         var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
         var envs = NSDictionary(contentsOfFile: envPlist!)!
-        var tURL = envs.valueForKey("AuthenticateURL") as String
+        var tURL = envs.valueForKey("AuthenticateURL") as! String
         var authURL = NSURL(string: tURL)
         
         NSLog("authenticate \(self.username.text) with \(authURL)")
@@ -87,14 +87,14 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
         //NSLog("response: \(resStr)")
         
-        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
         
         if (res["error"] != nil) {
             self.message.text = res["error"] as? String
             self.data.setData(NSData())
         } else if (res["id"] != nil) {
             // User Authenticated. Make sure they exist in the DB and log them in.
-            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = delegate.managedObjectContext!
             
             let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
@@ -112,15 +112,15 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             } else {
                 NSLog("user \(self.username.text) does not exist, storing")
                 
-                var user : User = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as User
+                var user : User = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
                 
                 //var uid : String = (res["id"] as NSNumber).stringValue
-                user.email = res["email"] as String
+                user.email = res["email"] as! String
                 user.password = self.password.text
-                user.firstname = res["fname"] as String
-                user.lastname = res["lname"] as String
-                user.user_id = res["id"] as NSNumber
-                user.token = res["api_token"] as String
+                user.firstname = res["fname"] as! String
+                user.lastname = res["lname"] as! String
+                user.user_id = res["id"] as! NSNumber
+                user.token = res["api_token"] as! String
                 
                 var err:NSError? = nil
                 context.save(&err)
@@ -160,7 +160,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if (segue.identifier == "Home") {
-            var dv : NVHomeViewController = segue.destinationViewController as NVHomeViewController
+            var dv : NVHomeViewController = segue.destinationViewController as! NVHomeViewController
             NSLog("passing \(self.appUser.email) (\(self.appUser.firstname) \(self.appUser.lastname))")
             dv.appUser = self.appUser
         }

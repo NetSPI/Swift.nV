@@ -63,7 +63,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
             
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
             var envs = NSDictionary(contentsOfFile: envPlist!)!
-            var tURL = envs.valueForKey("RegisterURL") as String
+            var tURL = envs.valueForKey("RegisterURL") as! String
             var regURL = NSURL(string: tURL)
             
             NSLog("registering \(self.email.text) with \(regURL)")
@@ -101,7 +101,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
         //NSLog("response: \(resStr)")
         
-        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
         
         if( res["id"] != nil) {
             self.message.text = "success"

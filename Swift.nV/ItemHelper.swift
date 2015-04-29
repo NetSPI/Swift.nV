@@ -12,7 +12,7 @@ func encryptString(toEncrypt: String) -> String {
 
     var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
     var envs = NSDictionary(contentsOfFile: envPlist!)!
-    var cryptoKey = envs.valueForKey("CryptoKey") as String
+    var cryptoKey = envs.valueForKey("CryptoKey") as! String
 
     // Create Ciphertext
     let plainText = (toEncrypt as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
@@ -28,7 +28,7 @@ func encryptString(toEncrypt: String) -> String {
 func decryptString(toDecrypt: String) -> String {
     var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
     var envs = NSDictionary(contentsOfFile: envPlist!)!
-    let cryptoKey = envs.valueForKey("CryptoKey") as String
+    let cryptoKey = envs.valueForKey("CryptoKey") as! String
     
     // Create PlainText
     let cipherData = NSData(base64EncodedString: toDecrypt, options: NSDataBase64DecodingOptions(0))!
@@ -37,7 +37,7 @@ func decryptString(toDecrypt: String) -> String {
     
     NSLog("Decrypting \(toDecrypt) as \(ret)")
     
-    return ret!
+    return ret! as! String
 }
 
 func generateChecksum(myItem: Item) -> String {
