@@ -19,7 +19,7 @@ class NVSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
+        var hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
         
         var u : User = hvc.appUser as User!
         // Do any additional setup after loading the view.

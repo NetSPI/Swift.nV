@@ -54,15 +54,15 @@ class NVAddItemViewController: UIViewController {
             var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
             var envs = NSDictionary(contentsOfFile: envPlist!)!
             
-            var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
+            var hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
             self.appUser = hvc.appUser
             NSLog("Storing \(self.nameField.text) for \(appUser.email)")
             
-            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = delegate.managedObjectContext!
             let entityD = NSEntityDescription.entityForName("Item", inManagedObjectContext: context)
             
-            item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as Item
+            item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as! Item
             item.name = self.nameField.text
             item.value = encryptString(self.valueField.text)
             
@@ -89,7 +89,7 @@ class NVAddItemViewController: UIViewController {
             var err:NSError? = nil
             var j = NSJSONSerialization.dataWithJSONObject(secret, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
             
-            var tURL = envs.valueForKey("NewSecretURL") as String
+            var tURL = envs.valueForKey("NewSecretURL") as! String
             var secURL = NSURL(string: tURL)
             
             NSLog("Adding secret \(j) for user (\(self.appUser.user_id)) with checksum: \(item.checksum)")
@@ -123,13 +123,13 @@ class NVAddItemViewController: UIViewController {
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
         //NSLog("response: \(resStr)")
         
-        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
         
         if (res["id"] != nil) {
             self.message.text = "success"
-            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = delegate.managedObjectContext
-            self.item.item_id = res["id"] as NSNumber
+            self.item.item_id = res["id"] as! NSNumber
             var error : NSError? = nil
             context!.save(&error)
             

@@ -72,9 +72,9 @@ class NVInitViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
         if (segue.identifier == "InitHome") {
-            var dv : NVHomeViewController = segue.destinationViewController as NVHomeViewController
+            var dv : NVHomeViewController = segue.destinationViewController as! NVHomeViewController
             
-            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = delegate.managedObjectContext!
             
             let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
@@ -84,7 +84,7 @@ class NVInitViewController: UIViewController {
             var error:NSError? = nil
             var users : NSArray = context.executeFetchRequest(fr, error: &error)!
             
-            var user : User = users[0] as User
+            var user : User = users[0] as! User
             
             NSLog("passing \(user.email) (\(user.firstname) \(user.lastname))")
             dv.appUser = user

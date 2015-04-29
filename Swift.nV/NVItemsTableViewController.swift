@@ -31,7 +31,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
+        var hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
         
         self.appUser = hvc.appUser as User!
         NSLog("appUser for itemsTable is \(self.appUser.email) (\(self.appUser.user_id))")
@@ -49,9 +49,9 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = delegate.managedObjectContext!
-        var hvc : NVHomeViewController = self.parentViewController as NVHomeViewController
+        var hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
         appUser = hvc.appUser
         NSLog("Getting items for \(appUser.email)")
         
@@ -63,7 +63,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         
             var err:NSError? = nil
         
-            var tURL = envs.valueForKey("SecretsURL") as String
+            var tURL = envs.valueForKey("SecretsURL") as! String
             var secURL = NSURL(string: "\(tURL)/\(self.appUser.user_id)")
         
             NSLog("Getting secrets \(secURL)")
@@ -115,19 +115,19 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell : UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
         
-        var item : Item = self.items.objectAtIndex(indexPath.row) as Item
-        cell.textLabel.text = item.name
+        var item : Item = self.items.objectAtIndex(indexPath.row) as! Item
+        cell.textLabel!.text = item.name
         var df : NSDateFormatter = NSDateFormatter()
         df.dateFormat = "dd/MM/yyyy HH:mm"
         
-        cell.detailTextLabel!.text = NSString(format: "%@",df.stringFromDate(item.created))
+        cell.detailTextLabel!.text = NSString(format: "%@",df.stringFromDate(item.created)) as! String
         //NSLog("built cell for \(item.name)")
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var item : Item = self.items.objectAtIndex(indexPath.row) as Item
+        var item : Item = self.items.objectAtIndex(indexPath.row) as! Item
         selectedItem = item
         NSLog("Selected item \(item.name)")
         self.performSegueWithIdentifier("Edit Item", sender: self)
@@ -144,23 +144,23 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
         //NSLog("response: \(resStr)")
         
-        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
         //NSLog("%@",res["secrets"])
         if ((res["secrets"]) != nil) {
             
-            var secrets: NSArray = res["secrets"] as NSArray
+            var secrets: NSArray = res["secrets"] as! NSArray
             var secret : NSDictionary!
             for var i=0; i<secrets.count; i++ {
-                secret = secrets[i] as NSDictionary
-                var item_id : Int = secret["id"] as Int
-                var item_checksum : String = secret["checksum"] as String
-                var item_name : String = secret["name"] as String
+                secret = secrets[i] as! NSDictionary
+                var item_id : Int = secret["id"] as! Int
+                var item_checksum : String = secret["checksum"] as! String
+                var item_name : String = secret["name"] as! String
                 if !self.itemExists(item_id, checksum: item_checksum) {
                     NSLog("Adding \(item_name) to the db")
                     self.addItem(secret)
                 }
             }
-            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = delegate.managedObjectContext!
             let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
             fr.returnsObjectsAsFaults = false
@@ -183,18 +183,18 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     }
     
     func addItem(secret: NSDictionary) {
-        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = delegate.managedObjectContext!
         
-        var new_item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as Item
+        var new_item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as! Item
         
-        new_item.name = secret["name"] as String
-        new_item.value = secret["contents"] as String
-        new_item.version = secret["version"] as NSNumber
-        new_item.notes = secret["notes"] as String
+        new_item.name = secret["name"] as! String
+        new_item.value = secret["contents"] as! String
+        new_item.version = secret["version"] as! NSNumber
+        new_item.notes = secret["notes"] as! String
         new_item.email = appUser.email
-        new_item.checksum = secret["checksum"] as String
-        new_item.item_id = secret["id"] as NSNumber
+        new_item.checksum = secret["checksum"] as! String
+        new_item.item_id = secret["id"] as! NSNumber
         new_item.created = NSDate()
         
         var err:NSError? = nil
@@ -204,7 +204,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     }
     
     func itemExists(item_id: Int, checksum: NSString) -> Bool {
-        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = delegate.managedObjectContext!
         let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
         fr.predicate = NSPredicate(format: "item_id = \(item_id) AND checksum = '\(checksum)'", argumentArray: nil)
@@ -268,7 +268,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "Edit Item") {
-            var dv : NVEditItemViewController = segue.destinationViewController as NVEditItemViewController
+            var dv : NVEditItemViewController = segue.destinationViewController as! NVEditItemViewController
             dv.item = self.selectedItem!
             dv.appUser = self.appUser
             NSLog("edit item")

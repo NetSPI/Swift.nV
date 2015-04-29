@@ -38,7 +38,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             var df : NSDateFormatter = NSDateFormatter()
             df.dateFormat = "dd/MM/yyyy"
             
-            createdLabel.text = NSString(format: "created %@",df.stringFromDate(item.created))
+            createdLabel.text = NSString(format: "created %@",df.stringFromDate(item.created)) as! String
         } else {
             NSLog("NVEditItemViewController: Item is nil")
         }
@@ -53,7 +53,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     //- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
     
     func textViewShouldBeginEditing(textView:UITextView) -> Bool {
-        valueField.text = decryptedVal
+        valueField.text = decryptedVal as! String
         showValue = true
         return true
     }
@@ -80,7 +80,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         if showValue {
             item.value = encryptString(valueField.text)
         } else {
-            item.value = encryptString(decryptedVal)
+            item.value = encryptString(decryptedVal as! String)
         }
         
         var crypto: Crypto = Crypto()
@@ -106,7 +106,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             var err:NSError? = nil
             var j = NSJSONSerialization.dataWithJSONObject(secret, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
             
-            var tURL = envs.valueForKey("UpdateSecretURL") as String
+            var tURL = envs.valueForKey("UpdateSecretURL") as! String
             var upURL = "\(tURL)\(item.item_id)"
             var secURL = NSURL(string: upURL)
             
@@ -132,7 +132,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     }
     
     func saveContext() {
-        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = delegate.managedObjectContext!
         var err :NSError?
         context.save(&err)
@@ -142,7 +142,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func deleteItem(sender : AnyObject) {
-        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = delegate.managedObjectContext!
         
         var err :NSError?
@@ -169,7 +169,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func copyValue(sender : AnyObject) {
         var pb :UIPasteboard = UIPasteboard.generalPasteboard()
-        pb.string = self.decryptedVal
+        pb.string = self.decryptedVal as! String
     }
     
     func clearform () {
@@ -197,12 +197,12 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
         //NSLog("response: \(resStr)")
         
-        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
         
         if (res["id"] != nil) {
-            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = delegate.managedObjectContext!
-            self.item.item_id = res["id"] as NSNumber
+            self.item.item_id = res["id"] as! NSNumber
             var error : NSError? = nil
             context.save(&error)
             NSLog("Update Item \(self.item.item_id) in database")
