@@ -58,12 +58,11 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
             ]
             
             NSLog("u: \(user)")
-            var err:NSError? = nil
             var j: NSData?
             do {
                 j = try NSJSONSerialization.dataWithJSONObject(user, options: NSJSONWritingOptions.PrettyPrinted)
             } catch let error as NSError {
-                err = error
+                NSLog("Error: %@", error)
                 j = nil
             }
             
@@ -77,10 +76,6 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
             let request = NSMutableURLRequest(URL: regURL!)
             request.HTTPMethod = "POST"
             request.HTTPBody = j
-            
-            var queue = NSOperationQueue()
-            var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
-            
         }
     }
 
@@ -91,7 +86,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
     
     // NSURLConnectionDataDelegate Classes
     
-    func connection(con: NSURLConnection!, didReceiveData _data:NSData!) {
+    func connection(con: NSURLConnection, didReceiveData _data:NSData) {
         //NSLog("didReceiveData")
         self.data.appendData(_data)
     }
@@ -102,11 +97,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         
     }*/
     
-    func connectionDidFinishLoading(con: NSURLConnection!) {
-        //NSLog("connectionDidFinishLoading")
-        var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
-        //NSLog("response: \(resStr)")
-        
+    func connectionDidFinishLoading(con: NSURLConnection) {
         let res : NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
         
         if( res["id"] != nil) {
@@ -118,9 +109,9 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         }
     }
     
-    func connection(connection: NSURLConnection!, didFailWithError error: NSError!) {
+    func connection(connection: NSURLConnection, didFailWithError error: NSError) {
         self.message.text = "Connection to API failed"
-        NSLog("%@",error!)
+        NSLog("Error: %@",error)
     }
     
     /*
