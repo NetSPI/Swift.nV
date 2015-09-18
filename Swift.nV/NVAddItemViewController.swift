@@ -51,10 +51,10 @@ class NVAddItemViewController: UIViewController {
         } else if self.valueField.text == "" {
             self.message.text = "value required"
         } else {
-            var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist!)!
+            let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+            let envs = NSDictionary(contentsOfFile: envPlist!)!
             
-            var hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
+            let hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
             self.appUser = hvc.appUser
             NSLog("Storing \(self.nameField.text) for \(appUser.email)")
             
@@ -63,7 +63,7 @@ class NVAddItemViewController: UIViewController {
             let entityD = NSEntityDescription.entityForName("Item", inManagedObjectContext: context)
             
             item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as! Item
-            item.name = self.nameField.text
+            item.name = self.nameField.text!
             item.value = encryptString(self.valueField.text)
             
             item.version = 1
@@ -77,7 +77,7 @@ class NVAddItemViewController: UIViewController {
             
             item.checksum = generateChecksum(item)
             
-            var secret = [
+            let secret = [
                 "name": item.name,
                 "contents": item.value,
                 "checksum": item.checksum,
@@ -87,14 +87,20 @@ class NVAddItemViewController: UIViewController {
             ]
             
             var err:NSError? = nil
-            var j = NSJSONSerialization.dataWithJSONObject(secret, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
+            var j: NSData?
+            do {
+                j = try NSJSONSerialization.dataWithJSONObject(secret, options: NSJSONWritingOptions.PrettyPrinted)
+            } catch let error as NSError {
+                err = error
+                j = nil
+            }
             
-            var tURL = envs.valueForKey("NewSecretURL") as! String
-            var secURL = NSURL(string: tURL)
+            let tURL = envs.valueForKey("NewSecretURL") as! String
+            let secURL = NSURL(string: tURL)
             
             NSLog("Adding secret \(j) for user (\(self.appUser.user_id)) with checksum: \(item.checksum)")
             
-            var request = NSMutableURLRequest(URL: secURL!)
+            let request = NSMutableURLRequest(URL: secURL!)
             request.HTTPMethod = "POST"
             request.HTTPBody = j
             
@@ -123,7 +129,7 @@ class NVAddItemViewController: UIViewController {
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
         //NSLog("response: \(resStr)")
         
-        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+        let res : NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
         
         if (res["id"] != nil) {
             self.message.text = "success"
@@ -131,21 +137,25 @@ class NVAddItemViewController: UIViewController {
             let context = delegate.managedObjectContext
             self.item.item_id = res["id"] as! NSNumber
             var error : NSError? = nil
-            context!.save(&error)
+            do {
+                try context!.save()
+            } catch let error1 as NSError {
+                error = error1
+            }
             
             if error != nil {
                 NSLog("@%",error!)
             } else {
-                var alert : UIAlertController = UIAlertController(title: "Item Added", message: "Add another item?", preferredStyle: UIAlertControllerStyle.Alert)
-                var yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
-                    (action:UIAlertAction!) in
+                let alert : UIAlertController = UIAlertController(title: "Item Added", message: "Add another item?", preferredStyle: UIAlertControllerStyle.Alert)
+                let yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
+                    (action:UIAlertAction) in
                     self.resetForm()
                     self.data.setData(NSData())
                     self.nameField.becomeFirstResponder()
                     alert.dismissViewControllerAnimated(true, completion: nil)
                 })
-                var noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
-                    (action:UIAlertAction!) in
+                let noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
+                    (action:UIAlertAction) in
                     NSLog("No")
                     self.resetForm()
                     self.tabBarController?.selectedIndex = 0

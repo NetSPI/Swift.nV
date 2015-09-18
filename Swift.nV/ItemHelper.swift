@@ -18,7 +18,7 @@ func encryptString(toEncrypt: String) -> String {
     let plainText = (toEncrypt as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
     var cipherText = plainText.AES256EncryptWithKey(cryptoKey)
 
-    var ret = cipherText.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
+    var ret = cipherText.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
     
     NSLog("Encrypting \(toEncrypt) as \(ret)")
     
@@ -31,7 +31,7 @@ func decryptString(toDecrypt: String) -> String {
     let cryptoKey = envs.valueForKey("CryptoKey") as! String
     
     // Create PlainText
-    let cipherData = NSData(base64EncodedString: toDecrypt, options: NSDataBase64DecodingOptions(0))!
+    let cipherData = NSData(base64EncodedString: toDecrypt, options: NSDataBase64DecodingOptions(rawValue: 0))!
     let cipherText = cipherData.AES256DecryptWithKey(cryptoKey)
     var ret = NSString(data: cipherText, encoding: NSUTF8StringEncoding)
     
@@ -41,6 +41,6 @@ func decryptString(toDecrypt: String) -> String {
 }
 
 func generateChecksum(myItem: Item) -> String {
-    var crypto: Crypto = Crypto()
+    let crypto: Crypto = Crypto()
     return crypto.sha256HashFor("\(myItem.name)\(myItem.value)\(myItem.notes)")
 }

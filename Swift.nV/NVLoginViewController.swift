@@ -51,22 +51,28 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
     func login() {
         self.message.text = "Logging in as \(self.username.text)"
         
-        var authRequest = [
-            "email": self.username.text,
-            "password": self.password.text
+        let authRequest = [
+            "email": self.username.text!,
+            "password": self.password.text!
         ]
         
         var err:NSError? = nil
-        var j = NSJSONSerialization.dataWithJSONObject(authRequest, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
+        var j: NSData?
+        do {
+            j = try NSJSONSerialization.dataWithJSONObject(authRequest, options: NSJSONWritingOptions.PrettyPrinted)
+        } catch let error as NSError {
+            err = error
+            j = nil
+        }
         
-        var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-        var envs = NSDictionary(contentsOfFile: envPlist!)!
-        var tURL = envs.valueForKey("AuthenticateURL") as! String
-        var authURL = NSURL(string: tURL)
+        let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+        let envs = NSDictionary(contentsOfFile: envPlist!)!
+        let tURL = envs.valueForKey("AuthenticateURL") as! String
+        let authURL = NSURL(string: tURL)
         
         NSLog("authenticate \(self.username.text) with \(authURL)")
         
-        var request = NSMutableURLRequest(URL: authURL!)
+        let request = NSMutableURLRequest(URL: authURL!)
         request.HTTPMethod = "POST"
         request.HTTPBody = j
         
@@ -77,17 +83,17 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
     
     // NSURLConnectionDataDelegate Classes
     
-    func connection(con: NSURLConnection!, didReceiveData _data:NSData!) {
+    func connection(con: NSURLConnection, didReceiveData _data:NSData) {
         //NSLog("didReceiveData")
         self.data.appendData(_data)
     }
     
-    func connectionDidFinishLoading(con: NSURLConnection!) {
+    func connectionDidFinishLoading(con: NSURLConnection) {
         //NSLog("connectionDidFinishLoading")
-        var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
+        _ = NSString(data: self.data, encoding: NSUTF8StringEncoding)
         //NSLog("response: \(resStr)")
         
-        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+        let res : NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
         
         if (res["error"] != nil) {
             self.message.text = res["error"] as? String
@@ -102,7 +108,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             fr.predicate = NSPredicate(format: "(email LIKE '\(self.username.text)')",argumentArray:  nil)
             
             var error:NSError? = nil
-            var users : NSArray = context.executeFetchRequest(fr, error: &error)!
+            let users : NSArray = try! context.executeFetchRequest(fr)
             
             var auth = false
             if users.count > 0 {
@@ -112,18 +118,22 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             } else {
                 NSLog("user \(self.username.text) does not exist, storing")
                 
-                var user : User = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
+                let user : User = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
                 
                 //var uid : String = (res["id"] as NSNumber).stringValue
                 user.email = res["email"] as! String
-                user.password = self.password.text
+                user.password = self.password.text!
                 user.firstname = res["fname"] as! String
                 user.lastname = res["lname"] as! String
                 user.user_id = res["id"] as! NSNumber
                 user.token = res["api_token"] as! String
                 
                 var err:NSError? = nil
-                context.save(&err)
+                do {
+                    try context.save()
+                } catch let error as NSError {
+                    err = error
+                }
                 
                 if err != nil {
                     NSLog("%@",err!)
@@ -133,8 +143,8 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
 
             }
             
-            var defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject(self.username.text as NSString, forKey: "email")
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(self.username.text as! NSString, forKey: "email")
             defaults.setBool(true, forKey: "loggedin")
             defaults.synchronize()
             NSLog("Setting email key in NSUserDefaults to \(self.username.text)")
@@ -160,7 +170,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if (segue.identifier == "Home") {
-            var dv : NVHomeViewController = segue.destinationViewController as! NVHomeViewController
+            let dv : NVHomeViewController = segue.destinationViewController as! NVHomeViewController
             NSLog("passing \(self.appUser.email) (\(self.appUser.firstname) \(self.appUser.lastname))")
             dv.appUser = self.appUser
         }
