@@ -22,8 +22,8 @@ class NVWebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-        var envs = NSDictionary(contentsOfFile: envPlist!)!
+        let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+        let envs = NSDictionary(contentsOfFile: envPlist!)!
         self.tURL = envs.valueForKey("TutorialURL") as! String
         
         self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")!))

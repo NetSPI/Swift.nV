@@ -18,9 +18,9 @@ class NVInitViewController: UIViewController {
         super.viewDidLoad()
 
         self.message.text = "loading"
-        var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if defaults.objectForKey("email") != nil {
-            var email : NSString = defaults.stringForKey("email")! as NSString
+            let email : NSString = defaults.stringForKey("email")! as NSString
             if email == "" {
                 NSLog("email is blank")
             } else {
@@ -55,9 +55,9 @@ class NVInitViewController: UIViewController {
     
 
     func go() {
-        var defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
         self.email = defaults.stringForKey("email")! as NSString
-        var loggedin :Bool = defaults.boolForKey("loggedin")
+        let loggedin :Bool = defaults.boolForKey("loggedin")
         if self.email == "" || !loggedin {
             self.performSegueWithIdentifier("InitLogin", sender: self)
         } else {
@@ -72,7 +72,7 @@ class NVInitViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
         if (segue.identifier == "InitHome") {
-            var dv : NVHomeViewController = segue.destinationViewController as! NVHomeViewController
+            let dv : NVHomeViewController = segue.destinationViewController as! NVHomeViewController
             
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = delegate.managedObjectContext!
@@ -82,9 +82,9 @@ class NVInitViewController: UIViewController {
             fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", argumentArray: nil)
             
             var error:NSError? = nil
-            var users : NSArray = context.executeFetchRequest(fr, error: &error)!
+            let users : NSArray = try! context.executeFetchRequest(fr)
             
-            var user : User = users[0] as! User
+            let user : User = users[0] as! User
             
             NSLog("passing \(user.email) (\(user.firstname) \(user.lastname))")
             dv.appUser = user

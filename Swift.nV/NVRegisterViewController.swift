@@ -50,25 +50,31 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
             self.message.text = "registering \(self.email.text)"
             //NSLog("registering \(self.email.text)")
             
-            var user = [
-                "email": self.email.text,
-                "fname": self.firstname.text,
-                "lname": self.lastname.text,
-                "password": self.password1.text
+            let user = [
+                "email": self.email.text!,
+                "fname": self.firstname.text!,
+                "lname": self.lastname.text!,
+                "password": self.password1.text!
             ]
             
             NSLog("u: \(user)")
             var err:NSError? = nil
-            var j = NSJSONSerialization.dataWithJSONObject(user, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
+            var j: NSData?
+            do {
+                j = try NSJSONSerialization.dataWithJSONObject(user, options: NSJSONWritingOptions.PrettyPrinted)
+            } catch let error as NSError {
+                err = error
+                j = nil
+            }
             
-            var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist!)!
-            var tURL = envs.valueForKey("RegisterURL") as! String
-            var regURL = NSURL(string: tURL)
+            let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+            let envs = NSDictionary(contentsOfFile: envPlist!)!
+            let tURL = envs.valueForKey("RegisterURL") as! String
+            let regURL = NSURL(string: tURL)
             
             NSLog("registering \(self.email.text) with \(regURL)")
             
-            var request = NSMutableURLRequest(URL: regURL!)
+            let request = NSMutableURLRequest(URL: regURL!)
             request.HTTPMethod = "POST"
             request.HTTPBody = j
             
@@ -101,7 +107,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
         //NSLog("response: \(resStr)")
         
-        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+        let res : NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
         
         if( res["id"] != nil) {
             self.message.text = "success"

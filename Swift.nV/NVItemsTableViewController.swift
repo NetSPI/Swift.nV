@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
+class NVItemsTableViewController: UITableViewController {
     
     var items:NSArray = []
     var selectedItem:Item?
@@ -23,7 +23,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         // Custom initialization
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         //fatalError("init(coder:) has not been implemented")
     }
@@ -31,7 +31,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
+        let hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
         
         self.appUser = hvc.appUser as User!
         NSLog("appUser for itemsTable is \(self.appUser.email) (\(self.appUser.user_id))")
@@ -51,24 +51,24 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = delegate.managedObjectContext!
-        var hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
+        let hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
         appUser = hvc.appUser
         NSLog("Getting items for \(appUser.email)")
         
-        var netStore : Bool = NSUserDefaults.standardUserDefaults().boolForKey("networkStorage")
+        let netStore : Bool = NSUserDefaults.standardUserDefaults().boolForKey("networkStorage")
         
         if (netStore && self.firstLoad) {
-            var envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
-            var envs = NSDictionary(contentsOfFile: envPlist!)!
+            let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+            let envs = NSDictionary(contentsOfFile: envPlist!)!
         
             var err:NSError? = nil
         
-            var tURL = envs.valueForKey("SecretsURL") as! String
-            var secURL = NSURL(string: "\(tURL)/\(self.appUser.user_id)")
+            let tURL = envs.valueForKey("SecretsURL") as! String
+            let secURL = NSURL(string: "\(tURL)/\(self.appUser.user_id)")
         
             NSLog("Getting secrets \(secURL)")
         
-            var request = NSMutableURLRequest(URL: secURL!)
+            let request = NSMutableURLRequest(URL: secURL!)
             request.HTTPMethod = "GET"
         
             var queue = NSOperationQueue()
@@ -79,7 +79,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         fr.returnsObjectsAsFaults = false
         
         var err:NSError? = nil
-        self.items = context.executeFetchRequest(fr, error: &err)!
+        self.items = try! context.executeFetchRequest(fr)
         
         self.tableView.reloadData()
 
@@ -113,21 +113,21 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
+        let cell : UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
         
-        var item : Item = self.items.objectAtIndex(indexPath.row) as! Item
+        let item : Item = self.items.objectAtIndex(indexPath.row) as! Item
         cell.textLabel!.text = item.name
-        var df : NSDateFormatter = NSDateFormatter()
+        let df : NSDateFormatter = NSDateFormatter()
         df.dateFormat = "dd/MM/yyyy HH:mm"
         
-        cell.detailTextLabel!.text = NSString(format: "%@",df.stringFromDate(item.created)) as! String
+        cell.detailTextLabel!.text = NSString(format: "%@",df.stringFromDate(item.created)) as String
         //NSLog("built cell for \(item.name)")
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var item : Item = self.items.objectAtIndex(indexPath.row) as! Item
+        let item : Item = self.items.objectAtIndex(indexPath.row) as! Item
         selectedItem = item
         NSLog("Selected item \(item.name)")
         self.performSegueWithIdentifier("Edit Item", sender: self)
@@ -144,17 +144,17 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
         //NSLog("response: \(resStr)")
         
-        var res : NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+        let res : NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
         //NSLog("%@",res["secrets"])
         if ((res["secrets"]) != nil) {
             
-            var secrets: NSArray = res["secrets"] as! NSArray
+            let secrets: NSArray = res["secrets"] as! NSArray
             var secret : NSDictionary!
             for var i=0; i<secrets.count; i++ {
                 secret = secrets[i] as! NSDictionary
-                var item_id : Int = secret["id"] as! Int
-                var item_checksum : String = secret["checksum"] as! String
-                var item_name : String = secret["name"] as! String
+                let item_id : Int = secret["id"] as! Int
+                let item_checksum : String = secret["checksum"] as! String
+                let item_name : String = secret["name"] as! String
                 if !self.itemExists(item_id, checksum: item_checksum) {
                     NSLog("Adding \(item_name) to the db")
                     self.addItem(secret)
@@ -167,7 +167,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
             fr.predicate = NSPredicate(format: "email LIKE '\(appUser.email)'", argumentArray: nil)
             
             var err:NSError? = nil
-            self.items = context.executeFetchRequest(fr, error: &err)!
+            self.items = try! context.executeFetchRequest(fr)
             //NSLog("Items: \(self.items)")
             
             self.firstLoad = false
@@ -186,7 +186,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = delegate.managedObjectContext!
         
-        var new_item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as! Item
+        let new_item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as! Item
         
         new_item.name = secret["name"] as! String
         new_item.value = secret["contents"] as! String
@@ -198,7 +198,11 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         new_item.created = NSDate()
         
         var err:NSError? = nil
-        context.save(&err)
+        do {
+            try context.save()
+        } catch let error as NSError {
+            err = error
+        }
         
         
     }
@@ -208,7 +212,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
         let context = delegate.managedObjectContext!
         let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
         fr.predicate = NSPredicate(format: "item_id = \(item_id) AND checksum = '\(checksum)'", argumentArray: nil)
-        var items: NSArray = context.executeFetchRequest(fr, error: nil)!
+        let items: NSArray = try! context.executeFetchRequest(fr)
         
         if (items.count > 0) {
             return true
@@ -268,7 +272,7 @@ class NVItemsTableViewController: UITableViewController, UITableViewDelegate, UI
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "Edit Item") {
-            var dv : NVEditItemViewController = segue.destinationViewController as! NVEditItemViewController
+            let dv : NVEditItemViewController = segue.destinationViewController as! NVEditItemViewController
             dv.item = self.selectedItem!
             dv.appUser = self.appUser
             NSLog("edit item")
