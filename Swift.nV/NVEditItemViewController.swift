@@ -83,7 +83,6 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             item.value = encryptString(decryptedVal as String)
         }
         
-        var crypto: Crypto = Crypto()
         item.notes = notesField.text
         item.checksum = generateChecksum(item)
         
@@ -103,12 +102,11 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
                 "user_id": self.appUser.user_id
             ]
             
-            var err:NSError? = nil
             var j: NSData?
             do {
                 j = try NSJSONSerialization.dataWithJSONObject(secret, options: NSJSONWritingOptions.PrettyPrinted)
             } catch let error as NSError {
-                err = error
+                NSLog("Error: %@", error.localizedDescription)
                 j = nil
             }
             
@@ -122,8 +120,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             request.HTTPMethod = "PUT"
             request.HTTPBody = j
             
-            var queue = NSOperationQueue()
-            var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
+            _ = NSURLConnection(request: request, delegate: self, startImmediately: true)
             
             self.saveContext()
             self.clearform()
@@ -155,7 +152,6 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
         let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = delegate.managedObjectContext!
         
-        var err :NSError?
         let alert : UIAlertController = UIAlertController(title: "Delete Item", message: "Are you sure?", preferredStyle: UIAlertControllerStyle.Alert)
         let yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction) in
@@ -165,7 +161,7 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             do {
                 try context.save()
             } catch let error as NSError {
-                err = error
+                NSLog("Error: %@", error)
             } catch {
                 fatalError()
             }
@@ -209,9 +205,6 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
     }*/
     
     func connectionDidFinishLoading(con: NSURLConnection!) {
-        //NSLog("connectionDidFinishLoading")
-        var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
-        //NSLog("response: \(resStr)")
         
         let res : NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
         
@@ -219,11 +212,10 @@ class NVEditItemViewController: UIViewController, UITextViewDelegate {
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = delegate.managedObjectContext!
             self.item.item_id = res["id"] as! NSNumber
-            var error : NSError? = nil
             do {
                 try context.save()
-            } catch let error1 as NSError {
-                error = error1
+            } catch let error as NSError {
+                NSLog("Error saving context: %@", error)
             }
             NSLog("Update Item \(self.item.item_id) in database")
         } else {

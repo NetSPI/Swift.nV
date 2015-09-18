@@ -61,8 +61,6 @@ class NVItemsTableViewController: UITableViewController {
             let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
             let envs = NSDictionary(contentsOfFile: envPlist!)!
         
-            var err:NSError? = nil
-        
             let tURL = envs.valueForKey("SecretsURL") as! String
             let secURL = NSURL(string: "\(tURL)/\(self.appUser.user_id)")
         
@@ -70,15 +68,13 @@ class NVItemsTableViewController: UITableViewController {
         
             let request = NSMutableURLRequest(URL: secURL!)
             request.HTTPMethod = "GET"
-        
-            var queue = NSOperationQueue()
-            var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
+            
+            _ = NSURLConnection(request: request, delegate: self, startImmediately: true)
         }
         
         let fr:NSFetchRequest = NSFetchRequest(entityName:"Item")
         fr.returnsObjectsAsFaults = false
         
-        var err:NSError? = nil
         self.items = try! context.executeFetchRequest(fr)
         
         self.tableView.reloadData()
@@ -141,11 +137,8 @@ class NVItemsTableViewController: UITableViewController {
     }
     
     func connectionDidFinishLoading(con: NSURLConnection!) {
-        var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
-        //NSLog("response: \(resStr)")
         
         let res : NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
-        //NSLog("%@",res["secrets"])
         if ((res["secrets"]) != nil) {
             
             let secrets: NSArray = res["secrets"] as! NSArray
@@ -166,9 +159,7 @@ class NVItemsTableViewController: UITableViewController {
             fr.returnsObjectsAsFaults = false
             fr.predicate = NSPredicate(format: "email LIKE '\(appUser.email)'", argumentArray: nil)
             
-            var err:NSError? = nil
             self.items = try! context.executeFetchRequest(fr)
-            //NSLog("Items: \(self.items)")
             
             self.firstLoad = false
             self.tableView.reloadData()
@@ -197,11 +188,10 @@ class NVItemsTableViewController: UITableViewController {
         new_item.item_id = secret["id"] as! NSNumber
         new_item.created = NSDate()
         
-        var err:NSError? = nil
         do {
             try context.save()
         } catch let error as NSError {
-            err = error
+            NSLog("Error saving context: %@", error)
         }
         
         

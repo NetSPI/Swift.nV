@@ -81,7 +81,6 @@ class NVInitViewController: UIViewController {
             fr.returnsObjectsAsFaults = false
             fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", argumentArray: nil)
             
-            var error:NSError? = nil
             let users : NSArray = try! context.executeFetchRequest(fr)
             
             let user : User = users[0] as! User

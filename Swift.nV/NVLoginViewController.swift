@@ -56,12 +56,11 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             "password": self.password.text!
         ]
         
-        var err:NSError? = nil
         var j: NSData?
         do {
             j = try NSJSONSerialization.dataWithJSONObject(authRequest, options: NSJSONWritingOptions.PrettyPrinted)
         } catch let error as NSError {
-            err = error
+            NSLog("Error: %@", error);
             j = nil
         }
         
@@ -76,8 +75,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         request.HTTPMethod = "POST"
         request.HTTPBody = j
         
-        var queue = NSOperationQueue()
-        var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
+        _ = NSURLConnection(request: request, delegate: self, startImmediately: true)
     }
 
     
@@ -107,13 +105,10 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             fr.returnsObjectsAsFaults = false
             fr.predicate = NSPredicate(format: "(email LIKE '\(self.username.text)')",argumentArray:  nil)
             
-            var error:NSError? = nil
             let users : NSArray = try! context.executeFetchRequest(fr)
             
-            var auth = false
             if users.count > 0 {
                 self.appUser = users[0] as? User
-                auth = true
                 
             } else {
                 NSLog("user \(self.username.text) does not exist, storing")
@@ -128,15 +123,10 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
                 user.user_id = res["id"] as! NSNumber
                 user.token = res["api_token"] as! String
                 
-                var err:NSError? = nil
                 do {
                     try context.save()
                 } catch let error as NSError {
-                    err = error
-                }
-                
-                if err != nil {
-                    NSLog("%@",err!)
+                    NSLog("Error saving context: %@", error)
                 }
                 
                 self.appUser = user
@@ -144,7 +134,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             }
             
             let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject(self.username.text as! NSString, forKey: "email")
+            defaults.setObject(self.username.text! as NSString, forKey: "email")
             defaults.setBool(true, forKey: "loggedin")
             defaults.synchronize()
             NSLog("Setting email key in NSUserDefaults to \(self.username.text)")
@@ -158,9 +148,9 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         
     }
     
-    func connection(connection: NSURLConnection!, didFailWithError error: NSError!) {
+    func connection(connection: NSURLConnection, didFailWithError error: NSError) {
         self.message.text = "Connection to API failed"
-        NSLog("%@",error!)
+        NSLog("%@",error)
     }
     
     // #pragma mark - Navigation

@@ -11,7 +11,7 @@ import CoreData
 import Foundation
 
 class NVAddItemViewController: UIViewController {
-
+    
     @IBOutlet weak var nameField : UITextField!
     @IBOutlet weak var valueField : UITextView!
     @IBOutlet weak var notesField : UITextView!
@@ -21,7 +21,7 @@ class NVAddItemViewController: UIViewController {
     var item : Item!
     var appUser : User!
     var data = NSMutableData()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +39,12 @@ class NVAddItemViewController: UIViewController {
         super.viewDidLayoutSubviews()
         self.addItemScroll.contentSize = CGSizeMake(320, 750)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     @IBAction func save(sender : AnyObject) {
         if self.nameField.text == "" {
             self.message.text = "name required"
@@ -60,7 +60,6 @@ class NVAddItemViewController: UIViewController {
             
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = delegate.managedObjectContext!
-            let entityD = NSEntityDescription.entityForName("Item", inManagedObjectContext: context)
             
             item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as! Item
             item.name = self.nameField.text!
@@ -86,12 +85,11 @@ class NVAddItemViewController: UIViewController {
                 "user_id": self.appUser.user_id
             ]
             
-            var err:NSError? = nil
             var j: NSData?
             do {
                 j = try NSJSONSerialization.dataWithJSONObject(secret, options: NSJSONWritingOptions.PrettyPrinted)
             } catch let error as NSError {
-                err = error
+                NSLog("Error: %@", error)
                 j = nil
             }
             
@@ -104,10 +102,8 @@ class NVAddItemViewController: UIViewController {
             request.HTTPMethod = "POST"
             request.HTTPBody = j
             
-            var queue = NSOperationQueue()
-            var con = NSURLConnection(request: request, delegate: self, startImmediately: true)
-            
-            }
+            _ = NSURLConnection(request: request, delegate: self, startImmediately: true)
+        }
     }
     
     func resetForm() {
@@ -125,10 +121,6 @@ class NVAddItemViewController: UIViewController {
     }
     
     func connectionDidFinishLoading(con: NSURLConnection!) {
-        //NSLog("connectionDidFinishLoading")
-        var resStr = NSString(data: self.data, encoding: NSUTF8StringEncoding)
-        //NSLog("response: \(resStr)")
-        
         let res : NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
         
         if (res["id"] != nil) {
@@ -136,38 +128,35 @@ class NVAddItemViewController: UIViewController {
             let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = delegate.managedObjectContext
             self.item.item_id = res["id"] as! NSNumber
-            var error : NSError? = nil
             do {
                 try context!.save()
-            } catch let error1 as NSError {
-                error = error1
+            } catch let saveError as NSError {
+                NSLog("Error saving context: %@", saveError)
+                self.message.text = "Error saving data.";
+                return;
             }
             
-            if error != nil {
-                NSLog("@%",error!)
-            } else {
-                let alert : UIAlertController = UIAlertController(title: "Item Added", message: "Add another item?", preferredStyle: UIAlertControllerStyle.Alert)
-                let yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
-                    (action:UIAlertAction) in
-                    self.resetForm()
-                    self.data.setData(NSData())
-                    self.nameField.becomeFirstResponder()
-                    alert.dismissViewControllerAnimated(true, completion: nil)
-                })
-                let noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
-                    (action:UIAlertAction) in
-                    NSLog("No")
-                    self.resetForm()
-                    self.tabBarController?.selectedIndex = 0
-                    //self.tabBarController.selectedIndex = 0
-                })
-                
-                alert.addAction(yesItem)
-                alert.addAction(noItem)
-                
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
-        
+            let alert : UIAlertController = UIAlertController(title: "Item Added", message: "Add another item?", preferredStyle: UIAlertControllerStyle.Alert)
+            let yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
+                (action:UIAlertAction) in
+                self.resetForm()
+                self.data.setData(NSData())
+                self.nameField.becomeFirstResponder()
+                alert.dismissViewControllerAnimated(true, completion: nil)
+            })
+            let noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
+                (action:UIAlertAction) in
+                NSLog("No")
+                self.resetForm()
+                self.tabBarController?.selectedIndex = 0
+                //self.tabBarController.selectedIndex = 0
+            })
+            
+            alert.addAction(yesItem)
+            alert.addAction(noItem)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+            
         } else {
             self.data.setData(NSData())
             self.nameField.becomeFirstResponder()
@@ -182,12 +171,12 @@ class NVAddItemViewController: UIViewController {
     
     /*
     // #pragma mark - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
