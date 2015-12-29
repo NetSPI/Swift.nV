@@ -35,7 +35,7 @@ func decryptString(toDecrypt: String) -> String {
     let cipherText = cipherData.AES256DecryptWithKey(cryptoKey)
     let ret = String.init(data: cipherText, encoding: NSUTF8StringEncoding)
     
-    NSLog("Decrypting \(toDecrypt) as \(ret)")
+    NSLog("Decrypting \(toDecrypt) as \(ret!)")
     
     return ret!
 }
