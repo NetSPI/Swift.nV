@@ -16,7 +16,6 @@
 		5D8BE0141958C25B0030428C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE0131958C25B0030428C /* AppDelegate.swift */; };
 		5D8BE0171958C25B0030428C /* Swift_nV.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE0151958C25B0030428C /* Swift_nV.xcdatamodeld */; };
 		5D8BE0191958C25B0030428C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D8BE0181958C25B0030428C /* Images.xcassets */; };
-		5D8BE0251958C25B0030428C /* Swift_nVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE0241958C25B0030428C /* Swift_nVTests.swift */; };
 		5D8BE02F1958C2D00030428C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D8BE02E1958C2D00030428C /* Main.storyboard */; };
 		5D8BE03E195A6BA30030428C /* NVLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE03D195A6BA30030428C /* NVLoginViewController.swift */; };
 		5D8BE040195B8FF30030428C /* NVRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE03F195B8FF30030428C /* NVRegisterViewController.swift */; };
@@ -28,37 +27,6 @@
 		5DA17F4B196604B500C805F2 /* NVInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F4A196604B500C805F2 /* NVInitViewController.swift */; };
 		8133383319828AD1004F1C31 /* Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8133383219828AD1004F1C31 /* Crypto.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		5D8BE01F1958C25B0030428C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5D8BE0061958C25B0030428C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5D8BE00D1958C25B0030428C;
-			remoteInfo = Swift.nV;
-		};
-		5D8BE0301958CE500030428C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5D8BE0061958C25B0030428C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5D8BE00D1958C25B0030428C;
-			remoteInfo = Swift.nV;
-		};
-		5D8BE0321958CE500030428C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5D8BE0061958C25B0030428C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5D8BE00D1958C25B0030428C;
-			remoteInfo = Swift.nV;
-		};
-		5D8BE041195E2BE90030428C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5D8BE0061958C25B0030428C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5D8BE00D1958C25B0030428C;
-			remoteInfo = Swift.nV;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5D23C055196323BE00053E65 /* NVHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVHomeViewController.swift; sourceTree = "<group>"; };
@@ -73,9 +41,6 @@
 		5D8BE0131958C25B0030428C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D8BE0161958C25B0030428C /* Swift_nV.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Swift_nV.xcdatamodel; sourceTree = "<group>"; };
 		5D8BE0181958C25B0030428C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		5D8BE01E1958C25B0030428C /* Swift.nVTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Swift.nVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D8BE0231958C25B0030428C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D8BE0241958C25B0030428C /* Swift_nVTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_nVTests.swift; sourceTree = "<group>"; };
 		5D8BE02E1958C2D00030428C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5D8BE03D195A6BA30030428C /* NVLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVLoginViewController.swift; sourceTree = "<group>"; };
 		5D8BE03F195B8FF30030428C /* NVRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVRegisterViewController.swift; sourceTree = "<group>"; };
@@ -98,13 +63,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5D8BE01B1958C25B0030428C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -113,7 +71,6 @@
 			children = (
 				5D49F04819A3BEAB00424249 /* libstdc++.dylib */,
 				5D8BE0101958C25B0030428C /* Swift.nV */,
-				5D8BE0211958C25B0030428C /* Swift.nVTests */,
 				5D8BE00F1958C25B0030428C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -122,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				5D8BE00E1958C25B0030428C /* Swift.nV.app */,
-				5D8BE01E1958C25B0030428C /* Swift.nVTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,23 +120,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5D8BE0211958C25B0030428C /* Swift.nVTests */ = {
-			isa = PBXGroup;
-			children = (
-				5D8BE0241958C25B0030428C /* Swift_nVTests.swift */,
-				5D8BE0221958C25B0030428C /* Supporting Files */,
-			);
-			path = Swift.nVTests;
-			sourceTree = "<group>";
-		};
-		5D8BE0221958C25B0030428C /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				5D8BE0231958C25B0030428C /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -201,42 +140,18 @@
 			productReference = 5D8BE00E1958C25B0030428C /* Swift.nV.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5D8BE01D1958C25B0030428C /* Swift.nVTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5D8BE02B1958C25B0030428C /* Build configuration list for PBXNativeTarget "Swift.nVTests" */;
-			buildPhases = (
-				5D8BE01A1958C25B0030428C /* Sources */,
-				5D8BE01B1958C25B0030428C /* Frameworks */,
-				5D8BE01C1958C25B0030428C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5D8BE0201958C25B0030428C /* PBXTargetDependency */,
-				5D8BE0311958CE500030428C /* PBXTargetDependency */,
-				5D8BE0331958CE500030428C /* PBXTargetDependency */,
-				5D8BE042195E2BE90030428C /* PBXTargetDependency */,
-			);
-			name = Swift.nVTests;
-			productName = Swift.nVTests;
-			productReference = 5D8BE01E1958C25B0030428C /* Swift.nVTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		5D8BE0061958C25B0030428C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = nVisium;
 				TargetAttributes = {
 					5D8BE00D1958C25B0030428C = {
 						CreatedOnToolsVersion = 6.0;
-					};
-					5D8BE01D1958C25B0030428C = {
-						CreatedOnToolsVersion = 6.0;
-						TestTargetID = 5D8BE00D1958C25B0030428C;
 					};
 				};
 			};
@@ -253,7 +168,6 @@
 			projectRoot = "";
 			targets = (
 				5D8BE00D1958C25B0030428C /* Swift.nV */,
-				5D8BE01D1958C25B0030428C /* Swift.nVTests */,
 			);
 		};
 /* End PBXProject section */
@@ -266,13 +180,6 @@
 				5D8BE0191958C25B0030428C /* Images.xcassets in Resources */,
 				5D6815AF19748BBC002D2104 /* Environment.plist in Resources */,
 				5D8BE02F1958C2D00030428C /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5D8BE01C1958C25B0030428C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,38 +209,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5D8BE01A1958C25B0030428C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5D8BE0251958C25B0030428C /* Swift_nVTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		5D8BE0201958C25B0030428C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5D8BE00D1958C25B0030428C /* Swift.nV */;
-			targetProxy = 5D8BE01F1958C25B0030428C /* PBXContainerItemProxy */;
-		};
-		5D8BE0311958CE500030428C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5D8BE00D1958C25B0030428C /* Swift.nV */;
-			targetProxy = 5D8BE0301958CE500030428C /* PBXContainerItemProxy */;
-		};
-		5D8BE0331958CE500030428C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5D8BE00D1958C25B0030428C /* Swift.nV */;
-			targetProxy = 5D8BE0321958CE500030428C /* PBXContainerItemProxy */;
-		};
-		5D8BE042195E2BE90030428C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5D8BE00D1958C25B0030428C /* Swift.nV */;
-			targetProxy = 5D8BE041195E2BE90030428C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5D8BE0261958C25B0030428C /* Debug */ = {
@@ -356,6 +232,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -425,6 +302,7 @@
 				INFOPLIST_FILE = Swift.nV/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nvisium.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Swift.nV/Swift.nV-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -441,45 +319,10 @@
 				INFOPLIST_FILE = Swift.nV/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nvisium.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Swift.nV/Swift.nV-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		5D8BE02C1958C25B0030428C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Swift.nV.app/Swift.nV";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = Swift.nVTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-			};
-			name = Debug;
-		};
-		5D8BE02D1958C25B0030428C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Swift.nV.app/Swift.nV";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = Swift.nVTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
 		};
@@ -500,15 +343,6 @@
 			buildConfigurations = (
 				5D8BE0291958C25B0030428C /* Debug */,
 				5D8BE02A1958C25B0030428C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5D8BE02B1958C25B0030428C /* Build configuration list for PBXNativeTarget "Swift.nVTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5D8BE02C1958C25B0030428C /* Debug */,
-				5D8BE02D1958C25B0030428C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

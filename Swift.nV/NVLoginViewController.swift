@@ -49,7 +49,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
     }
 
     func login() {
-        self.message.text = "Logging in as \(self.username.text)"
+        self.message.text = "Logging in as \(self.username.text!)"
         
         let authRequest = [
             "email": self.username.text!,
@@ -69,7 +69,7 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
         let tURL = envs.valueForKey("AuthenticateURL") as! String
         let authURL = NSURL(string: tURL)
         
-        NSLog("authenticate \(self.username.text) with \(authURL)")
+        NSLog("authenticate \(self.username.text!) with \(authURL!)")
         
         let request = NSMutableURLRequest(URL: authURL!)
         request.HTTPMethod = "POST"
