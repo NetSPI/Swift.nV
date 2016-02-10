@@ -76,6 +76,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
             let request = NSMutableURLRequest(URL: regURL!)
             request.HTTPMethod = "POST"
             request.HTTPBody = j
+            _ = NSURLConnection(request: request, delegate: self, startImmediately: true)
         }
     }
 
