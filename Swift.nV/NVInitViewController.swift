@@ -3,7 +3,7 @@
 //  Swift.nV
 //
 //  Created by Seth Law on 7/3/14.
-//  Copyright (c) 2014 nVisium. All rights reserved.
+//  Copyright (c) 2016 nVisium. All rights reserved.
 //
 
 import UIKit
@@ -37,7 +37,7 @@ class NVInitViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         //self.go()
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target: self, selector: Selector("go"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target: self, selector: #selector(NVInitViewController.go), userInfo: nil, repeats: false)
     }
     
     func setupPreferences(defaults: NSUserDefaults) {

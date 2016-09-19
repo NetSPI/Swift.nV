@@ -3,7 +3,7 @@
 //  Swift.nV
 //
 //  Created by Seth Law on 7/2/14.
-//  Copyright (c) 2014 nVisium. All rights reserved.
+//  Copyright (c) 2016 nVisium. All rights reserved.
 //
 
 import UIKit
@@ -143,7 +143,7 @@ class NVItemsTableViewController: UITableViewController {
             
             let secrets: NSArray = res["secrets"] as! NSArray
             var secret : NSDictionary!
-            for var i=0; i<secrets.count; i++ {
+            for var i=0; i<secrets.count; i += 1 {
                 secret = secrets[i] as! NSDictionary
                 let item_id : Int = secret["id"] as! Int
                 let item_checksum : String = secret["checksum"] as! String
