@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Swift.nV.xcodeproj">
+      location = "self:/Users/seth/Documents/nVisium/Code/swift.nv/swift.nV.xcodeproj">
    </FileRef>
 </Workspace>

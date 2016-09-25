@@ -93,10 +93,13 @@ class NVAddItemViewController: UIViewController {
                 j = nil
             }
             
+            //NSLog("Adding \(item.name) to keychain")
+            //saveToKeychain(item.name, data: encryptString(self.valueField.text))
+            
             let tURL = envs.valueForKey("NewSecretURL") as! String
             let secURL = NSURL(string: tURL)
             
-            NSLog("Adding secret \(j) for user (\(self.appUser.user_id)) with checksum: \(item.checksum)")
+            //NSLog("Adding secret \(j) for user (\(self.appUser.user_id)) with checksum: \(item.checksum)")
             
             let request = NSMutableURLRequest(URL: secURL!)
             request.HTTPMethod = "POST"

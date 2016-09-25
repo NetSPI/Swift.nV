@@ -57,6 +57,12 @@ class NVInitViewController: UIViewController {
     func go() {
         let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
         self.email = defaults.stringForKey("email")! as NSString
+        if ( self.email != "" ) {
+            NSLog("Logged in email is \(self.email)")
+        } else {
+            self.email = ""
+            NSLog("Not currently logged in")
+        }
         let loggedin :Bool = defaults.boolForKey("loggedin")
         if self.email == "" || !loggedin {
             self.performSegueWithIdentifier("InitLogin", sender: self)

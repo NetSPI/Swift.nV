@@ -139,6 +139,8 @@ class NVLoginViewController: UIViewController, NSURLConnectionDataDelegate {
             defaults.synchronize()
             NSLog("Setting email key in NSUserDefaults to \(self.username.text)")
             
+            saveToKeychain("email", data: self.username.text!)
+            
             self.data.setData(NSData())
             self.performSegueWithIdentifier("Home", sender: self)
         } else {

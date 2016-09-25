@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Security
+import Locksmith
 
 func encryptString(toEncrypt: String) -> String {
 
@@ -43,4 +45,24 @@ func decryptString(toDecrypt: String) -> String {
 func generateChecksum(myItem: Item) -> String {
     let crypto: Crypto = Crypto()
     return crypto.sha256HashFor("\(myItem.name)\(myItem.value)\(myItem.notes)")
+}
+
+func saveToKeychain(key: String, data: String) {
+    do {
+        try Locksmith.saveData([key:data], forUserAccount: "swift-nv")
+    } catch let err as NSError {
+        NSLog("Error: %@", err)
+    }
+    NSLog("Saved \(key):\(data) to keychain")
+
+}
+
+func loadFromKeychain(key: String) -> String? {
+    let dict = Locksmith.loadDataForUserAccount("swift-nv")
+    if (dict != nil) {
+        if (dict![key] != nil) {
+            return dict![key] as! String
+        }
+    }
+    return nil
 }

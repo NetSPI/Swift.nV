@@ -2,19 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>secureURL</key>
+	<string>https://52.54.70.147/tutorial</string>
+	<key>externalURL</key>
+	<string>http://ec2-54-163-1-206.compute-1.amazonaws.com:4567/tutorial</string>
 	<key>TutorialURL</key>
-	<string>http://127.0.0.1:4567/tutorial</string>
+	<string>http://ec2-54-163-1-206.compute-1.amazonaws.com:4567/tutorial</string>
 	<key>CryptoKey</key>
 	<string>password</string>
 	<key>AuthenticateURL</key>
-	<string>http://127.0.0.1:4567/users/authenticate</string>
+	<string>http://ec2-54-163-1-206.compute-1.amazonaws.com:4567/users/authenticate</string>
 	<key>RegisterURL</key>
-	<string>http://127.0.0.1:4567/users/register</string>
+	<string>http://ec2-54-163-1-206.compute-1.amazonaws.com:4567/users/register</string>
 	<key>NewSecretURL</key>
-	<string>http://127.0.0.1:4567/secret</string>
+	<string>http://ec2-54-163-1-206.compute-1.amazonaws.com:4567/secret</string>
 	<key>SecretsURL</key>
-	<string>http://127.0.0.1:4567/secrets</string>
+	<string>http://ec2-54-163-1-206.compute-1.amazonaws.com:4567/secrets</string>
 	<key>UpdateSecretURL</key>
-	<string>http://127.0.0.1:4567/secret/</string>
+	<string>http://ec2-54-163-1-206.compute-1.amazonaws.com:4567/secret/</string>
 </dict>
 </plist>
