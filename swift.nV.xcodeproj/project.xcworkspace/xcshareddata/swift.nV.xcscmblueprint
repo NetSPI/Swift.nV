@@ -12,7 +12,7 @@
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "AFADF01AFBA46DFD7A5AFD980110E89E8E63AACD" : "KeychainAccess\/",
     "8B27742E93FC1682D786B54C3194B2FD3E688A76" : "swift.nv\/",
-    "4E8FE33026C73951A712CD33348204351A71B278" : "Locksmith\/"
+    "4E8FE33026C73951A712CD33348204351A71B278" : "swift.nv\/Locksmith\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "swift.nV",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,

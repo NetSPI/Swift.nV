@@ -8,7 +8,6 @@
 
 import Foundation
 import Security
-import Locksmith
 
 func encryptString(toEncrypt: String) -> String {
 
@@ -47,6 +46,7 @@ func generateChecksum(myItem: Item) -> String {
     return crypto.sha256HashFor("\(myItem.name)\(myItem.value)\(myItem.notes)")
 }
 
+/* Example of using keychain for storing data
 func saveToKeychain(key: String, data: String) {
     do {
         try Locksmith.saveData([key:data], forUserAccount: "swift-nv")
@@ -66,3 +66,4 @@ func loadFromKeychain(key: String) -> String? {
     }
     return nil
 }
+ */

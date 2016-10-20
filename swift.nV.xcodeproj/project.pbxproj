@@ -28,51 +28,6 @@
 		8133383319828AD1004F1C31 /* Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8133383219828AD1004F1C31 /* Crypto.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		5D2B81F91D99D5FC00315E5D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5D2B81F01D99D5FC00315E5D /* Locksmith.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0EC25C591BA385AA004191AF;
-			remoteInfo = "Locksmith iOS";
-		};
-		5D2B81FB1D99D5FC00315E5D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5D2B81F01D99D5FC00315E5D /* Locksmith.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0EC25C621BA385AB004191AF;
-			remoteInfo = "Locksmith iOS Tests";
-		};
-		5D2B81FD1D99D5FC00315E5D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5D2B81F01D99D5FC00315E5D /* Locksmith.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0EC25C751BA385F6004191AF;
-			remoteInfo = "Locksmith OS X";
-		};
-		5D2B81FF1D99D5FC00315E5D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5D2B81F01D99D5FC00315E5D /* Locksmith.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0EC25C7E1BA385F6004191AF;
-			remoteInfo = "Locksmith OS X Tests";
-		};
-		5D2B82011D99D5FC00315E5D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5D2B81F01D99D5FC00315E5D /* Locksmith.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0EC25CA71BA39C9F004191AF;
-			remoteInfo = "Locksmith watchOS";
-		};
-		5D2B82031D99D5FC00315E5D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5D2B81F01D99D5FC00315E5D /* Locksmith.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FBD0C9491C1866BE00291F2A;
-			remoteInfo = "Locksmith tvOS";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		5D2E37DE1D97381C00DD168C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -87,7 +42,6 @@
 
 /* Begin PBXFileReference section */
 		5D23C055196323BE00053E65 /* NVHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVHomeViewController.swift; sourceTree = "<group>"; };
-		5D2B81F01D99D5FC00315E5D /* Locksmith.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Locksmith.xcodeproj; path = Locksmith/Locksmith.xcodeproj; sourceTree = "<group>"; };
 		5D41359619632DF800DAC6C5 /* NVSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVSettingsViewController.swift; sourceTree = "<group>"; };
 		5D41359A19635A5200DAC6C5 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		5D41359C1963651900DAC6C5 /* NVAddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVAddItemViewController.swift; sourceTree = "<group>"; };
@@ -124,23 +78,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5D2B81F11D99D5FC00315E5D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5D2B81FA1D99D5FC00315E5D /* Locksmith.framework */,
-				5D2B81FC1D99D5FC00315E5D /* Locksmith iOS Tests.xctest */,
-				5D2B81FE1D99D5FC00315E5D /* Locksmith.framework */,
-				5D2B82001D99D5FC00315E5D /* Locksmith OS X Tests.xctest */,
-				5D2B82021D99D5FC00315E5D /* Locksmith.framework */,
-				5D2B82041D99D5FC00315E5D /* Locksmith.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		5D8BE0051958C25B0030428C = {
 			isa = PBXGroup;
 			children = (
-				5D2B81F01D99D5FC00315E5D /* Locksmith.xcodeproj */,
 				5DE870731D932717002DABE4 /* swift.nV.entitlements */,
 				5D8BE0101958C25B0030428C /* swift.nV */,
 				5D8BE00F1958C25B0030428C /* Products */,
@@ -246,63 +186,12 @@
 			mainGroup = 5D8BE0051958C25B0030428C;
 			productRefGroup = 5D8BE00F1958C25B0030428C /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 5D2B81F11D99D5FC00315E5D /* Products */;
-					ProjectRef = 5D2B81F01D99D5FC00315E5D /* Locksmith.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				5D8BE00D1958C25B0030428C /* Swift.nV */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		5D2B81FA1D99D5FC00315E5D /* Locksmith.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Locksmith.framework;
-			remoteRef = 5D2B81F91D99D5FC00315E5D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5D2B81FC1D99D5FC00315E5D /* Locksmith iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Locksmith iOS Tests.xctest";
-			remoteRef = 5D2B81FB1D99D5FC00315E5D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5D2B81FE1D99D5FC00315E5D /* Locksmith.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Locksmith.framework;
-			remoteRef = 5D2B81FD1D99D5FC00315E5D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5D2B82001D99D5FC00315E5D /* Locksmith OS X Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Locksmith OS X Tests.xctest";
-			remoteRef = 5D2B81FF1D99D5FC00315E5D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5D2B82021D99D5FC00315E5D /* Locksmith.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Locksmith.framework;
-			remoteRef = 5D2B82011D99D5FC00315E5D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5D2B82041D99D5FC00315E5D /* Locksmith.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Locksmith.framework;
-			remoteRef = 5D2B82031D99D5FC00315E5D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5D8BE00C1958C25B0030428C /* Resources */ = {
