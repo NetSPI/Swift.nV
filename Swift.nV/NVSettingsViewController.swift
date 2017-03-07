@@ -19,7 +19,7 @@ class NVSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
+        let hvc : NVHomeViewController = self.parent as! NVHomeViewController
         
         let u : User = hvc.appUser as User!
         // Do any additional setup after loading the view.
@@ -30,8 +30,8 @@ class NVSettingsViewController: UIViewController {
             self.userLabel.text = u.email
             self.firstLabel.text = u.firstname
             self.lastLabel.text = u.lastname
-            remember.on = NSUserDefaults.standardUserDefaults().boolForKey("loggedin")
-            networkStorage.on = NSUserDefaults.standardUserDefaults().boolForKey("networkStorage")
+            remember.isOn = UserDefaults.standard.bool(forKey: "loggedin")
+            networkStorage.isOn = UserDefaults.standard.bool(forKey: "networkStorage")
         }
     }
 
@@ -40,22 +40,22 @@ class NVSettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func logout(sender : AnyObject) {
-        NSUserDefaults.standardUserDefaults().setObject("", forKey: "email")
-        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "loggedin")
-        NSUserDefaults.standardUserDefaults().synchronize()
+    @IBAction func logout(_ sender : AnyObject) {
+        UserDefaults.standard.set("", forKey: "email")
+        UserDefaults.standard.set(false, forKey: "loggedin")
+        UserDefaults.standard.synchronize()
         //var parent = self.parentViewController
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func rememberMe(sender : AnyObject) {
-        NSUserDefaults.standardUserDefaults().setBool(remember.on, forKey: "loggedin")
-        NSUserDefaults.standardUserDefaults().synchronize()
+    @IBAction func rememberMe(_ sender : AnyObject) {
+        UserDefaults.standard.set(remember.isOn, forKey: "loggedin")
+        UserDefaults.standard.synchronize()
     }
     
-    @IBAction func toggleNetwork(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setBool(networkStorage.on, forKey: "networkStorage")
-        NSUserDefaults.standardUserDefaults().synchronize()
+    @IBAction func toggleNetwork(_ sender: AnyObject) {
+        UserDefaults.standard.set(networkStorage.isOn, forKey: "networkStorage")
+        UserDefaults.standard.synchronize()
     }
     
     /*

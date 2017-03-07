@@ -29,7 +29,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        registerScroll.contentSize = CGSizeMake(241, 450)
+        registerScroll.contentSize = CGSize(width: 241, height: 450)
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,7 +37,7 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func register(sender : AnyObject) {
+    @IBAction func register(_ sender : AnyObject) {
         if (self.email.text == "") ||
            (self.password1.text == "") ||
            (self.password2.text == "") ||
@@ -58,38 +58,38 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
             ]
             
             NSLog("u: \(user)")
-            var j: NSData?
+            var j: Data?
             do {
-                j = try NSJSONSerialization.dataWithJSONObject(user, options: NSJSONWritingOptions.PrettyPrinted)
+                j = try JSONSerialization.data(withJSONObject: user, options: JSONSerialization.WritingOptions.prettyPrinted)
             } catch let error as NSError {
                 NSLog("Error: %@", error)
                 j = nil
             }
             
-            let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+            let envPlist = Bundle.main.path(forResource: "Environment", ofType: "plist")
             let envs = NSDictionary(contentsOfFile: envPlist!)!
-            let tURL = envs.valueForKey("RegisterURL") as! String
-            let regURL = NSURL(string: tURL)
+            let tURL = envs.value(forKey: "RegisterURL") as! String
+            let regURL = URL(string: tURL)
             
             NSLog("registering \(self.email.text) with \(regURL)")
             
-            let request = NSMutableURLRequest(URL: regURL!)
-            request.HTTPMethod = "POST"
-            request.HTTPBody = j
-            _ = NSURLConnection(request: request, delegate: self, startImmediately: true)
+            let request = NSMutableURLRequest(url: regURL!)
+            request.httpMethod = "POST"
+            request.httpBody = j
+            _ = NSURLConnection(request: request as URLRequest, delegate: self, startImmediately: true)
         }
     }
 
-    @IBAction func cancel(sender : AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancel(_ sender : AnyObject) {
+        self.dismiss(animated: true, completion: nil)
 
     }
     
     // NSURLConnectionDataDelegate Classes
     
-    func connection(con: NSURLConnection, didReceiveData _data:NSData) {
+    func connection(_ con: NSURLConnection, didReceive _data:Data) {
         //NSLog("didReceiveData")
-        self.data.appendData(_data)
+        self.data.append(_data)
     }
     
     /* func connection(con: NSURLConnection!, didReceiveResponse _response:NSURLResponse!) {
@@ -98,21 +98,21 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         
     }*/
     
-    func connectionDidFinishLoading(con: NSURLConnection) {
-        let res : NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
+    func connectionDidFinishLoading(_ con: NSURLConnection) {
+        let res : NSDictionary = (try! JSONSerialization.jsonObject(with: self.data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
         
         if( res["id"] != nil) {
             self.message.text = "success"
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
 
         } else {
             self.message.text = "error"
         }
     }
     
-    func connection(connection: NSURLConnection, didFailWithError error: NSError) {
+    func connection(_ connection: NSURLConnection, didFailWithError error: Error) {
         self.message.text = "Connection to API failed"
-        NSLog("Error: %@",error)
+        print("Error: %@",error)
     }
     
     /*
