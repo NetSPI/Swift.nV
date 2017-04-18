@@ -30,14 +30,14 @@ class NVAddItemViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.nameField.becomeFirstResponder()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.addItemScroll.contentSize = CGSizeMake(320, 750)
+        self.addItemScroll.contentSize = CGSize(width: 320, height: 750)
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,23 +45,23 @@ class NVAddItemViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func save(sender : AnyObject) {
+    @IBAction func save(_ sender : AnyObject) {
         if self.nameField.text == "" {
             self.message.text = "name required"
         } else if self.valueField.text == "" {
             self.message.text = "value required"
         } else {
-            let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+            let envPlist = Bundle.main.path(forResource: "Environment", ofType: "plist")
             let envs = NSDictionary(contentsOfFile: envPlist!)!
             
-            let hvc : NVHomeViewController = self.parentViewController as! NVHomeViewController
+            let hvc : NVHomeViewController = self.parent as! NVHomeViewController
             self.appUser = hvc.appUser
             NSLog("Storing \(self.nameField.text) for \(appUser.email)")
             
-            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let delegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = delegate.managedObjectContext!
             
-            item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: context) as! Item
+            item = NSEntityDescription.insertNewObject(forEntityName: "Item", into: context) as! Item
             item.name = self.nameField.text!
             item.value = encryptString(self.valueField.text)
             
@@ -71,7 +71,7 @@ class NVAddItemViewController: UIViewController {
             } else {
                 item.notes = self.notesField.text
             }
-            item.created = NSDate()
+            item.created = Date()
             item.email = appUser.email
             
             item.checksum = generateChecksum(item)
@@ -83,11 +83,11 @@ class NVAddItemViewController: UIViewController {
                 "version": item.version,
                 "notes": item.notes,
                 "user_id": self.appUser.user_id
-            ]
+            ] as [String : Any]
             
-            var j: NSData?
+            var j: Data?
             do {
-                j = try NSJSONSerialization.dataWithJSONObject(secret, options: NSJSONWritingOptions.PrettyPrinted)
+                j = try JSONSerialization.data(withJSONObject: secret, options: JSONSerialization.WritingOptions.prettyPrinted)
             } catch let error as NSError {
                 NSLog("Error: %@", error)
                 j = nil
@@ -96,16 +96,16 @@ class NVAddItemViewController: UIViewController {
             //NSLog("Adding \(item.name) to keychain")
             //saveToKeychain(item.name, data: encryptString(self.valueField.text))
             
-            let tURL = envs.valueForKey("NewSecretURL") as! String
-            let secURL = NSURL(string: tURL)
+            let tURL = envs.value(forKey: "NewSecretURL") as! String
+            let secURL = URL(string: tURL)
             
             //NSLog("Adding secret \(j) for user (\(self.appUser.user_id)) with checksum: \(item.checksum)")
             
-            let request = NSMutableURLRequest(URL: secURL!)
-            request.HTTPMethod = "POST"
-            request.HTTPBody = j
+            let request = NSMutableURLRequest(url: secURL!)
+            request.httpMethod = "POST"
+            request.httpBody = j
             
-            _ = NSURLConnection(request: request, delegate: self, startImmediately: true)
+            _ = NSURLConnection(request: request as URLRequest, delegate: self, startImmediately: true)
         }
     }
     
@@ -118,17 +118,17 @@ class NVAddItemViewController: UIViewController {
     
     // NSURLConnectionDataDelegate Classes
     
-    func connection(con: NSURLConnection!, didReceiveData _data:NSData!) {
+    func connection(_ con: NSURLConnection!, didReceiveData _data:Data!) {
         //NSLog("didReceiveData")
-        self.data.appendData(_data)
+        self.data.append(_data)
     }
     
-    func connectionDidFinishLoading(con: NSURLConnection!) {
-        let res : NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
+    func connectionDidFinishLoading(_ con: NSURLConnection!) {
+        let res : NSDictionary = (try! JSONSerialization.jsonObject(with: self.data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
         
         if (res["id"] != nil) {
             self.message.text = "success"
-            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let delegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = delegate.managedObjectContext
             self.item.item_id = res["id"] as! NSNumber
             do {
@@ -139,15 +139,15 @@ class NVAddItemViewController: UIViewController {
                 return;
             }
             
-            let alert : UIAlertController = UIAlertController(title: "Item Added", message: "Add another item?", preferredStyle: UIAlertControllerStyle.Alert)
-            let yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
+            let alert : UIAlertController = UIAlertController(title: "Item Added", message: "Add another item?", preferredStyle: UIAlertControllerStyle.alert)
+            let yesItem : UIAlertAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {
                 (action:UIAlertAction) in
                 self.resetForm()
-                self.data.setData(NSData())
+                self.data.setData(Data())
                 self.nameField.becomeFirstResponder()
-                alert.dismissViewControllerAnimated(true, completion: nil)
+                alert.dismiss(animated: true, completion: nil)
             })
-            let noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {
+            let noItem : UIAlertAction = UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: {
                 (action:UIAlertAction) in
                 NSLog("No")
                 self.resetForm()
@@ -158,16 +158,16 @@ class NVAddItemViewController: UIViewController {
             alert.addAction(yesItem)
             alert.addAction(noItem)
             
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
             
         } else {
-            self.data.setData(NSData())
+            self.data.setData(Data())
             self.nameField.becomeFirstResponder()
             self.message.text = "error"
         }
     }
     
-    func connection(connection: NSURLConnection!, didFailWithError error: NSError!) {
+    func connection(_ connection: NSURLConnection!, didFailWithError error: NSError!) {
         self.message.text = "Connection to API failed"
         NSLog("%@",error!)
     }

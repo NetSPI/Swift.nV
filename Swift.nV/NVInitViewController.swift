@@ -18,9 +18,9 @@ class NVInitViewController: UIViewController {
         super.viewDidLoad()
 
         self.message.text = "loading"
-        let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if defaults.objectForKey("email") != nil {
-            let email : NSString = defaults.stringForKey("email")! as NSString
+        let defaults : UserDefaults = UserDefaults.standard
+        if defaults.object(forKey: "email") != nil {
+            let email : NSString = defaults.string(forKey: "email")! as NSString
             if email == "" {
                 NSLog("email is blank")
             } else {
@@ -34,16 +34,16 @@ class NVInitViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //self.go()
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target: self, selector: #selector(NVInitViewController.go), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: TimeInterval(2), target: self, selector: #selector(NVInitViewController.go), userInfo: nil, repeats: false)
     }
     
-    func setupPreferences(defaults: NSUserDefaults) {
-        defaults.setObject("", forKey: "email")
-        defaults.setBool(false, forKey: "loggedin")
-        defaults.setBool(true, forKey: "networkStorage")
+    func setupPreferences(_ defaults: UserDefaults) {
+        defaults.set("", forKey: "email")
+        defaults.set(false, forKey: "loggedin")
+        defaults.set(true, forKey: "networkStorage")
 
         defaults.synchronize()
     }
@@ -55,19 +55,19 @@ class NVInitViewController: UIViewController {
     
 
     func go() {
-        let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        self.email = defaults.stringForKey("email")! as NSString
+        let defaults : UserDefaults = UserDefaults.standard
+        self.email = defaults.string(forKey: "email")! as NSString
         if ( self.email != "" ) {
             NSLog("Logged in email is \(self.email)")
         } else {
             self.email = ""
             NSLog("Not currently logged in")
         }
-        let loggedin :Bool = defaults.boolForKey("loggedin")
+        let loggedin :Bool = defaults.bool(forKey: "loggedin")
         if self.email == "" || !loggedin {
-            self.performSegueWithIdentifier("InitLogin", sender: self)
+            self.performSegue(withIdentifier: "InitLogin", sender: self)
         } else {
-            self.performSegueWithIdentifier("InitHome", sender: self)
+            self.performSegue(withIdentifier: "InitHome", sender: self)
         }
     }
     
@@ -75,19 +75,24 @@ class NVInitViewController: UIViewController {
     // #pragma mark - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if (segue.identifier == "InitHome") {
-            let dv : NVHomeViewController = segue.destinationViewController as! NVHomeViewController
+            let dv : NVHomeViewController = segue.destination as! NVHomeViewController
             
-            let delegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let delegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = delegate.managedObjectContext!
             
-            let fr:NSFetchRequest = NSFetchRequest(entityName:"User")
+            let fr:NSFetchRequest<NSFetchRequestResult>
+            if #available(iOS 10.0, OSX 10.12, *) {
+                fr = User.fetchRequest()
+            } else {
+                fr = NSFetchRequest(entityName: "User")
+            }
             fr.returnsObjectsAsFaults = false
             fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", argumentArray: nil)
             
-            let users : NSArray = try! context.executeFetchRequest(fr)
+            let users : NSArray = try! context.fetch(fr) as NSArray
             
             let user : User = users[0] as! User
             

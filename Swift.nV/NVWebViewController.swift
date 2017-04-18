@@ -22,11 +22,11 @@ class NVWebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+        let envPlist = Bundle.main.path(forResource: "Environment", ofType: "plist")
         let envs = NSDictionary(contentsOfFile: envPlist!)!
-        self.tURL = envs.valueForKey("TutorialURL") as! String
+        self.tURL = envs.value(forKey: "TutorialURL") as! String
         
-        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")!))
+        self.wv.loadRequest(URLRequest(url: URL(string: "\(self.tURL)/m\(self.curTut)")!))
 
         // Do any additional setup after loading the view.
     }
@@ -36,24 +36,24 @@ class NVWebViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func close(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func close(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
-    @IBAction func prevTutorial(sender: AnyObject) {
+    @IBAction func prevTutorial(_ sender: AnyObject) {
         if self.curTut == 1 {
             self.curTut = self.lastTut
         } else {
             self.curTut = self.curTut-1
         }
-        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")!))
+        self.wv.loadRequest(URLRequest(url: URL(string: "\(self.tURL)/m\(self.curTut)")!))
     }
-    @IBAction func nextTutorial(sender: AnyObject) {
+    @IBAction func nextTutorial(_ sender: AnyObject) {
         if self.curTut == self.lastTut {
             self.curTut = 1
         } else {
             self.curTut = self.curTut + 1
         }
-        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "\(self.tURL)/m\(self.curTut)")!))
+        self.wv.loadRequest(URLRequest(url: URL(string: "\(self.tURL)/m\(self.curTut)")!))
     }
     /*
     // MARK: - Navigation

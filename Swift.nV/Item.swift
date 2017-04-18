@@ -14,7 +14,7 @@ class Item: NSManagedObject {
     @NSManaged var value: String
     @NSManaged var notes: String
     @NSManaged var email: String
-    @NSManaged var created: NSDate
+    @NSManaged var created: Date
     @NSManaged var version: NSNumber
     @NSManaged var checksum: String
     @NSManaged var item_id: NSNumber

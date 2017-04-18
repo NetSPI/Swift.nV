@@ -9,41 +9,41 @@
 import Foundation
 import Security
 
-func encryptString(toEncrypt: String) -> String {
+func encryptString(_ toEncrypt: String) -> String {
 
-    let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+    let envPlist = Bundle.main.path(forResource: "Environment", ofType: "plist")
     let envs = NSDictionary(contentsOfFile: envPlist!)!
-    let cryptoKey = envs.valueForKey("CryptoKey") as! String
+    let cryptoKey = envs.value(forKey: "CryptoKey") as! String
 
     // Create Ciphertext
-    let plainText = (toEncrypt as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
-    let cipherText = plainText.AES256EncryptWithKey(cryptoKey)
+    let plainText = (toEncrypt as NSString).data(using: String.Encoding.utf8.rawValue)!
+    let cipherText = (plainText as NSData).aes256Encrypt(withKey: cryptoKey)
 
-    let ret = cipherText.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+    let ret = cipherText?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
     
     NSLog("Encrypting \(toEncrypt) as \(ret)")
     
-    return ret
+    return ret!
 }
 
-func decryptString(toDecrypt: String) -> String {
-    let envPlist = NSBundle.mainBundle().pathForResource("Environment", ofType: "plist")
+func decryptString(_ toDecrypt: String) -> String {
+    let envPlist = Bundle.main.path(forResource: "Environment", ofType: "plist")
     let envs = NSDictionary(contentsOfFile: envPlist!)!
-    let cryptoKey = envs.valueForKey("CryptoKey") as! String
+    let cryptoKey = envs.value(forKey: "CryptoKey") as! String
     
     // Create PlainText
-    let cipherData = NSData(base64EncodedString: toDecrypt, options: NSDataBase64DecodingOptions(rawValue: 0))!
-    let cipherText = cipherData.AES256DecryptWithKey(cryptoKey)
-    let ret = String.init(data: cipherText, encoding: NSUTF8StringEncoding)
+    let cipherData = Data(base64Encoded: toDecrypt, options: NSData.Base64DecodingOptions(rawValue: 0))!
+    let cipherText = (cipherData as NSData).aes256Decrypt(withKey: cryptoKey)
+    let ret = String.init(data: cipherText!, encoding: String.Encoding.utf8)
     
     NSLog("Decrypting \(toDecrypt) as \(ret!)")
     
     return ret!
 }
 
-func generateChecksum(myItem: Item) -> String {
+func generateChecksum(_ myItem: Item) -> String {
     let crypto: Crypto = Crypto()
-    return crypto.sha256HashFor("\(myItem.name)\(myItem.value)\(myItem.notes)")
+    return crypto.sha256Hash(for: "\(myItem.name)\(myItem.value)\(myItem.notes)")
 }
 
 /* Example of using keychain for storing data
