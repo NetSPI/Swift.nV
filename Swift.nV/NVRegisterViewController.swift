@@ -47,72 +47,74 @@ class NVRegisterViewController: UIViewController, NSURLConnectionDataDelegate {
         } else if self.password1.text != self.password2.text {
             self.message.text = "passwords must match"
         } else {
-            self.message.text = "registering \(self.email.text)"
+            self.message.text = "registering \(String(describing: self.email.text))"
             //NSLog("registering \(self.email.text)")
             
-            let user = [
-                "email": self.email.text!,
-                "fname": self.firstname.text!,
-                "lname": self.lastname.text!,
-                "password": self.password1.text!
-            ]
+            let defaults : UserDefaults = UserDefaults.standard
             
-            NSLog("u: \(user)")
-            var j: Data?
-            do {
-                j = try JSONSerialization.data(withJSONObject: user, options: JSONSerialization.WritingOptions.prettyPrinted)
-            } catch let error as NSError {
-                NSLog("Error: %@", error)
-                j = nil
+            let useNetwork = defaults.bool(forKey: "networkStorage")
+            if (useNetwork) {
+                let user = [
+                    "email": self.email.text!,
+                    "fname": self.firstname.text!,
+                    "lname": self.lastname.text!,
+                    "password": self.password1.text!
+                ]
+            
+                NSLog("u: \(user)")
+                var j: Data?
+                do {
+                    j = try JSONSerialization.data(withJSONObject: user, options: JSONSerialization.WritingOptions.prettyPrinted)
+                } catch let error as NSError {
+                    NSLog("Error: %@", error)
+                    j = nil
+                }
+            
+                let envPlist = Bundle.main.path(forResource: "Environment", ofType: "plist")
+                let envs = NSDictionary(contentsOfFile: envPlist!)!
+                let tURL = envs.value(forKey: "RegisterURL") as! String
+                let regURL = URL(string: tURL)
+            
+                NSLog("registering \(String(describing: self.email.text)) with \(String(describing: regURL))")
+            
+                var request = URLRequest(url: regURL!)
+                request.httpMethod = "POST"
+                request.httpBody = j
+                //_ = NSURLConnection(request: request as URLRequest, delegate: self, startImmediately: true)
+                
+                URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+                    
+                    if let error = error {
+                        NSLog("DataTask error: " + error.localizedDescription)
+                    } else {
+                        let res : NSDictionary = (try! JSONSerialization.jsonObject(with: self.data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
+                        
+                        if( res["id"] != nil) {
+                            self.message.text = "success"
+                            self.dismiss(animated: true, completion: nil)
+                            
+                        } else {
+                            self.message.text = "error"
+                        }
+                    }
+                    
+                }).resume()
+            } else {
+                
+                let u = registerUser(self.email.text!, self.password1.text!, self.firstname.text!, self.lastname.text!, nil,nil)
+                
+                if (u != nil) {
+                    self.message.text = "success"
+                } else {
+                    self.message.text = "error"
+                }
+                self.dismiss(animated: true, completion: nil)
             }
-            
-            let envPlist = Bundle.main.path(forResource: "Environment", ofType: "plist")
-            let envs = NSDictionary(contentsOfFile: envPlist!)!
-            let tURL = envs.value(forKey: "RegisterURL") as! String
-            let regURL = URL(string: tURL)
-            
-            NSLog("registering \(self.email.text) with \(regURL)")
-            
-            let request = NSMutableURLRequest(url: regURL!)
-            request.httpMethod = "POST"
-            request.httpBody = j
-            _ = NSURLConnection(request: request as URLRequest, delegate: self, startImmediately: true)
         }
     }
 
     @IBAction func cancel(_ sender : AnyObject) {
         self.dismiss(animated: true, completion: nil)
-
-    }
-    
-    // NSURLConnectionDataDelegate Classes
-    
-    func connection(_ con: NSURLConnection, didReceive _data:Data) {
-        //NSLog("didReceiveData")
-        self.data.append(_data)
-    }
-    
-    /* func connection(con: NSURLConnection!, didReceiveResponse _response:NSURLResponse!) {
-        NSLog("didReceiveResponse")
-        var response : NSHTTPURLResponse = _response
-        
-    }*/
-    
-    func connectionDidFinishLoading(_ con: NSURLConnection) {
-        let res : NSDictionary = (try! JSONSerialization.jsonObject(with: self.data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
-        
-        if( res["id"] != nil) {
-            self.message.text = "success"
-            self.dismiss(animated: true, completion: nil)
-
-        } else {
-            self.message.text = "error"
-        }
-    }
-    
-    func connection(_ connection: NSURLConnection, didFailWithError error: Error) {
-        self.message.text = "Connection to API failed"
-        print("Error: %@",error)
     }
     
     /*

@@ -9,24 +9,37 @@
 /* Begin PBXBuildFile section */
 		5D23C056196323BE00053E65 /* NVHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D23C055196323BE00053E65 /* NVHomeViewController.swift */; };
 		5D41359719632DF800DAC6C5 /* NVSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D41359619632DF800DAC6C5 /* NVSettingsViewController.swift */; };
-		5D41359B19635A5200DAC6C5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D41359A19635A5200DAC6C5 /* Item.swift */; };
 		5D41359D1963651900DAC6C5 /* NVAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D41359C1963651900DAC6C5 /* NVAddItemViewController.swift */; };
 		5D5D41E1198ACB840069A58B /* ItemHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5D41E0198ACB840069A58B /* ItemHelper.swift */; };
 		5D6815AF19748BBC002D2104 /* Environment.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D6815AE19748BBC002D2104 /* Environment.plist */; };
 		5D8BE0141958C25B0030428C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE0131958C25B0030428C /* AppDelegate.swift */; };
-		5D8BE0171958C25B0030428C /* swift_nV.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE0151958C25B0030428C /* swift_nV.xcdatamodeld */; };
 		5D8BE0191958C25B0030428C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D8BE0181958C25B0030428C /* Images.xcassets */; };
-		5D8BE02F1958C2D00030428C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D8BE02E1958C2D00030428C /* Main.storyboard */; };
 		5D8BE03E195A6BA30030428C /* NVLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE03D195A6BA30030428C /* NVLoginViewController.swift */; };
 		5D8BE040195B8FF30030428C /* NVRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE03F195B8FF30030428C /* NVRegisterViewController.swift */; };
-		5D8BE044195E8C990030428C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE043195E8C990030428C /* User.swift */; };
 		5D988E0019A4470400E74A3F /* NVWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D988DFF19A4470400E74A3F /* NVWebViewController.swift */; };
 		5DA17F4519647A2100C805F2 /* NVItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F4419647A2100C805F2 /* NVItemsTableViewController.swift */; };
 		5DA17F471964D60300C805F2 /* NVEditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */; };
 		5DA17F491965FCBD00C805F2 /* NVHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */; };
 		5DA17F4B196604B500C805F2 /* NVInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA17F4A196604B500C805F2 /* NVInitViewController.swift */; };
+		6797E68B1EA6FAD6002E066F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6797E68D1EA6FAD6002E066F /* Main.storyboard */; };
+		67A17FD91EA6C7FB00A84638 /* NVPinLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A17FD81EA6C7FB00A84638 /* NVPinLoginViewController.swift */; };
+		786FBC2E1EB79E72004F7A5F /* UserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786FBC2D1EB79E72004F7A5F /* UserHelper.swift */; };
+		786FBC3F1EC23F54004F7A5F /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786FBC3D1EC23F54004F7A5F /* KeychainItemAccessibility.swift */; };
+		786FBC401EC23F54004F7A5F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786FBC3E1EC23F54004F7A5F /* KeychainWrapper.swift */; };
+		787ED3E01EB3EF1A006212D8 /* Swift_nVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787ED3DF1EB3EF1A006212D8 /* Swift_nVTests.swift */; };
+		78D218501EA8F3E800F5B929 /* swift_nV.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78D2184E1EA8F3E800F5B929 /* swift_nV.xcdatamodeld */; };
 		8133383319828AD1004F1C31 /* Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8133383219828AD1004F1C31 /* Crypto.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		787ED3E21EB3EF1A006212D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D8BE0061958C25B0030428C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D8BE00D1958C25B0030428C;
+			remoteInfo = Swift.nV;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		5D2E37DE1D97381C00DD168C /* CopyFiles */ = {
@@ -43,25 +56,30 @@
 /* Begin PBXFileReference section */
 		5D23C055196323BE00053E65 /* NVHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVHomeViewController.swift; sourceTree = "<group>"; };
 		5D41359619632DF800DAC6C5 /* NVSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVSettingsViewController.swift; sourceTree = "<group>"; };
-		5D41359A19635A5200DAC6C5 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		5D41359C1963651900DAC6C5 /* NVAddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVAddItemViewController.swift; sourceTree = "<group>"; };
 		5D5D41E0198ACB840069A58B /* ItemHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemHelper.swift; sourceTree = "<group>"; };
 		5D6815AE19748BBC002D2104 /* Environment.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Environment.plist; sourceTree = "<group>"; };
 		5D8BE00E1958C25B0030428C /* Swift.nV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swift.nV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D8BE0121958C25B0030428C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D8BE0131958C25B0030428C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5D8BE0161958C25B0030428C /* swift_nV.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = swift_nV.xcdatamodel; sourceTree = "<group>"; };
 		5D8BE0181958C25B0030428C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		5D8BE02E1958C2D00030428C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5D8BE03D195A6BA30030428C /* NVLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVLoginViewController.swift; sourceTree = "<group>"; };
 		5D8BE03F195B8FF30030428C /* NVRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVRegisterViewController.swift; sourceTree = "<group>"; };
-		5D8BE043195E8C990030428C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5D988DFF19A4470400E74A3F /* NVWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVWebViewController.swift; sourceTree = "<group>"; };
 		5DA17F4419647A2100C805F2 /* NVItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVItemsTableViewController.swift; sourceTree = "<group>"; };
 		5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVEditItemViewController.swift; sourceTree = "<group>"; };
 		5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVHelpViewController.swift; sourceTree = "<group>"; };
 		5DA17F4A196604B500C805F2 /* NVInitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVInitViewController.swift; sourceTree = "<group>"; };
 		5DE870731D932717002DABE4 /* swift.nV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = swift.nV.entitlements; path = Swift.nV/swift.nV.entitlements; sourceTree = "<group>"; };
+		6797E68C1EA6FAD6002E066F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		67A17FD81EA6C7FB00A84638 /* NVPinLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVPinLoginViewController.swift; sourceTree = "<group>"; };
+		786FBC2D1EB79E72004F7A5F /* UserHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHelper.swift; sourceTree = "<group>"; };
+		786FBC3D1EC23F54004F7A5F /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		786FBC3E1EC23F54004F7A5F /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		787ED3DD1EB3EF1A006212D8 /* Swift.nVTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Swift.nVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		787ED3DF1EB3EF1A006212D8 /* Swift_nVTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_nVTests.swift; sourceTree = "<group>"; };
+		787ED3E11EB3EF1A006212D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		78D2184F1EA8F3E800F5B929 /* Swift_nV.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Swift_nV.xcdatamodel; sourceTree = "<group>"; };
 		8133383019828AB4004F1C31 /* Crypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
 		8133383119828AD1004F1C31 /* swift.nV-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "swift.nV-Bridging-Header.h"; sourceTree = "<group>"; };
 		8133383219828AD1004F1C31 /* Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crypto.m; sourceTree = "<group>"; };
@@ -69,6 +87,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		5D8BE00B1958C25B0030428C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		787ED3DA1EB3EF1A006212D8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -83,6 +108,7 @@
 			children = (
 				5DE870731D932717002DABE4 /* swift.nV.entitlements */,
 				5D8BE0101958C25B0030428C /* swift.nV */,
+				787ED3DE1EB3EF1A006212D8 /* Swift.nVTests */,
 				5D8BE00F1958C25B0030428C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				5D8BE00E1958C25B0030428C /* Swift.nV.app */,
+				787ED3DD1EB3EF1A006212D8 /* Swift.nVTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,25 +127,11 @@
 			children = (
 				5D8BE0131958C25B0030428C /* AppDelegate.swift */,
 				5D8BE0181958C25B0030428C /* Images.xcassets */,
-				5D8BE02E1958C2D00030428C /* Main.storyboard */,
-				5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */,
-				5DA17F4A196604B500C805F2 /* NVInitViewController.swift */,
-				5D988DFF19A4470400E74A3F /* NVWebViewController.swift */,
-				5DA17F4419647A2100C805F2 /* NVItemsTableViewController.swift */,
-				5D41359C1963651900DAC6C5 /* NVAddItemViewController.swift */,
-				5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */,
-				5D41359619632DF800DAC6C5 /* NVSettingsViewController.swift */,
-				5D23C055196323BE00053E65 /* NVHomeViewController.swift */,
-				5D8BE03D195A6BA30030428C /* NVLoginViewController.swift */,
-				5D8BE03F195B8FF30030428C /* NVRegisterViewController.swift */,
-				5D8BE0151958C25B0030428C /* swift_nV.xcdatamodeld */,
-				5D41359A19635A5200DAC6C5 /* Item.swift */,
-				5D5D41E0198ACB840069A58B /* ItemHelper.swift */,
-				5D8BE043195E8C990030428C /* User.swift */,
+				6797E68D1EA6FAD6002E066F /* Main.storyboard */,
+				786FBC441EC25E78004F7A5F /* View Controllers */,
+				78D2184E1EA8F3E800F5B929 /* swift_nV.xcdatamodeld */,
+				786FBC421EC25CFF004F7A5F /* Helpers */,
 				5D8BE0111958C25B0030428C /* Supporting Files */,
-				8133383019828AB4004F1C31 /* Crypto.h */,
-				8133383219828AD1004F1C31 /* Crypto.m */,
-				8133383119828AD1004F1C31 /* swift.nV-Bridging-Header.h */,
 			);
 			name = swift.nV;
 			path = Swift.nV;
@@ -131,6 +144,47 @@
 				5D6815AE19748BBC002D2104 /* Environment.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		786FBC421EC25CFF004F7A5F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8133383019828AB4004F1C31 /* Crypto.h */,
+				8133383219828AD1004F1C31 /* Crypto.m */,
+				8133383119828AD1004F1C31 /* swift.nV-Bridging-Header.h */,
+				786FBC3D1EC23F54004F7A5F /* KeychainItemAccessibility.swift */,
+				786FBC3E1EC23F54004F7A5F /* KeychainWrapper.swift */,
+				5D5D41E0198ACB840069A58B /* ItemHelper.swift */,
+				786FBC2D1EB79E72004F7A5F /* UserHelper.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		786FBC441EC25E78004F7A5F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5DA17F481965FCBD00C805F2 /* NVHelpViewController.swift */,
+				5DA17F4A196604B500C805F2 /* NVInitViewController.swift */,
+				5D988DFF19A4470400E74A3F /* NVWebViewController.swift */,
+				5DA17F4419647A2100C805F2 /* NVItemsTableViewController.swift */,
+				5D41359C1963651900DAC6C5 /* NVAddItemViewController.swift */,
+				5DA17F461964D60300C805F2 /* NVEditItemViewController.swift */,
+				5D41359619632DF800DAC6C5 /* NVSettingsViewController.swift */,
+				5D23C055196323BE00053E65 /* NVHomeViewController.swift */,
+				5D8BE03D195A6BA30030428C /* NVLoginViewController.swift */,
+				67A17FD81EA6C7FB00A84638 /* NVPinLoginViewController.swift */,
+				5D8BE03F195B8FF30030428C /* NVRegisterViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		787ED3DE1EB3EF1A006212D8 /* Swift.nVTests */ = {
+			isa = PBXGroup;
+			children = (
+				787ED3DF1EB3EF1A006212D8 /* Swift_nVTests.swift */,
+				787ED3E11EB3EF1A006212D8 /* Info.plist */,
+			);
+			path = Swift.nVTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,25 +208,49 @@
 			productReference = 5D8BE00E1958C25B0030428C /* Swift.nV.app */;
 			productType = "com.apple.product-type.application";
 		};
+		787ED3DC1EB3EF1A006212D8 /* Swift.nVTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 787ED3E41EB3EF1A006212D8 /* Build configuration list for PBXNativeTarget "Swift.nVTests" */;
+			buildPhases = (
+				787ED3D91EB3EF1A006212D8 /* Sources */,
+				787ED3DA1EB3EF1A006212D8 /* Frameworks */,
+				787ED3DB1EB3EF1A006212D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				787ED3E31EB3EF1A006212D8 /* PBXTargetDependency */,
+			);
+			name = Swift.nVTests;
+			productName = Swift.nVTests;
+			productReference = 787ED3DD1EB3EF1A006212D8 /* Swift.nVTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		5D8BE0061958C25B0030428C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = nVisium;
 				TargetAttributes = {
 					5D8BE00D1958C25B0030428C = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = MJ97FDMT75;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
 							};
 						};
+					};
+					787ED3DC1EB3EF1A006212D8 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = MJ97FDMT75;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5D8BE00D1958C25B0030428C;
 					};
 				};
 			};
@@ -189,6 +267,7 @@
 			projectRoot = "";
 			targets = (
 				5D8BE00D1958C25B0030428C /* Swift.nV */,
+				787ED3DC1EB3EF1A006212D8 /* Swift.nVTests */,
 			);
 		};
 /* End PBXProject section */
@@ -200,7 +279,14 @@
 			files = (
 				5D8BE0191958C25B0030428C /* Images.xcassets in Resources */,
 				5D6815AF19748BBC002D2104 /* Environment.plist in Resources */,
-				5D8BE02F1958C2D00030428C /* Main.storyboard in Resources */,
+				6797E68B1EA6FAD6002E066F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		787ED3DB1EB3EF1A006212D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,14 +301,16 @@
 				5D8BE0141958C25B0030428C /* AppDelegate.swift in Sources */,
 				5DA17F471964D60300C805F2 /* NVEditItemViewController.swift in Sources */,
 				5D8BE040195B8FF30030428C /* NVRegisterViewController.swift in Sources */,
+				78D218501EA8F3E800F5B929 /* swift_nV.xcdatamodeld in Sources */,
 				5D41359719632DF800DAC6C5 /* NVSettingsViewController.swift in Sources */,
+				786FBC3F1EC23F54004F7A5F /* KeychainItemAccessibility.swift in Sources */,
 				5D988E0019A4470400E74A3F /* NVWebViewController.swift in Sources */,
-				5D8BE0171958C25B0030428C /* swift_nV.xcdatamodeld in Sources */,
-				5D41359B19635A5200DAC6C5 /* Item.swift in Sources */,
 				5D41359D1963651900DAC6C5 /* NVAddItemViewController.swift in Sources */,
-				5D8BE044195E8C990030428C /* User.swift in Sources */,
+				786FBC401EC23F54004F7A5F /* KeychainWrapper.swift in Sources */,
 				5DA17F4519647A2100C805F2 /* NVItemsTableViewController.swift in Sources */,
 				5DA17F491965FCBD00C805F2 /* NVHelpViewController.swift in Sources */,
+				786FBC2E1EB79E72004F7A5F /* UserHelper.swift in Sources */,
+				67A17FD91EA6C7FB00A84638 /* NVPinLoginViewController.swift in Sources */,
 				5D8BE03E195A6BA30030428C /* NVLoginViewController.swift in Sources */,
 				5D23C056196323BE00053E65 /* NVHomeViewController.swift in Sources */,
 				5D5D41E1198ACB840069A58B /* ItemHelper.swift in Sources */,
@@ -230,7 +318,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		787ED3D91EB3EF1A006212D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				787ED3E01EB3EF1A006212D8 /* Swift_nVTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		787ED3E31EB3EF1A006212D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D8BE00D1958C25B0030428C /* Swift.nV */;
+			targetProxy = 787ED3E21EB3EF1A006212D8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6797E68D1EA6FAD6002E066F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6797E68C1EA6FAD6002E066F /* en */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5D8BE0261958C25B0030428C /* Debug */ = {
@@ -329,13 +444,16 @@
 				CODE_SIGN_ENTITLEMENTS = Swift.nV/Swift.nV.entitlements;
 				DEVELOPMENT_TEAM = MJ97FDMT75;
 				INFOPLIST_FILE = Swift.nV/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nvisium.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Swift.nV/Swift.nV-Bridging-Header.h";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "Swift.nV/Swift.nV-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -349,14 +467,58 @@
 				CODE_SIGN_ENTITLEMENTS = Swift.nV/Swift.nV.entitlements;
 				DEVELOPMENT_TEAM = MJ97FDMT75;
 				INFOPLIST_FILE = Swift.nV/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nvisium.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Swift.nV/Swift.nV-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		787ED3E51EB3EF1A006212D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MJ97FDMT75;
+				INFOPLIST_FILE = Swift.nVTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nvisium.Swift-nVTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swift.nV.app/Swift.nV";
+			};
+			name = Debug;
+		};
+		787ED3E61EB3EF1A006212D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = MJ97FDMT75;
+				INFOPLIST_FILE = Swift.nVTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nvisium.Swift-nVTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swift.nV.app/Swift.nV";
 			};
 			name = Release;
 		};
@@ -381,15 +543,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		787ED3E41EB3EF1A006212D8 /* Build configuration list for PBXNativeTarget "Swift.nVTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				787ED3E51EB3EF1A006212D8 /* Debug */,
+				787ED3E61EB3EF1A006212D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		5D8BE0151958C25B0030428C /* swift_nV.xcdatamodeld */ = {
+		78D2184E1EA8F3E800F5B929 /* swift_nV.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				5D8BE0161958C25B0030428C /* swift_nV.xcdatamodel */,
+				78D2184F1EA8F3E800F5B929 /* Swift_nV.xcdatamodel */,
 			);
-			currentVersion = 5D8BE0161958C25B0030428C /* swift_nV.xcdatamodel */;
+			currentVersion = 78D2184F1EA8F3E800F5B929 /* Swift_nV.xcdatamodel */;
 			path = swift_nV.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

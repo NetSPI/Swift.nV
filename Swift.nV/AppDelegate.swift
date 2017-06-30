@@ -8,11 +8,13 @@
 
 import UIKit
 import CoreData
+import LocalAuthentication
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
+    var appUser: User?
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -21,10 +23,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         UserDefaults.standard.synchronize()
+        
+        let imageView = UIImageView(frame: self.window!.bounds)
+        imageView.tag = 101
+        imageView.image = #imageLiteral(resourceName: "nvisium-swift-nv")
+        imageView.contentMode = UIViewContentMode.scaleAspectFit
+        imageView.backgroundColor = UIColor.white
+        UIApplication.shared.keyWindow?.subviews.last?.addSubview(imageView)
+        UIApplication.shared.keyWindow?.bringSubview(toFront: imageView)
+        UIApplication.shared.keyWindow?.snapshotView(afterScreenUpdates: true)
+        
+        // Lock force user to reauth via fingerprint or pin
+        //print("User should have to reauth...")
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        //print("This is where we'll want to require reauth")
+        let defaults : UserDefaults = UserDefaults.standard
+        
+        if let imageView : UIImageView = UIApplication.shared.keyWindow?.subviews.last?.viewWithTag(101) as? UIImageView {
+            imageView.removeFromSuperview()
+        }
+        
+        if ( defaults.bool(forKey: "usePin") ) {
+            let sb : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            var rvc : UIViewController = (UIApplication.shared.delegate?.window??.rootViewController)!
+            let pvc = sb.instantiateViewController(withIdentifier: "PinViewController")
+            while (rvc.presentedViewController != nil) {
+                rvc = rvc.presentedViewController!
+            }
+            rvc.present(pvc, animated: true, completion: nil)
+        }
+        
+
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -71,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //error = NSError.errorWithDomain("swiftnv", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(error), \(error!.userInfo)")
+            NSLog("Unresolved error \(String(describing: error)), \(error!.userInfo)")
             abort()
         } catch {
             fatalError()
@@ -86,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if coordinator == nil {
             return nil
         }
-        var managedObjectContext = NSManagedObjectContext()
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
         }()
@@ -103,12 +135,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     error = error1
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    NSLog("Unresolved error \(String(describing: error)), \(error!.userInfo)")
                     abort()
                 }
             }
         }
     }
+    
+    /*lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "swift_nV")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    func saveContext() {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch let error as NSError {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+    }*/
 
 }
 

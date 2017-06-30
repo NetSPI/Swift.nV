@@ -1,18 +1,18 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8B27742E93FC1682D786B54C3194B2FD3E688A76",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B94C3F79EA769C50FEADAFA8F3FD4B60A80C5E32",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "AFADF01AFBA46DFD7A5AFD980110E89E8E63AACD" : 9223372036854775807,
-    "8B27742E93FC1682D786B54C3194B2FD3E688A76" : 9223372036854775807,
-    "4E8FE33026C73951A712CD33348204351A71B278" : 9223372036854775807
+    "4E8FE33026C73951A712CD33348204351A71B278" : 9223372036854775807,
+    "B94C3F79EA769C50FEADAFA8F3FD4B60A80C5E32" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "DA20C2D0-E654-40A0-80C2-0CF0385CAD80",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "AFADF01AFBA46DFD7A5AFD980110E89E8E63AACD" : "KeychainAccess\/",
-    "8B27742E93FC1682D786B54C3194B2FD3E688A76" : "swift.nv\/",
-    "4E8FE33026C73951A712CD33348204351A71B278" : "swift.nv\/Locksmith\/"
+    "4E8FE33026C73951A712CD33348204351A71B278" : "swift.nv\/Locksmith\/",
+    "B94C3F79EA769C50FEADAFA8F3FD4B60A80C5E32" : "swift.nV\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "swift.nV",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -24,14 +24,14 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4E8FE33026C73951A712CD33348204351A71B278"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nvisium\/swift.nv.git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8B27742E93FC1682D786B54C3194B2FD3E688A76"
-    },
-    {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kishikawakatsumi\/KeychainAccess.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AFADF01AFBA46DFD7A5AFD980110E89E8E63AACD"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nvisium\/swift.nv.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B94C3F79EA769C50FEADAFA8F3FD4B60A80C5E32"
     }
   ]
 }

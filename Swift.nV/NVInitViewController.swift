@@ -12,38 +12,49 @@ import CoreData
 class NVInitViewController: UIViewController {
 
     @IBOutlet var message : UILabel!
-    var email : NSString = ""
+    var email : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.message.text = "loading"
         let defaults : UserDefaults = UserDefaults.standard
-        if defaults.object(forKey: "email") != nil {
-            let email : NSString = defaults.string(forKey: "email")! as NSString
-            if email == "" {
+        if defaults.object(forKey: "loggedin") != nil {
+            self.email = defaults.string(forKey: "email")
+            if (self.email == nil) {
                 NSLog("email is blank")
             } else {
-                NSLog("email in NSUserDefaults is '\(email)'")
+                NSLog("Saved email is '\(email!)'")
             }
         } else {
-                NSLog("no email in defaults, setting up storage")
+                NSLog("no preferences, setting up")
                 setupPreferences(defaults)
+                setupDefaultAccounts()
         }
-        // NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(3), target: self, selector: Selector("go"), userInfo: nil, repeats: false)
-        // Do any additional setup after loading the view.
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //self.go()
-        Timer.scheduledTimer(timeInterval: TimeInterval(2), target: self, selector: #selector(NVInitViewController.go), userInfo: nil, repeats: false)
+        self.go()
+    }
+    
+    func setupDefaultAccounts() {
+        _ = registerUser("test@test.com","test","Test","User",nil,nil)
+        _ = addItem("Active Directory (testAD)", "mys3cr3tv4lu3!", "For corporate user only", "test@test.com")
+        _ = addItem("Gmail - test@test.com", "123456", "Personal email account", "test@test.com")
+        _ = addItem("HBO Access Key", "31337Pass", "Login: test+hbo@test.com", "test@test.com")
+        _ = registerUser("test2@test.com","test2","Second","User",nil,nil)
+        _ = addItem("Yahoo Login", "password1", "Login: test2@yahoo.com", "test2@test.com")
+        _ = addItem("Facebook (second.user)", "password1", "Login: second.user", "test2@test.com")
     }
     
     func setupPreferences(_ defaults: UserDefaults) {
         defaults.set("", forKey: "email")
         defaults.set(false, forKey: "loggedin")
-        defaults.set(true, forKey: "networkStorage")
+        defaults.set(false, forKey: "networkStorage")
+        defaults.set(false, forKey: "usePin")
+        defaults.set("1111", forKey: "PIN")
 
         defaults.synchronize()
     }
@@ -56,21 +67,27 @@ class NVInitViewController: UIViewController {
 
     func go() {
         let defaults : UserDefaults = UserDefaults.standard
-        self.email = defaults.string(forKey: "email")! as NSString
-        if ( self.email != "" ) {
-            NSLog("Logged in email is \(self.email)")
+        
+        if ( defaults.bool(forKey: "usePin") ) {
+            self.performSegue(withIdentifier: "PinView", sender: self)
         } else {
-            self.email = ""
-            NSLog("Not currently logged in")
-        }
-        let loggedin :Bool = defaults.bool(forKey: "loggedin")
-        if self.email == "" || !loggedin {
-            self.performSegue(withIdentifier: "InitLogin", sender: self)
-        } else {
-            self.performSegue(withIdentifier: "InitHome", sender: self)
+            
+            self.email = defaults.string(forKey: "email")
+            
+            if ( self.email != nil ) {
+                NSLog("Logged in email is \(self.email!)")
+            } else {
+                NSLog("Not currently logged in")
+            }
+            let loggedin :Bool = defaults.bool(forKey: "loggedin")
+        
+            if self.email == nil || !loggedin {
+                self.performSegue(withIdentifier: "InitLogin", sender: self)
+            } else {
+                self.performSegue(withIdentifier: "InitHome", sender: self)
+            }
         }
     }
-    
     
     // #pragma mark - Navigation
 
@@ -78,7 +95,6 @@ class NVInitViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if (segue.identifier == "InitHome") {
-            let dv : NVHomeViewController = segue.destination as! NVHomeViewController
             
             let delegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = delegate.managedObjectContext!
@@ -90,14 +106,14 @@ class NVInitViewController: UIViewController {
                 fr = NSFetchRequest(entityName: "User")
             }
             fr.returnsObjectsAsFaults = false
-            fr.predicate = NSPredicate(format: "email LIKE '\(self.email)'", argumentArray: nil)
+            fr.predicate = NSPredicate(format: "email LIKE '\(self.email!)'", argumentArray: nil)
             
             let users : NSArray = try! context.fetch(fr) as NSArray
             
             let user : User = users[0] as! User
             
-            NSLog("passing \(user.email) (\(user.firstname) \(user.lastname))")
-            dv.appUser = user
+            NSLog("passing \(String(describing: user.email!)) (\(String(describing: user.firstname!)) \(String(describing: user.lastname!)))")
+            delegate.appUser = user
         }
     }
 

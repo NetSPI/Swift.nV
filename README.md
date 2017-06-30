@@ -8,11 +8,11 @@ Setup
 
 Swift.nV has currently been tested using:
 
-	XCode 7.2
+	XCode 8.3.
 	iOS Simulator 
-		- iPhone 4s/5/5s/6/6+/6s/6s+
+		- iPhone SE/7/7+
 		- iPad 2/Air/Air 2/Pro
-		- iOS 9.2
+		- up to iOS 10.3
 	Ruby + Sinatra (for the backend web service)
 		Required Ruby Gems:
 		- sinatra, dm-core, dm-timestamps, dm-migrations, dm-serializer, bcrypt
@@ -20,13 +20,14 @@ Swift.nV has currently been tested using:
 
 Run
 ---
-	- Open up the Swift.nV.xcodeproj using XCode 7.2
-	- Start the Sinatra backend web service:
-		- In the api directory run "bundle install" this will install the needed gems	
-		- In the api directory run "ruby api.rb"
-		- This service should run on localhost (127.0.0.1) port 4567
+	- Open up the Swift.nV.xcodeproj using XCode 8.3
 	- Click the Run icon after selecting one of the iOS Simulator targets
-	- If the build fails with linker errors, remove the Swift.nV-* directories in ~/Library/Developer/Xcode/DerivedData
+	- ** Following if needed if testing network functionality
+		- Start the Sinatra backend web service:
+			- In the api directory run "bundle install" this will install the needed gems	
+			- In the api directory run "ruby api.rb"
+			- This service should run on localhost (127.0.0.1) port 4567
+	**
 
 Use
 ---
