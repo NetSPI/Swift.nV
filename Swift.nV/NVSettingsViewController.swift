@@ -112,6 +112,7 @@ class NVSettingsViewController: UIViewController {
                 {
                     (action:UIAlertAction) in
                     self.networkStorage.isOn = false
+                    self.logout(self)
                 })
                 alert.addAction(okItem)
                 self.present(alert, animated: true, completion: nil)
