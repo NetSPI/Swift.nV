@@ -24,15 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         UserDefaults.standard.synchronize()
         
-        let imageView = UIImageView(frame: self.window!.bounds)
-        imageView.tag = 101
-        imageView.image = #imageLiteral(resourceName: "nvisium-swift-nv")
-        imageView.contentMode = UIViewContentMode.scaleAspectFit
-        imageView.backgroundColor = UIColor.white
-        UIApplication.shared.keyWindow?.subviews.last?.addSubview(imageView)
-        UIApplication.shared.keyWindow?.bringSubview(toFront: imageView)
-        UIApplication.shared.keyWindow?.snapshotView(afterScreenUpdates: true)
-        
         // Lock force user to reauth via fingerprint or pin
         //print("User should have to reauth...")
     }
