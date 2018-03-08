@@ -11,6 +11,19 @@ import Security
 import CoreData
 import UIKit
 
+func sha256(string: String) -> Data {
+    let messageData = string.data(using:.utf8)!
+    var digestData = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
+    
+    _ = digestData.withUnsafeMutableBytes {digestBytes in
+        messageData.withUnsafeBytes {messageBytes in
+            CC_SHA256(messageBytes, CC_LONG(messageData.count), digestBytes)
+        }
+    }
+    
+    return digestData
+}
+
 func encryptString(_ toEncrypt: String) -> String {
     // Create Ciphertext
     let plainText = (toEncrypt as NSString).data(using: String.Encoding.utf8.rawValue)!
